@@ -1,92 +1,50 @@
-import React, { Component } from 'react';
-import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
-import ReactCSSTransitionReplace from 'react-css-transition-replace';
-import classNames from 'classnames';
-import pages from '~/pages';
+import React from 'react';
+import { BrowserRouter, Match } from 'react-router';
+
+import asyncComponent from '~/components/asyncComponent';
 import Header from '~/header';
-
-import 'normalize-css/normalize.css';
 import styles from './app.less';
+import routes from '~/routes';
 
-class PageContainer extends Component {
-    static get propTypes() {
-        return {
-            children: React.PropTypes.node,
-            location: React.PropTypes.object
-        };
-    }
+const routesCtx = require.context(
+    'bundle-loader?lazy!./routes',
+    true,
+    /\.\/.+?\/index.js/
+);
 
-    constructor() {
-        super();
+const routesAvailable = Object.create(null);
+routesCtx.keys().forEach(key => (routesAvailable[key] = true));
 
-        this.state = {
-            linkIncrease: false
-        };
-
-        this.linkOrder = {};
-        pages.forEach((page, i) => (this.linkOrder[page.path] = i));
-    }
-
-    componentWillReceiveProps(props) {
-        const { location: { pathname } } = props;
-        const currPathname = this.props.location.pathname;
-        if (pathname !== currPathname) {
-            if (this.linkOrder[pathname] > this.linkOrder[currPathname]) {
-                this.setState({ linkIncrease: true });
-            } else {
-                this.setState({ linkIncrease: false });
-            }
+function routeLoader(path) {
+    return function loadRoute(done) {
+        if (!routesAvailable[path + '/index.js']) {
+            return done(new Error(`Unknown route ${path}`));
         }
-    }
 
-    render() {
-        const { location: { pathname }, children } = this.props;
-        const { linkIncrease } = this.state;
-        const replaceClass = classNames(styles.replaceAnimated, {
-            [styles.increase]: linkIncrease
-        });
-
-        return <div className={styles.containers}>
-            <div className={styles.container}>
-                <Header pages={pages} />
-            </div>
-            <div className={styles.container}>
-                <ReactCSSTransitionReplace className={replaceClass}
-                    transitionName={{
-                        enter: styles.enter,
-                        enterActive: styles.enterActive,
-                        leave: styles.leave,
-                        leaveActive: styles.leaveActive,
-                        appear: styles.appear,
-                        appearActive: styles.appearActive
-                    }}
-                    transitionAppear={true}
-                    transitionAppearTimeout={300}
-                    transitionEnterTimeout={600}
-                    transitionLeaveTimeout={300}
-                    overflowHidden={false}>
-                    {children
-                        ? React.cloneElement(children, { key: pathname })
-                        : null
-                    }
-                </ReactCSSTransitionReplace>
-            </div>
-        </div>;
-    }
+        const loadModule = routesCtx(path + '/index.js');
+        return loadModule(module =>
+            done(null, module.default)
+        );
+    };
 }
 
+const matches = routes.map(({ path, ...props }, i) => {
+    props.key = i;
+    props.component = asyncComponent(routeLoader(path));
+
+    return <Match {...props} />;
+});
+
 export default function App() {
-    return <Router history={browserHistory}>
-        <Route path="/" component={PageContainer}>
-            <IndexRedirect to={pages[0].path} />
-            {pages.map((page, i) => {
-                const { path, getComponent } = page;
-                return <Route key={i}
-                    path={path}
-                    getComponent={getComponent}
-                />;
-            })}
-        </Route>
-    </Router>;
+    return <BrowserRouter>
+        <div className={styles.containers}>
+            <div className={styles.container}>
+                <Header routes={routes} />
+            </div>
+            <div className={styles.container}>
+                { matches }
+            </div>
+        </div>
+    </BrowserRouter>;
 }
 

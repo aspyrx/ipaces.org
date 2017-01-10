@@ -2,6 +2,7 @@
  * index.js - Entry point for the app.
  */
 
+import 'normalize-css/normalize.css';
 import React from 'react';
 import { render } from 'react-dom';
 import App from '~/app';
