@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Miss, Match } from 'react-router';
+import classNames from 'classnames';
 
 import asyncComponent from '~/components/asyncComponent';
 import Spinner from '~/components/spinner';
@@ -36,6 +37,9 @@ export default function App() {
             <div className={styles.container}>
                 { matches }
                 <Miss component={asyncComponent(NotFound)} />
+            </div>
+            <div className={classNames(styles.container, styles.footer)}>
+                <p>Site design by <a href="https://szz.io">Stan Zhang</a></p>
             </div>
         </div>
     </BrowserRouter>;
