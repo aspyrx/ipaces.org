@@ -26,14 +26,17 @@
         font-weight: bold;
         font-size: 110%;
 
-        > a, > .dropdown {
+        > a, > .dropdown .button {
             display: flex;
             align-items: center;
 
             padding: 0 @spacing-x;
+
             color: @color-text;
             transition: color @duration-transition;
             transition: background-color @duration-transition;
+
+            cursor: pointer;
 
             &:hover, &:focus {
                 .hover();
@@ -52,33 +55,34 @@
 
         > .dropdown {
             position: relative;
-            cursor: pointer;
+            display: flex;
+            flex-flow: column nowrap;
 
-            &.open {
-                .active();
+            .button {
+                flex: 1;
+                z-index: 200;
             }
 
             .menu {
                 display: flex;
                 flex-flow: column nowrap;
                 align-items: stretch;
-                z-index: 1000;
 
+                z-index: 100;
                 position: absolute;
-                visibility: hidden;
-                opacity: 0;
                 top: 100%;
                 left: 0;
 
                 background-color: inherit;
                 color: inherit;
 
-                transition: opacity @duration-transition;
+                visibility: hidden;
+                opacity: 0;
+                transform: rotateX(90deg);
+                transform-origin: top center;
 
-                &.open {
-                    visibility: visible;
-                    opacity: 1;
-                }
+                transition-property: opacity, transform, visibility;
+                transition-duration: @duration-transition;
 
                 > a {
                     color: inherit;
@@ -91,6 +95,20 @@
                     &:active, &.active {
                         .hover();
                     }
+                }
+            }
+
+            &.open {
+                .active();
+
+                .button {
+                    .active();
+                }
+
+                .menu {
+                    visibility: visible;
+                    opacity: 1;
+                    transform: none;
                 }
             }
         }

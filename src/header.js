@@ -47,8 +47,20 @@ class Dropdown extends React.Component {
         this.toggle = this.toggle.bind(this);
     }
 
-    toggle() {
-        this.setState(({ open }) => ({ open: !open }));
+    toggle(event) {
+        event.stopPropagation();
+
+        const { open } = this.state;
+        window[
+            `${open ? 'remove' : 'add'}EventListener`
+        ]('click', this.toggle);
+        this.setState({ open: !open });
+    }
+
+    componentWillUnmount() {
+        if (this.state.open) {
+            window.removeEventListener('click', this.toggle);
+        }
     }
 
     render() {
@@ -58,14 +70,18 @@ class Dropdown extends React.Component {
             [styles.open]: open
         });
 
-        const menuClasses = classNames(styles.menu, {
-            [styles.open]: open
-        });
-
         return <span className={classes} onClick={this.toggle}>
-            {title}
-            <div className={menuClasses}>
-                <Link to={to}>{title}</Link>
+            <span className={styles.button}>
+                {title}
+            </span>
+            <div className={styles.menu}>
+                <Link
+                    to={to}
+                    activeOnlyWhenExact
+                    activeClassName={styles.active}
+                >
+                    {title}
+                </Link>
                 {children}
             </div>
         </span>;
