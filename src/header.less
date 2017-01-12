@@ -17,26 +17,44 @@
         text-decoration: none;
     }
 
-    .navigation {
-        flex: 1;
+    font-weight: bold;
+    font-size: 110%;
+
+    a, > .dropdown .button {
         display: flex;
-        flex-flow: row wrap;
-        min-width: 75%;
-        align-items: stretch;
-        font-weight: bold;
-        font-size: 110%;
+        align-items: center;
 
-        > a, > .dropdown .button {
-            display: flex;
-            align-items: center;
+        padding: 0 @spacing-x;
 
-            padding: 0 @spacing-x;
+        color: @color-text;
+        transition: color @duration-transition;
+        transition: background-color @duration-transition;
 
-            color: @color-text;
-            transition: color @duration-transition;
-            transition: background-color @duration-transition;
+        cursor: pointer;
 
-            cursor: pointer;
+        &:hover, &:focus {
+            .hover();
+        }
+
+        &:active, &.active {
+            .active();
+        }
+    }
+
+    a {
+        &.active {
+            .active();
+        }
+    }
+
+    > .dropdown {
+        position: relative;
+        display: flex;
+        flex-flow: column nowrap;
+
+        .button {
+            flex: 1;
+            z-index: 200;
 
             &:hover, &:focus {
                 .hover();
@@ -47,76 +65,54 @@
             }
         }
 
-        > a {
-            &.active {
-                .active();
+        .menu {
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: stretch;
+
+            z-index: 100;
+            position: absolute;
+            top: 100%;
+            left: 0;
+
+            .active();
+
+            visibility: hidden;
+            opacity: 0;
+            transform: rotateX(90deg);
+            transform-origin: top center;
+
+            transition-property: opacity, transform, visibility;
+            transition-duration: @duration-transition;
+
+            > a {
+                padding: @spacing-y @spacing-x;
+                color: inherit;
+                background-color: inherit;
+
+                &:hover, &:focus, &:active, &.active {
+                    .hover();
+                }
             }
         }
 
-        > .dropdown {
-            position: relative;
-            display: flex;
-            flex-flow: column nowrap;
-
+        &.open {
             .button {
-                flex: 1;
-                z-index: 200;
+                .active();
             }
 
             .menu {
-                display: flex;
-                flex-flow: column nowrap;
-                align-items: stretch;
-
-                z-index: 100;
-                position: absolute;
-                top: 100%;
-                left: 0;
-
-                background-color: inherit;
-                color: inherit;
-
-                visibility: hidden;
-                opacity: 0;
-                transform: rotateX(90deg);
-                transform-origin: top center;
-
-                transition-property: opacity, transform, visibility;
-                transition-duration: @duration-transition;
-
-                > a {
-                    color: inherit;
-                    padding: @spacing-y @spacing-x;
-
-                    &:hover, &:focus {
-                        .hover();
-                    }
-
-                    &:active, &.active {
-                        .hover();
-                    }
-                }
-            }
-
-            &.open {
-                .active();
-
-                .button {
-                    .active();
-                }
-
-                .menu {
-                    visibility: visible;
-                    opacity: 1;
-                    transform: none;
-                }
+                visibility: visible;
+                opacity: 1;
+                transform: none;
             }
         }
     }
 
-    .logo {
+    > .logo {
         display: flex;
         align-items: center;
+
         font-weight: bold;
         font-size: 150%;
 

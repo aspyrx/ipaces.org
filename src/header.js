@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
-import classNames from 'classnames';
 
+import Dropdown from '~/components/dropdown';
 import styles from './header.less';
 
 function Logo() {
@@ -17,64 +17,15 @@ function renderRoutes(routes, parent) {
         'title' in route
     ).map(({ routes: subRoutes, title, name }, i) => {
         const to = `${parent}/${name}`;
-
         if (subRoutes) {
             return <Dropdown
                 key={i}
-                title={title}
-                to={to}
-                activeClassName={styles.active}
+                className={styles.dropdown}
+                openClass={styles.open}
+                menuClass={styles.menu}
+                buttonClass={styles.button}
+                buttonText={title}
             >
-                {renderRoutes(subRoutes, to)}
-            </Dropdown>;
-        }
-
-        return <Link
-            key={i}
-            to={to}
-            activeClassName={styles.active}
-        >
-            {title}
-        </Link>;
-    });
-}
-
-class Dropdown extends React.Component {
-    constructor() {
-        super();
-
-        this.state = { open: false };
-        this.toggle = this.toggle.bind(this);
-    }
-
-    toggle(event) {
-        event.stopPropagation();
-
-        const { open } = this.state;
-        window[
-            `${open ? 'remove' : 'add'}EventListener`
-        ]('click', this.toggle);
-        this.setState({ open: !open });
-    }
-
-    componentWillUnmount() {
-        if (this.state.open) {
-            window.removeEventListener('click', this.toggle);
-        }
-    }
-
-    render() {
-        const { open } = this.state;
-        const { to, title, children } = this.props;
-        const classes = classNames(styles.dropdown, {
-            [styles.open]: open
-        });
-
-        return <span className={classes} onClick={this.toggle}>
-            <span className={styles.button}>
-                {title}
-            </span>
-            <div className={styles.menu}>
                 <Link
                     to={to}
                     activeOnlyWhenExact
@@ -82,28 +33,29 @@ class Dropdown extends React.Component {
                 >
                     {title}
                 </Link>
-                {children}
-            </div>
-        </span>;
-    }
-}
+                {renderRoutes(subRoutes, to)}
+            </Dropdown>;
+        }
 
-const { arrayOf, shape, string, bool } = React.PropTypes;
-Dropdown.propTypes = {
-    to: string.isRequired,
-    title: string.isRequired,
-    children: React.PropTypes.node
-};
+        return <Link
+            to={to}
+            key={i}
+            activeOnlyWhenExact
+            activeClassName={styles.active}
+        >
+            {title}
+        </Link>;
+    });
+}
 
 export default function Header({ routes }) {
     return <div className={styles.header}>
         <Logo />
-        <div className={styles.navigation}>
-            {renderRoutes(routes, '')}
-        </div>
+        {renderRoutes(routes, '')}
     </div>;
 }
 
+const { arrayOf, shape, bool, string } = React.PropTypes;
 Header.propTypes = {
     routes: arrayOf(shape({
         exactly: bool,
