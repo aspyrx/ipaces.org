@@ -1,44 +1,38 @@
-import React from 'react';
-
 const routes = [{
-    exactly: true,
-    pattern: '/',
-    path: './home'
+    name: '',
+    path: './home.js'
 }, {
-    pattern: '/about',
-    path: './about',
-    nav: {
-        title: 'About'
-    }
+    name: 'about',
+    path: './about/index.js',
+    title: 'About',
+    routes: [{
+        name: 'bylaws',
+        path: './about/bylaws.js',
+        title: 'Bylaws'
+    }]
 }, {
-    pattern: '/members',
-    path: './members',
-    nav: {
-        title: 'Members'
-    }
+    name: 'members',
+    path: './members.js',
+    title: 'Members'
 }, {
-    pattern: '/events',
-    path: './events',
-    nav: {
-        title: 'Events'
-    }
-}, {
-    pattern: '/foo',
-    path: './foo',
-    nav: {
-        title: 'Foo'
-    }
+    name: 'events',
+    path: './events.js',
+    title: 'Events'
 }];
 
-const { arrayOf, shape, string, bool } = React.PropTypes;
-const routesShape = arrayOf(shape({
-    exactly: bool,
-    pattern: string.isRequired,
-    path: string.isRequired,
-    nav: shape({
-        title: string.isRequired
-    })
-}));
+function routesReducer(parent) {
+    return (arr, route) => arr.concat(flattenRoute(route, parent));
+}
 
-export { routes as default, routesShape };
+function flattenRoute({ routes: subRoutes, name, ...route }, parent) {
+    route.pattern = `${parent}/${name}`;
+
+    return subRoutes
+        ? subRoutes.reduce(routesReducer(route.pattern), [route])
+        : route;
+}
+
+const routesFlat = routes.reduce(routesReducer(''), []);
+
+export { routes as default, routesFlat };
 

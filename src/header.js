@@ -1,13 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import { routesShape } from '~/routes';
-
 import styles from './header.less';
 
 function Logo() {
     return <div className={styles.logo}>
-        <span>Hello React!</span>
+        <span>IPACES</span>
     </div>;
 }
 
@@ -16,22 +14,37 @@ export default function Header({ routes }) {
         <Link to='/'><Logo /></Link>
         <div className={styles.navigation}>
             {routes.filter(route =>
-                'nav' in route
-            ).map(({ nav, exactly, pattern }, i) =>
+                'title' in route
+            ).map(({ title, name }, i) =>
                 <Link
                     key={i}
-                    to={pattern}
-                    activeOnlyWhenExact={exactly}
+                    to={name}
+                    activeOnlyWhenExact={name === '/'}
                     activeClassName={styles.active}
                 >
-                    {nav.title}
+                    {title}
                 </Link>
             )}
         </div>
     </div>;
 }
 
+const { arrayOf, shape, string, bool } = React.PropTypes;
 Header.propTypes = {
-    routes: routesShape
+    routes: arrayOf(shape({
+        exactly: bool,
+        name: string.isRequired,
+        path: string.isRequired,
+        title: string,
+        routes: arrayOf(shape({
+            exactly: bool,
+            name: string.isRequired,
+            path: string.isRequired,
+            title: string,
+            routes: arrayOf(shape({
+                title: string
+            }))
+        }))
+    }))
 };
 

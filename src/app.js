@@ -1,31 +1,29 @@
 import React from 'react';
-import { BrowserRouter, Match, Miss } from 'react-router';
+import { BrowserRouter, Miss, Match } from 'react-router';
 
 import asyncComponent from '~/components/asyncComponent';
-import NotFound from 'bundle-loader?lazy!~/components/NotFound';
 import Spinner from '~/components/spinner';
+import NotFound from 'bundle-loader?lazy!~/components/NotFound';
 import Header from '~/header';
 import styles from './app.less';
-import routes from '~/routes';
+import routes, { routesFlat } from '~/routes';
 
 const routesCtx = require.context(
     'bundle-loader?lazy!./routes',
     true,
-    /\.\/.+?\/index.js/
+    /\.js$/
 );
 
-const routesAvailable = Object.create(null);
-routesCtx.keys().forEach(key => (routesAvailable[key] = true));
-
-const matches = routes.filter(({ path }) =>
-    routesAvailable[path + '/index.js']
-).map(({ path, ...props }, i) => {
-    const loadModule = routesCtx(path + '/index.js');
-
-    props.key = i;
-    props.component = asyncComponent(loadModule, <Spinner />);
-
-    return <Match {...props} />;
+const matches = routesFlat.map((route, i) => {
+    const { path, pattern, ...props } = route;
+    const loadModule = routesCtx(path);
+    const component = asyncComponent(loadModule, <Spinner />);
+    return <Match
+        {...props}
+        key={i}
+        exactly pattern={pattern}
+        component={component}
+    />;
 });
 
 export default function App() {
