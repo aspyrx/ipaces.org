@@ -6,22 +6,26 @@ export default class Dropdown extends React.Component {
         super();
 
         this.state = { open: false };
-        this.toggle = this.toggle.bind(this);
+        this.open = this.open.bind(this);
+        this.close = this.close.bind(this);
     }
 
-    toggle(event) {
+    open(event) {
         event.stopPropagation();
 
-        const { open } = this.state;
-        window[
-            `${open ? 'remove' : 'add'}EventListener`
-        ]('click', this.toggle);
-        this.setState({ open: !open });
+        this.setState({ open: true }, () => {
+            window.addEventListener('click', this.close);
+        });
+    }
+
+    close() {
+        window.removeEventListener('click', this.close);
+        this.setState({ open: false });
     }
 
     componentWillUnmount() {
         if (this.state.open) {
-            window.removeEventListener('click', this.toggle);
+            window.removeEventListener('click', this.close);
         }
     }
 
@@ -31,8 +35,9 @@ export default class Dropdown extends React.Component {
         const classes = classNames(className, {
             [openClass]: open
         });
+        const onClick = open ? this.close : this.open;
 
-        return <span className={classes} onClick={this.toggle}>
+        return <span className={classes} onClick={onClick}>
             {button}
             {children}
         </span>;

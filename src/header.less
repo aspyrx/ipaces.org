@@ -31,7 +31,7 @@
         font-weight: bold;
         font-size: 110%;
 
-        a, > .dropdown .button {
+        a, .dropdown .button {
             display: flex;
             align-items: center;
 
@@ -58,7 +58,7 @@
             }
         }
 
-        > .dropdown {
+        .dropdown {
             position: relative;
             display: flex;
             flex-flow: column nowrap;
@@ -100,19 +100,24 @@
             }
 
             &.open {
-                .button {
+                > .button {
                     .active();
                 }
 
-                .menu {
+                > .menu {
                     visibility: visible;
                     opacity: 1;
                     transform: none;
                 }
             }
+
+            .dropdown .menu {
+                top: 0;
+                left: 100%;
+            }
         }
 
-        > .logo {
+        .logo {
             display: flex;
 
             > * {
@@ -126,8 +131,15 @@
         @media screen and (max-width: @width-sm) {
             flex-flow: column nowrap;
 
-            > .dropdown .menu {
-                width: 100%;
+            .dropdown {
+                .menu {
+                    width: 100%;
+                }
+
+                .dropdown .menu {
+                    top: 100%;
+                    left: 0;
+                }
             }
         }
     }
