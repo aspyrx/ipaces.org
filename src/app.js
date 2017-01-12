@@ -18,7 +18,7 @@ const routesCtx = require.context(
 const matches = routesFlat.map((route, i) => {
     const { path, pattern, ...props } = route;
     const loadModule = routesCtx(path);
-    const component = asyncComponent(loadModule, <Spinner />);
+    const component = asyncComponent(loadModule, Spinner);
     return <Match
         {...props}
         key={i}

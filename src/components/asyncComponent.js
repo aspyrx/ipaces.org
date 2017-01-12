@@ -1,6 +1,8 @@
 import React from 'react';
 
-export default function asyncComponent(getComponent, placeholder = null) {
+export default function asyncComponent(
+    getComponent, Placeholder = () => null
+) {
     let cached = null;
 
     return class AsyncComponent extends React.Component {
@@ -26,7 +28,7 @@ export default function asyncComponent(getComponent, placeholder = null) {
 
             return Component
                 ? <Component {...this.props} />
-                : placeholder;
+                : <Placeholder {...this.props} />;
         }
     };
 }
