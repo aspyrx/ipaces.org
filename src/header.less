@@ -17,13 +17,13 @@
 
         &:hover, &:focus {
             background-color: @color-bg-hover;
-            color: @color-text-hover;
+            color: @color-text-bg-hover;
             text-decoration: none;
         }
 
         &:active, &.active {
             background-color: @color-bg-active;
-            color: @color-text-active;
+            color: @color-text-bg-active;
         }
     }
 
@@ -40,9 +40,12 @@
     .logo {
         display: flex;
         align-items: center;
-        margin: @spacing-y @spacing-x;
         font-weight: bold;
         font-size: 150%;
+
+        > * {
+            padding: @spacing-y @spacing-x;
+        }
     }
 }
 

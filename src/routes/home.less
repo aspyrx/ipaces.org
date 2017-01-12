@@ -1,0 +1,27 @@
+@import '~base';
+
+.home {
+    display: flex;
+    flex-flow: column nowrap;
+
+    > .hero {
+        position: relative;
+        min-height: 100px;
+        height: 40vh;
+        background-image: url('~/images/hero-image.jpg');
+        background-size: cover;
+        background-position: center;
+
+        > h1 {
+            position: absolute;
+            bottom: 0;
+
+            margin: @spacing-y @spacing-x;
+            padding: @spacing-y @spacing-x;
+
+            background-color: @color-primary;
+            color: @color-text-bg-primary;
+        }
+    }
+}
+

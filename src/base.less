@@ -18,7 +18,17 @@
 @color-text: rgb(10%, 10%, 10%);
 @color-text-light: rgb(90%, 90%, 90%);
 
-@color-text-hover: contrast(@color-bg-hover, @color-text, @color-text-light);
-@color-text-active: contrast(@color-bg-active, @color-text, @color-text-light);
+@color-text-bg-primary: contrast(
+    @color-primary, @color-text, @color-text-light
+);
 
-@color-shadow: darken(@color-text, 80%);
+@color-text-bg-hover: contrast(
+    @color-bg-hover, @color-text, @color-text-light
+);
+
+@color-text-bg-active: contrast(
+    @color-bg-active, @color-text, @color-text-light
+);
+
+@color-shadow: black;
+

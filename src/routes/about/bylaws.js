@@ -64,8 +64,8 @@ export default function Bylaws() {
             amendments shall be decided by a simple majority vote of the
             group.  </p>
         <br />
-        <i>First Revision: May 30, 2002</i><br />
-        <i>Second Revision: September 30, 2003</i><br />
+        <em>First Revision: May 30, 2002</em><br />
+        <em>Second Revision: September 30, 2003</em><br />
     </div>;
 }
 

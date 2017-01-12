@@ -1,12 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-export default function Home() {
-    return <div>
+import styles from './home.less';
+
+function Hero() {
+    return <div className={styles.hero}>
         <h1>Welcome to IPACES.org!</h1>
+    </div>;
+}
+
+export default function Home() {
+    return <div className={styles.home}>
+        <Hero />
         <p>
-            International Professionals for the Advancement of Chinese Earth
-            Sciences (IPACES) is a nonprofit organization established in 1999
+            <strong>International Professionals for the Advancement of Chinese
+                Earth Sciences</strong> (IPACES) is a nonprofit
+            organization established in 1999
             and is registered in the State of Michigan, USA.
         </p>
         <p>
