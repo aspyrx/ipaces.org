@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import classNames from 'classnames';
 
 import Dropdown from '~/components/dropdown';
 import styles from './header.less';
@@ -17,52 +18,70 @@ function renderRoutes(routes, parent) {
         'title' in route
     ).map(({ routes: subRoutes, title, name }, i) => {
         const to = `${parent}/${name}`;
-        if (subRoutes) {
-            return <Dropdown
-                key={i}
-                className={styles.dropdown}
-                openClass={styles.open}
-                menuClass={styles.menu}
-                buttonClass={styles.button}
-                buttonText={title}
-            >
-                <Link
-                    to={to}
-                    activeOnlyWhenExact
-                    activeClassName={styles.active}
-                >
-                    {title}
-                </Link>
-                {renderRoutes(subRoutes, to)}
-            </Dropdown>;
-        }
-
-        return <Link
+        const link = <Link
             to={to}
-            key={i}
             activeOnlyWhenExact
             activeClassName={styles.active}
         >
             {title}
         </Link>;
+
+        if (subRoutes) {
+            const children = ({ isActive }) => {
+                const classes = classNames(styles.button, {
+                    [styles.active]: isActive
+                });
+
+                const onClick = event => event.preventDefault();
+
+                return <a className={classes} href='' onClick={onClick}>
+                    {title}
+                </a>;
+            };
+
+            children.propTypes = {
+                isActive: React.PropTypes.bool
+            };
+
+            const button = React.cloneElement(link, {
+                activeOnlyWhenExact: false,
+                children
+            });
+
+            return <Dropdown
+                key={i}
+                className={styles.dropdown}
+                openClass={styles.open}
+                button={button}
+            >
+                <div className={styles.menu}>
+                    {link}
+                    {renderRoutes(subRoutes, to)}
+                </div>
+            </Dropdown>;
+        }
+
+        return React.cloneElement(link, {
+            key: i
+        });
     });
 }
 
 export default function Header({ routes }) {
     return <div className={styles.header}>
-        <Logo />
-        {renderRoutes(routes, '')}
+        <div className={styles.navigation}>
+            <Logo />
+            {renderRoutes(routes, '')}
+        </div>
     </div>;
 }
 
-const { arrayOf, shape, bool, string } = React.PropTypes;
+const { arrayOf, shape, string } = React.PropTypes;
 Header.propTypes = {
     routes: arrayOf(shape({
-        exactly: bool,
         name: string.isRequired,
         title: string,
         routes: arrayOf(shape({
-            exactly: bool,
             name: string.isRequired,
             title: string
         }))

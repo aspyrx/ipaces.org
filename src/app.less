@@ -15,30 +15,30 @@ a {
     min-height: 100vh;
     background-color: @color-bg;
     display: flex;
-    justify-content: center;
-    overflow: hidden;
+    flex-flow: column nowrap;
+
+    > * {
+        flex: 1;
+        display: inherit;
+        flex-flow: column nowrap;
+    }
 
     :focus {
         outline: none;
     }
 
-    .containers {
+    .container {
         flex: 1;
-        max-width: @width-container-max;
         display: flex;
-        flex-flow: column;
+        flex-flow: column nowrap;
 
-        .container {
-            color: @color-text;
-            margin-bottom: @spacing-y;
+        width: 100%;
+        max-width: @width-container-max;
+        margin: @spacing-y auto;
+        padding: 0 @spacing-x;
+        box-sizing: border-box;
 
-            &.footer {
-                text-align: end;
-                margin-top: auto;
-                margin-bottom: 0;
-                font-size: 75%;
-            }
-        }
+        color: @color-text;
     }
 }
 

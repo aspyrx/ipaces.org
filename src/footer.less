@@ -1,0 +1,28 @@
+@import '~base';
+
+.footer {
+    display: flex;
+    flex-flow: column nowrap;
+    font-size: 75%;
+
+    > .navigation {
+        flex: 1;
+        display: flex;
+        flex-flow: row wrap;
+
+        width: 100%;
+        max-width: @width-container-max;
+        margin: @spacing-y auto;
+        padding: 0 @spacing-x;
+        box-sizing: border-box;
+
+        > * {
+            padding: 0 @spacing-x;
+        }
+
+        > .credit {
+            margin-left: auto;
+        }
+    }
+}
+

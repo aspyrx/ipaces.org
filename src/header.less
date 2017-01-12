@@ -3,121 +3,121 @@
 .header {
     position: relative;
     display: flex;
-    flex-flow: row wrap;
-    align-items: stretch;
+    box-shadow: @box-shadow;
+    margin-bottom: @spacing-y;
 
-    .active() {
-        background-color: @color-bg-active;
-        color: @color-text-bg-active;
-    }
-
-    .hover() {
-        background-color: @color-bg-hover;
-        color: @color-text-bg-hover;
-        text-decoration: none;
-    }
-
-    font-weight: bold;
-    font-size: 110%;
-
-    a, > .dropdown .button {
+    .navigation {
+        flex: 1;
         display: flex;
-        align-items: center;
+        flex-flow: row wrap;
 
+        width: 100%;
+        max-width: @width-container-max;
+        margin: 0 auto;
         padding: 0 @spacing-x;
+        box-sizing: border-box;
 
-        color: @color-text;
-        transition: color @duration-transition;
-        transition: background-color @duration-transition;
-
-        cursor: pointer;
-
-        &:hover, &:focus {
-            .hover();
+        .active() {
+            background-color: @color-bg-active;
+            color: @color-text-bg-active;
         }
 
-        &:active, &.active {
-            .active();
+        .hover() {
+            background-color: @color-bg-hover;
+            color: @color-text-bg-hover;
+            text-decoration: none;
         }
-    }
 
-    a {
-        &.active {
-            .active();
-        }
-    }
+        font-weight: bold;
+        font-size: 110%;
 
-    > .dropdown {
-        position: relative;
-        display: flex;
-        flex-flow: column nowrap;
+        a, > .dropdown .button {
+            display: flex;
+            align-items: center;
 
-        .button {
-            flex: 1;
-            z-index: 200;
+            padding: @spacing-y @spacing-x;
+
+            color: @color-text;
+            transition: color @duration-transition;
+            transition: background-color @duration-transition;
+
+            cursor: pointer;
 
             &:hover, &:focus {
                 .hover();
             }
 
-            &:active {
+            &:active, &.active {
                 .active();
             }
         }
 
-        .menu {
+        a {
+            &.active {
+                .active();
+            }
+        }
+
+        > .dropdown {
+            position: relative;
             display: flex;
             flex-flow: column nowrap;
-            align-items: stretch;
 
-            z-index: 100;
-            position: absolute;
-            top: 100%;
-            left: 0;
+            .button {
+                flex: 1;
+                z-index: 200;
 
-            .active();
-
-            visibility: hidden;
-            opacity: 0;
-            transform: rotateX(90deg);
-            transform-origin: top center;
-
-            transition-property: opacity, transform, visibility;
-            transition-duration: @duration-transition;
-
-            > a {
-                padding: @spacing-y @spacing-x;
-                color: inherit;
-                background-color: inherit;
-
-                &:hover, &:focus, &:active, &.active {
+                &:hover, &:focus {
                     .hover();
+                }
+
+                &:active {
+                    .active();
+                }
+            }
+
+            .menu {
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: stretch;
+
+                z-index: 100;
+                position: absolute;
+                top: 100%;
+                left: 0;
+
+                background-color: @color-bg;
+                color: @color-text;
+                box-shadow: @box-shadow;
+
+                visibility: hidden;
+                opacity: 0;
+                transform: rotateX(90deg);
+                transform-origin: top center;
+
+                transition-property: opacity, transform, visibility;
+                transition-duration: @duration-transition;
+            }
+
+            &.open {
+                .button {
+                    .active();
+                }
+
+                .menu {
+                    visibility: visible;
+                    opacity: 1;
+                    transform: none;
                 }
             }
         }
 
-        &.open {
-            .button {
-                .active();
-            }
+        > .logo {
+            display: flex;
+            align-items: center;
 
-            .menu {
-                visibility: visible;
-                opacity: 1;
-                transform: none;
-            }
-        }
-    }
-
-    > .logo {
-        display: flex;
-        align-items: center;
-
-        font-weight: bold;
-        font-size: 150%;
-
-        > * {
-            padding: @spacing-y @spacing-x;
+            font-weight: bold;
+            font-size: 150%;
         }
     }
 }

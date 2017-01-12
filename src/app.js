@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Miss, Match } from 'react-router';
-import classNames from 'classnames';
 
 import asyncComponent from '~/components/asyncComponent';
 import Spinner from '~/components/spinner';
 import NotFound from 'bundle-loader?lazy!~/components/NotFound';
 import Header from '~/header';
+import Footer from '~/footer';
 import styles from './app.less';
 import routes, { routesFlat } from '~/routes';
 
@@ -28,19 +28,14 @@ const matches = routesFlat.map((route, i) => {
 });
 
 export default function App() {
-
     return <BrowserRouter>
-        <div className={styles.containers}>
-            <div className={styles.container}>
-                <Header routes={routes} />
-            </div>
+        <div>
+            <Header routes={routes} />
             <div className={styles.container}>
                 { matches }
                 <Miss component={asyncComponent(NotFound)} />
             </div>
-            <div className={classNames(styles.container, styles.footer)}>
-                <p>Site design by <a href="https://szz.io">Stan Zhang</a></p>
-            </div>
+            <Footer routes={routes} />
         </div>
     </BrowserRouter>;
 }

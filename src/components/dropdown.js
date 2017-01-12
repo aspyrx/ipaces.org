@@ -27,32 +27,23 @@ export default class Dropdown extends React.Component {
 
     render() {
         const { open } = this.state;
-        const {
-            className, openClass, buttonClass, menuClass,
-            buttonText, children
-        } = this.props;
+        const { className, openClass, button, children } = this.props;
         const classes = classNames(className, {
             [openClass]: open
         });
 
         return <span className={classes} onClick={this.toggle}>
-            <span className={buttonClass}>
-                {buttonText}
-            </span>
-            <div className={menuClass}>
-                {children}
-            </div>
+            {button}
+            {children}
         </span>;
     }
 }
 
-const { string, node } = React.PropTypes;
+const { string, element } = React.PropTypes;
 Dropdown.propTypes = {
     className: string,
     openClass: string,
-    menuClass: string,
-    buttonClass: string,
-    buttonText: string,
-    children: node
+    button: element.isRequired,
+    children: element.isRequired
 };
 
