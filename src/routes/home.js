@@ -11,7 +11,7 @@ export default function Home() {
         </p>
         <p>
             Membership in IPACES is by invitation only (see <Link
-                to='/about/bylaws'>Bylaws </Link>).
+                to='/about/bylaws'>Bylaws</Link>).
         </p>
     </div>;
 }

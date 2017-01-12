@@ -11,15 +11,16 @@ function Logo() {
 
 export default function Header({ routes }) {
     return <div className={styles.header}>
-        <Link to='/'><Logo /></Link>
+        <Link to='/' activeOnlyWhenExact activeClassName={styles.active}>
+            <Logo />
+        </Link>
         <div className={styles.navigation}>
             {routes.filter(route =>
                 'title' in route
             ).map(({ title, name }, i) =>
                 <Link
                     key={i}
-                    to={name}
-                    activeOnlyWhenExact={name === '/'}
+                    to={'/' + name}
                     activeClassName={styles.active}
                 >
                     {title}

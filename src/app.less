@@ -3,9 +3,8 @@
 a {
     color: @color-primary;
     text-decoration: none;
-    transition: color @duration-transition;
     &:hover, &:active {
-        color: @color-text;
+        text-decoration: underline;
     }
 }
 
@@ -32,8 +31,8 @@ a {
 
         .container {
             position: relative;
-            padding: @spacing-y @spacing-x;
             color: @color-text;
+            margin-bottom: @spacing-y;
         }
     }
 }

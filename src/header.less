@@ -4,31 +4,45 @@
     position: relative;
     display: flex;
     flex-flow: row wrap;
-    margin: @spacing-y 0;
+    align-items: stretch;
+
+    a {
+        display: flex;
+        align-items: center;
+
+        padding: 0 @spacing-x;
+        color: @color-text;
+        transition: color @duration-transition;
+        transition: background-color @duration-transition;
+
+        &:hover, &:focus {
+            background-color: @color-bg-hover;
+            color: @color-text-hover;
+            text-decoration: none;
+        }
+
+        &:active, &.active {
+            background-color: @color-bg-active;
+            color: @color-text-active;
+        }
+    }
 
     .navigation {
         flex: 1;
         display: flex;
         flex-flow: row wrap;
         min-width: 75%;
-        align-items: baseline;
-
-        a {
-            margin: 0 @spacing-x;
-            color: @color-text;
-            transition: color @duration-transition;
-
-            &:hover, &:active, &.active {
-                color: @color-text-active;
-            }
-        }
+        align-items: stretch;
+        font-weight: bold;
+        font-size: 110%;
     }
 
     .logo {
         display: flex;
         align-items: center;
-        margin: 0 @spacing-x;
+        margin: @spacing-y @spacing-x;
         font-weight: bold;
+        font-size: 150%;
     }
 }
 

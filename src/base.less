@@ -9,9 +9,16 @@
 @duration-transition: 0.2s;
 @duration-enter-leave: 0.3s;
 
-@color-bg: rgb(10%, 10%, 10%);
-@color-text: lighten(@color-bg, 75%);
-@color-text-active: @color-primary;
-@color-primary: #2080FF;
+@color-primary: #800000;
+
+@color-bg: lighten(@color-text, 75%);
+@color-bg-hover: tint(@color-primary, 25%);
+@color-bg-active: @color-primary;
+
+@color-text: rgb(10%, 10%, 10%);
+@color-text-light: rgb(90%, 90%, 90%);
+
+@color-text-hover: contrast(@color-bg-hover, @color-text, @color-text-light);
+@color-text-active: contrast(@color-bg-active, @color-text, @color-text-light);
 
 @color-shadow: darken(@color-text, 80%);
