@@ -7,19 +7,27 @@ const routes = [{
 }, {
     pattern: '/about',
     path: './about',
-    title: 'About'
+    nav: {
+        title: 'About'
+    }
 }, {
     pattern: '/members',
     path: './members',
-    title: 'Members'
+    nav: {
+        title: 'Members'
+    }
 }, {
     pattern: '/events',
     path: './events',
-    title: 'Events'
+    nav: {
+        title: 'Events'
+    }
 }, {
     pattern: '/foo',
     path: './foo',
-    title: 'Foo'
+    nav: {
+        title: 'Foo'
+    }
 }];
 
 const { arrayOf, shape, string, bool } = React.PropTypes;
@@ -27,7 +35,9 @@ const routesShape = arrayOf(shape({
     exactly: bool,
     pattern: string.isRequired,
     path: string.isRequired,
-    title: string
+    nav: shape({
+        title: string.isRequired
+    })
 }));
 
 export { routes as default, routesShape };

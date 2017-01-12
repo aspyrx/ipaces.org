@@ -1,0 +1,28 @@
+@import '~base';
+
+.spinner {
+    @width: 100vw;
+    position: fixed;
+    top: 0;
+    left: -@width;
+    width: @width;
+    height: 2px;
+
+    opacity: 0.5;
+    background-color: @color-primary;
+
+    &.spin {
+        @keyframes spin {
+            0% { transform: none; }
+            100% { transform: translateX(2 * @width + 100vw); }
+        }
+
+        animation: spin 1.5s linear infinite;
+    }
+
+    &.unmount {
+        transition: opacity 0.5s;
+        opacity: 0;
+    }
+}
+

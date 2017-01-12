@@ -16,15 +16,15 @@ export default function Header({ routes }) {
         <Link to='/'><Logo /></Link>
         <div className={styles.navigation}>
             {routes.filter(route =>
-                'title' in route
-            ).map(({ title, exactly, pattern }, i) =>
+                'nav' in route
+            ).map(({ nav, exactly, pattern }, i) =>
                 <Link
                     key={i}
                     to={pattern}
                     activeOnlyWhenExact={exactly}
                     activeClassName={styles.active}
                 >
-                    {title}
+                    {nav.title}
                 </Link>
             )}
         </div>

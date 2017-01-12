@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function asyncComponent(getComponent) {
+export default function asyncComponent(getComponent, placeholder = null) {
     let cached = null;
 
     return class AsyncComponent extends React.Component {
@@ -15,12 +15,7 @@ export default function asyncComponent(getComponent) {
                 return;
             }
 
-            getComponent((err, Component) => {
-                if (err) {
-                    console.error(err);
-                    Component = () => <div><h1>404</h1></div>;
-                }
-
+            getComponent(({ default: Component }) => {
                 cached = Component;
                 this.setState({ Component });
             });
@@ -28,7 +23,10 @@ export default function asyncComponent(getComponent) {
 
         render() {
             const { Component } = this.state;
-            return Component ? <Component {...this.props} /> : null;
+
+            return Component
+                ? <Component {...this.props} />
+                : placeholder;
         }
     };
 }
