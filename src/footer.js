@@ -6,8 +6,8 @@ import styles from './footer.less';
 export default function Footer({ routes }) {
     const links = routes.filter(route =>
         'title' in route
-    ).map(({ name, title }) =>
-        <Link to={`/${name}`}>{title}</Link>
+    ).map(({ name, title }, i) =>
+        <Link key={i} to={`/${name}`}>{title}</Link>
     );
 
     return <div className={styles.footer}>

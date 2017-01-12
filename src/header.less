@@ -114,10 +114,21 @@
 
         > .logo {
             display: flex;
-            align-items: center;
+
+            > * {
+                flex: 1;
+            }
 
             font-weight: bold;
             font-size: 150%;
+        }
+
+        @media screen and (max-width: @width-sm) {
+            flex-flow: column nowrap;
+
+            > .dropdown .menu {
+                width: 100%;
+            }
         }
     }
 }
