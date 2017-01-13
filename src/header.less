@@ -60,19 +60,55 @@
 
         .dropdown {
             position: relative;
-            display: flex;
-            flex-flow: column nowrap;
+
+            .button-hint-inline() {
+                position: static;
+
+                margin-left: @spacing-x;
+                content: '►';
+                vertical-align: center;
+            }
 
             .button {
-                flex: 1;
+                height: 100%;
+                box-sizing: border-box;
+
+                position: relative;
                 z-index: 200;
 
                 &:hover, &:focus {
                     .hover();
                 }
 
-                &:active {
+                &:active, &.open {
                     .active();
+                }
+
+                &:after {
+                    display: flex;
+                    justify-content: center;
+
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+
+                    content: '▼';
+                    font-size: 50%;
+
+                    opacity: 0.25;
+                    transition-property: opacity;
+                    transition-duration: @duration-transition;
+
+                    .media-screen-sm({
+                        .button-hint-inline();
+                    });
+                }
+
+                &:hover, &:focus, &:active, &.open {
+                    &:after {
+                        opacity: 0.75;
+                    }
                 }
             }
 
@@ -97,23 +133,34 @@
 
                 transition-property: opacity, transform, visibility;
                 transition-duration: @duration-transition;
-            }
 
-            &.open {
-                > .button {
-                    .active();
-                }
-
-                > .menu {
+                &.open {
                     visibility: visible;
                     opacity: 1;
                     transform: none;
                 }
+
+                .media-screen-sm({
+                    width: 100%;
+                });
             }
 
-            .dropdown .menu {
-                top: 0;
-                left: 100%;
+            .dropdown {
+                .menu {
+                    top: 0;
+                    left: 100%;
+
+                    .media-screen-sm({
+                        top: 100%;
+                        left: 0;
+                    });
+                }
+
+                .button {
+                    &:after {
+                        .button-hint-inline();
+                    }
+                }
             }
         }
 
@@ -128,20 +175,9 @@
             font-size: 150%;
         }
 
-        @media screen and (max-width: @width-sm) {
+        .media-screen-sm({
             flex-flow: column nowrap;
-
-            .dropdown {
-                .menu {
-                    width: 100%;
-                }
-
-                .dropdown .menu {
-                    top: 100%;
-                    left: 0;
-                }
-            }
-        }
+        });
     }
 }
 

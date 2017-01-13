@@ -38,8 +38,8 @@ export default class Dropdown extends React.Component {
         const onClick = open ? this.close : this.open;
 
         return <span className={classes} onClick={onClick}>
-            {button}
-            {children}
+            <span>{React.cloneElement(button, { open })}</span>
+            {React.cloneElement(children, { open })}
         </span>;
     }
 }

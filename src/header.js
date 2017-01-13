@@ -26,10 +26,17 @@ function renderRoutes(routes, parent) {
             {title}
         </Link>;
 
-        if (subRoutes) {
-            const children = ({ isActive }) => {
+        if (!subRoutes) {
+            return React.cloneElement(link, {
+                key: i
+            });
+        }
+
+        function getChild(open) {
+            function Child({ isActive }) {
                 const classes = classNames(styles.button, {
-                    [styles.active]: isActive
+                    [styles.active]: isActive,
+                    [styles.open]: open
                 });
 
                 const onClick = event => event.preventDefault();
@@ -37,33 +44,49 @@ function renderRoutes(routes, parent) {
                 return <a className={classes} href='' onClick={onClick}>
                     {title}
                 </a>;
-            };
+            }
 
-            children.propTypes = {
+            Child.propTypes = {
                 isActive: React.PropTypes.bool
             };
 
-            const button = React.cloneElement(link, {
-                activeOnlyWhenExact: false,
-                children
-            });
-
-            return <Dropdown
-                key={i}
-                className={styles.dropdown}
-                openClass={styles.open}
-                button={button}
-            >
-                <div className={styles.menu}>
-                    {link}
-                    {renderRoutes(subRoutes, to)}
-                </div>
-            </Dropdown>;
+            return Child;
         }
 
-        return React.cloneElement(link, {
-            key: i
-        });
+        function DropdownButton({ open }) {
+            return React.cloneElement(link, {
+                activeOnlyWhenExact: false,
+                children: getChild(open)
+            });
+        }
+
+        DropdownButton.propTypes = {
+            open: React.PropTypes.bool
+        };
+
+        function DropdownMenu({ open }) {
+            const classes = classNames(styles.menu, {
+                [styles.open]: open
+            });
+
+            return <div className={classes}>
+                {link}
+                {renderRoutes(subRoutes, to)}
+            </div>;
+        }
+
+        DropdownMenu.propTypes = {
+            open: React.PropTypes.bool
+        };
+
+        return <Dropdown
+            key={i}
+            className={styles.dropdown}
+            openClass={styles.open}
+            button={<DropdownButton />}
+        >
+            {<DropdownMenu />}
+        </Dropdown>;
     });
 }
 
