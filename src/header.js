@@ -82,7 +82,6 @@ function renderRoutes(routes, parent) {
         return <Dropdown
             key={i}
             className={styles.dropdown}
-            openClass={styles.open}
             button={<DropdownButton />}
         >
             {<DropdownMenu />}

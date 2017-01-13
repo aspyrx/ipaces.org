@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 
 export default class Dropdown extends React.Component {
     constructor() {
@@ -31,14 +30,11 @@ export default class Dropdown extends React.Component {
 
     render() {
         const { open } = this.state;
-        const { className, openClass, button, children } = this.props;
-        const classes = classNames(className, {
-            [openClass]: open
-        });
+        const { className, button, children } = this.props;
         const onClick = open ? this.close : this.open;
 
-        return <span className={classes} onClick={onClick}>
-            <span>{React.cloneElement(button, { open })}</span>
+        return <span className={className} onClick={onClick}>
+            {React.cloneElement(button, { open })}
             {React.cloneElement(children, { open })}
         </span>;
     }
@@ -47,7 +43,6 @@ export default class Dropdown extends React.Component {
 const { string, element } = React.PropTypes;
 Dropdown.propTypes = {
     className: string,
-    openClass: string,
     button: element.isRequired,
     children: element.isRequired
 };
