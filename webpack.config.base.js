@@ -7,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ctxDir = path.resolve(__dirname);
 const srcDir = path.resolve(ctxDir, 'src');
 const vendorDir = path.resolve(ctxDir, 'vendor');
+const loadersDir = path.resolve(ctxDir, 'loaders');
 const outDir = path.resolve(ctxDir, 'dist');
 
 module.exports = {
@@ -31,6 +32,11 @@ module.exports = {
             srcDir,
             'node_modules'
         ]
+    },
+    resolveLoader: {
+        alias: {
+            '>': loadersDir
+        }
     },
     module: {
         rules: [
@@ -85,7 +91,11 @@ module.exports = {
             },
             {
                 test: /\.md$/,
-                use: ['./loaders/markdown-react-loader']
+                use: ['>/markdown-react-loader']
+            },
+            {
+                test: /\.csv$/,
+                use: ['dsv-loader']
             },
             {
                 test: /\.(eot|woff|ttf|svg|jpg|ico)$/,

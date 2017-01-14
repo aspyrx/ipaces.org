@@ -12,7 +12,7 @@ const routes = [{
     }]
 }, {
     name: 'members',
-    path: './members.js',
+    path: './members/index.js',
     title: 'Members'
 }, {
     name: 'events',

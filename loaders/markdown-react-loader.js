@@ -2,6 +2,21 @@
 
 const marked = require('marked');
 
+function toComponent(html) {
+    html = html.replace(/\n/g, '\\n');
+    return `var React = require('react');
+
+module.exports.default = function() {
+    return React.createElement('div', {
+        className: 'markdown',
+        dangerouslySetInnerHTML: {
+            __html: '${html}'
+        }
+    });
+}
+`;
+}
+
 /**
  * Webpack loader for converting markdown into a stateless React component.
  *
@@ -15,7 +30,8 @@ module.exports = function loader(content) {
 
     const done = this.async();
     if (!done) {
-        return;
+        const html = marked(content);
+        return html;
     }
 
     marked(content, (err, html) => {
@@ -23,19 +39,7 @@ module.exports = function loader(content) {
             return done(err);
         }
 
-        html = html.replace(/\n/g, '\\n');
-        const result = `var React = require('react');
-
-module.exports.default = function() {
-    return React.createElement('div', {
-        className: 'markdown',
-        dangerouslySetInnerHTML: {
-            __html: '${html}'
-        }
-    });
-}
-`;
-        done(null, result);
+        done(null, toComponent(html));
     });
 };
 
