@@ -26,10 +26,6 @@ export default class Modal extends React.Component {
     }
 
     open(event) {
-        if (event.target.nodeName === 'A') {
-            return;
-        }
-
         event.stopPropagation();
 
         this.setState({ isOpen: true }, () => {
@@ -38,9 +34,7 @@ export default class Modal extends React.Component {
     }
 
     close(event) {
-        if (event.target.nodeName === 'A') {
-            return;
-        }
+        console.log(event.target);
 
         this.removeWindowHandler();
         this.setState({ isOpen: false });

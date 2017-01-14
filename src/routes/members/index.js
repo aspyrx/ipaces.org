@@ -39,14 +39,18 @@ function MemberButton({ member, isOpen, open }) {
         [styles.open]: isOpen
     });
 
+    function stopPropagation(event) {
+        event.stopPropagation();
+    }
+
     return <div className={classes} onClick={open}>
         <h2>
-            <a href={link || void 0}>
+            <a href={link || void 0} onClick={stopPropagation}>
                 {nameLast}, {nameFirst}{padIf(' [', nameZh, ']')}
             </a>
         </h2>
         <h3>
-            <a href={locationLink || void 0}>
+            <a href={locationLink || void 0} onClick={stopPropagation}>
                 {location}
             </a>, {country}
         </h3>

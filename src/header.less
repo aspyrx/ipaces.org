@@ -72,7 +72,6 @@
                 box-sizing: border-box;
 
                 position: relative;
-                z-index: 200;
 
                 &:hover, &:focus {
                     .hover();
@@ -110,7 +109,7 @@
                 flex-flow: column nowrap;
                 align-items: stretch;
 
-                z-index: 100;
+                z-index: @z-index-modal;
                 position: absolute;
                 top: 100%;
                 left: 0;
