@@ -3,11 +3,11 @@ const routes = [{
     path: './home.js'
 }, {
     name: 'about',
-    path: './about/index.js',
+    path: './about/index.md',
     title: 'About',
     routes: [{
         name: 'bylaws',
-        path: './about/bylaws.js',
+        path: './about/bylaws.md',
         title: 'Bylaws'
     }]
 }, {

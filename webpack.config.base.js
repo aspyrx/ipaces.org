@@ -27,7 +27,6 @@ module.exports = {
             '~': srcDir,
             '^': vendorDir
         },
-        extensions: ['.js'],
         modules: [
             srcDir,
             'node_modules'
@@ -83,6 +82,10 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: ['babel-loader']
+            },
+            {
+                test: /\.md$/,
+                use: ['./loaders/markdown-react-loader']
             },
             {
                 test: /\.(eot|woff|ttf|svg|jpg|ico)$/,

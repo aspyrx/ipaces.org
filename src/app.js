@@ -12,7 +12,7 @@ import routes, { routesFlat } from '~/routes';
 const routesCtx = require.context(
     'bundle-loader?lazy!./routes',
     true,
-    /\.js$/
+    /\.(js|md)$/
 );
 
 const matches = routesFlat.map((route, i) => {
