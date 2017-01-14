@@ -14,11 +14,12 @@
         }
     }
 
-    .memberList {
+    .list {
         display: flex;
         flex-flow: row wrap;
 
-        > .member {
+        .item {
+            display: flex;
             flex: 1 0 auto;
             width: 50%;
 
@@ -26,8 +27,82 @@
                 width: 100%;
             });
 
-            padding: @spacing-y @spacing-x;
-            box-sizing: border-box;
+            > * {
+                display: flex;
+                flex: 1;
+            }
+        }
+    }
+}
+
+.member {
+    .card() {
+        background-color: @color-bg-card;
+        box-shadow: @box-shadow;
+
+        padding: @spacing-y @spacing-x;
+        box-sizing: border-box;
+
+        > * {
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    > .button {
+        .card();
+
+        display: flex;
+        flex-flow: column nowrap;
+        flex: 1;
+
+        margin: @spacing-y @spacing-x;
+
+        cursor: pointer;
+        transition: transform @duration-transition;
+
+        &:hover, &:focus, &:active &.open {
+            transform: scale(1.05, 1.05);
+        }
+    }
+
+    > .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        transition-property: visibility, opacity;
+        transition-duration: @duration-transition;
+        background-color: fade(white, 50%);
+
+        cursor: pointer;
+
+        &:not(.open) {
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        > .content {
+            .card();
+
+            position: relative;
+            top: 50%;
+            left: 50%;
+            max-width: @width-container-max;
+            transform: translate(-50%, -50%);
+
+            > .button {
+                background-color: none;
+                box-shadow: none;
+                padding: 0;
+            }
         }
     }
 }

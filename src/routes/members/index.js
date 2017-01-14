@@ -1,46 +1,104 @@
 import React from 'react';
+import classNames from 'classnames';
+
+import Modal from '~/components/modal';
 
 import members from './members.csv';
 import styles from './index.less';
 
+const { shape, string } = React.PropTypes;
+const memberShape = {
+    nameLast: string.isRequired,
+    nameFirst: string.isRequired,
+    position: string.isRequired,
+    location: string.isRequired,
+    country: string.isRequired,
+    email: string.isRequired,
+    nameZh: string.isRequired,
+    link: string.isRequired,
+    locationLink: string.isRequired,
+    field: string.isRequired,
+    department: string.isRequired
+};
+
 function padIf(left, str, right = '') {
-    return str ? left + str + right : '';
+    if (left) {
+        return str ? left + str + right : '';
+    }
+
+    return str ? str + right : '';
 }
 
-function Member(props) {
-    const { className, member: {
-        nameLast, nameFirst, nameZh, link, locationLink, email,
-        position, field, department, location, country
-    } } = props;
+function MemberButton({ member, isOpen, open }) {
+    const {
+        nameLast, nameFirst, nameZh, link,
+        location, locationLink, country
+    } = member;
 
-    return <div className={className}>
+    const classes = classNames(styles.button, {
+        [styles.open]: isOpen
+    });
+
+    return <div className={classes} onClick={open}>
         <h2>
-            <a href={link}>
+            <a href={link || void 0}>
                 {nameLast}, {nameFirst}{padIf(' [', nameZh, ']')}
             </a>
         </h2>
-        <h3><a href={locationLink}>{location}</a>, {country}</h3>
-        <p>{position}{padIf(', ', field)}{padIf(', ', department)}</p>
-        <p>Email: {email.replace('@', ' [at] ')}</p>
+        <h3>
+            <a href={locationLink || void 0}>
+                {location}
+            </a>, {country}
+        </h3>
     </div>;
 }
 
-const { shape, string } = React.PropTypes;
+MemberButton.propTypes = {
+    member: shape(memberShape),
+    isOpen: React.PropTypes.bool,
+    open: React.PropTypes.func
+};
+
+function MemberModal({ member, isOpen, close }) {
+    const { position, field, department, email } = member;
+
+    const classes = classNames(styles.modal, {
+        [styles.open]: isOpen
+    });
+
+    return <div className={classes} onClick={close}>
+        <div className={styles.content}>
+            <MemberButton member={member} isOpen={isOpen} />
+            <h4>
+                {position}
+                {padIf(', ', field)}
+                {padIf(', ', department)}
+            </h4>
+            <p>Email: {email.replace('@', ' [at] ')}</p>
+        </div>
+    </div>;
+}
+
+MemberModal.propTypes = {
+    member: shape(memberShape),
+    isOpen: React.PropTypes.bool,
+    close: React.PropTypes.func
+};
+
+function Member(props) {
+    const { member } = props;
+
+    return <Modal
+        className={styles.member}
+        button={<MemberButton member={member} />}
+    >
+        <MemberModal member={member} />
+    </Modal>;
+}
+
 Member.propTypes = {
-    member: shape({
-        nameLast: string.isRequired,
-        nameFirst: string.isRequired,
-        position: string.isRequired,
-        location: string.isRequired,
-        country: string.isRequired,
-        email: string.isRequired,
-        nameZh: string.isRequired,
-        link: string.isRequired,
-        locationLink: string.isRequired,
-        field: string.isRequired,
-        department: string.isRequired
-    }),
-    className: string
+    className: string,
+    member: shape(memberShape)
 };
 
 export default class Members extends React.Component {
@@ -78,13 +136,11 @@ export default class Members extends React.Component {
                     onChange={this.onInputChange}
                 />
             </div>
-            <div className={styles.memberList}>
+            <div className={styles.list}>
                 {members.filter(this.filter).map((member, i) =>
-                    <Member
-                        key={i}
-                        className={styles.member}
-                        member={member}
-                    />
+                    <div key={i} className={styles.item}>
+                        <Member member={member} />
+                    </div>
                 )}
             </div>
         </div>;

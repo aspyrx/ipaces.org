@@ -1,49 +1,19 @@
 import React from 'react';
 
-export default class Dropdown extends React.Component {
-    constructor() {
-        super();
+import Modal from './modal.js';
 
-        this.state = { open: false };
-        this.open = this.open.bind(this);
-        this.close = this.close.bind(this);
-    }
-
-    open(event) {
-        event.stopPropagation();
-
-        this.setState({ open: true }, () => {
-            window.addEventListener('click', this.close);
-        });
-    }
-
-    close() {
-        window.removeEventListener('click', this.close);
-        this.setState({ open: false });
-    }
-
-    componentWillUnmount() {
-        if (this.state.open) {
-            window.removeEventListener('click', this.close);
-        }
-    }
-
+export default class Dropdown extends Modal {
     render() {
-        const { open } = this.state;
+        const { isOpen } = this.state;
         const { className, button, children } = this.props;
-        const onClick = open ? this.close : this.open;
+        const onClick = isOpen ? this.close : this.open;
 
         return <span className={className} onClick={onClick}>
-            {React.cloneElement(button, { open })}
-            {React.cloneElement(children, { open })}
+            {React.cloneElement(button, { isOpen })}
+            {React.cloneElement(children, { isOpen })}
         </span>;
     }
 }
 
-const { string, element } = React.PropTypes;
-Dropdown.propTypes = {
-    className: string,
-    button: element.isRequired,
-    children: element.isRequired
-};
+Dropdown.propTypes = Object.assign({}, Modal.propTypes);
 

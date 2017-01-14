@@ -32,11 +32,11 @@ function renderRoutes(routes, parent) {
             });
         }
 
-        function getChild(open) {
+        function getChild(isOpen) {
             function Child({ isActive }) {
                 const classes = classNames(styles.button, {
                     [styles.active]: isActive,
-                    [styles.open]: open
+                    [styles.open]: isOpen
                 });
 
                 const onClick = event => event.preventDefault();
@@ -53,20 +53,20 @@ function renderRoutes(routes, parent) {
             return Child;
         }
 
-        function DropdownButton({ open }) {
+        function DropdownButton({ isOpen }) {
             return React.cloneElement(link, {
                 activeOnlyWhenExact: false,
-                children: getChild(open)
+                children: getChild(isOpen)
             });
         }
 
         DropdownButton.propTypes = {
-            open: React.PropTypes.bool
+            isOpen: React.PropTypes.bool
         };
 
-        function DropdownMenu({ open }) {
+        function DropdownMenu({ isOpen }) {
             const classes = classNames(styles.menu, {
-                [styles.open]: open
+                [styles.open]: isOpen
             });
 
             return <div className={classes}>
@@ -76,7 +76,7 @@ function renderRoutes(routes, parent) {
         }
 
         DropdownMenu.propTypes = {
-            open: React.PropTypes.bool
+            isOpen: React.PropTypes.bool
         };
 
         return <Dropdown
@@ -84,7 +84,7 @@ function renderRoutes(routes, parent) {
             className={styles.dropdown}
             button={<DropdownButton />}
         >
-            {<DropdownMenu />}
+            <DropdownMenu />
         </Dropdown>;
     });
 }
