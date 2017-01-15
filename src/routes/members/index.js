@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classNames from 'classnames';
 
 import Modal from '~/components/modal';
@@ -6,7 +7,7 @@ import Modal from '~/components/modal';
 import members from './members.csv';
 import styles from './index.less';
 
-const { shape, string } = React.PropTypes;
+const { string, bool, func, shape, arrayOf, element } = React.PropTypes;
 const memberShape = {
     nameLast: string.isRequired,
     nameFirst: string.isRequired,
@@ -59,34 +60,52 @@ function MemberButton({ member, isOpen, open }) {
 
 MemberButton.propTypes = {
     member: shape(memberShape),
-    isOpen: React.PropTypes.bool,
-    open: React.PropTypes.func
+    isOpen: bool,
+    open: func
+};
+
+function FirstChild({ children }) {
+    return children[0] || null;
+}
+
+FirstChild.propTypes = {
+    children: arrayOf(element)
 };
 
 function MemberModal({ member, isOpen, close }) {
     const { position, field, department, email } = member;
 
-    const classes = classNames(styles.modal, {
-        [styles.open]: isOpen
-    });
-
-    return <div className={classes} onClick={close}>
-        <div className={styles.content}>
-            <MemberButton member={member} isOpen={isOpen} />
-            <h4>
-                {position}
-                {padIf(', ', field)}
-                {padIf(', ', department)}
-            </h4>
-            <p>Email: {email.replace('@', ' [at] ')}</p>
+    const modal = isOpen
+        ? <div className={styles.modal} onClick={close}>
+            <div className={styles.content}>
+                <MemberButton member={member} isOpen={isOpen} />
+                <h4>
+                    {position}
+                    {padIf(', ', field)}
+                    {padIf(', ', department)}
+                </h4>
+                <p>Email: {email.replace('@', ' [at] ')}</p>
+            </div>
         </div>
-    </div>;
+        : null;
+
+    const { enter, enterActive, leave, leaveActive } = styles;
+    return <ReactCSSTransitionGroup
+        transitionName={{
+            enter, enterActive, leave, leaveActive
+        }}
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
+        component={FirstChild}
+    >
+        {modal}
+    </ReactCSSTransitionGroup>;
 }
 
 MemberModal.propTypes = {
     member: shape(memberShape),
-    isOpen: React.PropTypes.bool,
-    close: React.PropTypes.func
+    isOpen: bool,
+    close: func
 };
 
 function Member(props) {

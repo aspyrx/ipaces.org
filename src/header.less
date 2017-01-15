@@ -118,25 +118,26 @@
                 color: @color-text;
                 box-shadow: @box-shadow;
 
-                visibility: hidden;
-                opacity: 0;
-                transform: rotateX(90deg);
                 transform-origin: top center;
 
-                transition-property: opacity, transform, visibility;
+                transition-property: opacity, transform;
                 transition-duration: @duration-transition;
 
                 .child-separator(bottom);
 
-                &.open {
-                    visibility: visible;
-                    opacity: 1;
-                    transform: none;
-                }
-
                 .media-screen-sm({
                     width: 100%;
                 });
+
+                &.enter, &.leave.leaveActive {
+                    transform: rotateX(90deg);
+                    opacity: 0;
+                }
+
+                &.leave, &.enter.enterActive {
+                    transform: none;
+                    opacity: 1;
+                }
             }
 
             .dropdown {

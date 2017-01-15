@@ -1,9 +1,17 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 
 import Dropdown from '~/components/dropdown';
 import styles from './header.less';
+
+const { string, arrayOf, func, shape, element, object } = React.PropTypes;
+const routeShape = {
+    name: string.isRequired,
+    title: string,
+    routes: arrayOf(object)
+};
 
 function Logo() {
     return <div className={styles.logo}>
@@ -13,78 +21,126 @@ function Logo() {
     </div>;
 }
 
+function NavigationLink({ parent, name, title, children, ...props }) {
+    const to = `${parent}/${name}`;
+    return <Link
+        to={to}
+        activeOnlyWhenExact
+        activeClassName={styles.active}
+        {...props}
+    >
+        {children || title}
+    </Link>;
+}
+
+NavigationLink.propTypes = {
+    parent: string.isRequired,
+    name: string.isRequired,
+    title: string.isRequired,
+    children: func
+};
+
+function DropdownButton({ parent, name, title, isOpen }) {
+    function Child({ isActive }) {
+        const classes = classNames(styles.button, {
+            [styles.active]: isActive,
+            [styles.open]: isOpen
+        });
+
+        const onClick = event => event.preventDefault();
+
+        return <a className={classes} href='' onClick={onClick}>
+            {title}
+        </a>;
+    }
+
+    Child.propTypes = {
+        isActive: React.PropTypes.bool
+    };
+
+    return <NavigationLink
+        parent={parent}
+        name={name}
+        title={title}
+        activeOnlyWhenExact={false}
+        children={Child}
+    />;
+}
+
+DropdownButton.propTypes = {
+    parent: string.isRequired,
+    name: string.isRequired,
+    title: string.isRequired,
+    isOpen: React.PropTypes.bool
+};
+
+function FirstChild({ children }) {
+    return children[0] || null;
+}
+
+FirstChild.propTypes = {
+    children: arrayOf(element)
+};
+
+function DropdownMenu({ parent, name, title, routes, isOpen }) {
+    const menu = isOpen
+        ? <div className={styles.menu}>
+            <NavigationLink parent={parent} name={name} title={title} />
+            {renderRoutes(routes, `${parent}/${name}`)}
+        </div>
+        : null;
+
+    const { enter, enterActive, leave, leaveActive } = styles;
+    return <ReactCSSTransitionGroup
+        transitionName={{
+            enter, enterActive, leave, leaveActive
+        }}
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
+        component={FirstChild}
+    >
+        {menu}
+    </ReactCSSTransitionGroup>;
+}
+
+DropdownMenu.propTypes = {
+    parent: string.isRequired,
+    name: string.isRequired,
+    title: string.isRequired,
+    isOpen: React.PropTypes.bool,
+    routes: arrayOf(shape(routeShape))
+};
+
 function renderRoutes(routes, parent) {
     return routes.filter(route =>
         'title' in route
     ).map(({ routes: subRoutes, title, name }, i) => {
-        const to = `${parent}/${name}`;
-        const link = <Link
-            to={to}
-            activeOnlyWhenExact
-            activeClassName={styles.active}
-        >
-            {title}
-        </Link>;
-
         if (!subRoutes) {
-            return React.cloneElement(link, {
-                key: i
-            });
+            return <NavigationLink
+                key={i}
+                parent={parent}
+                name={name}
+                title={title}
+            />;
         }
 
-        function getChild(isOpen) {
-            function Child({ isActive }) {
-                const classes = classNames(styles.button, {
-                    [styles.active]: isActive,
-                    [styles.open]: isOpen
-                });
-
-                const onClick = event => event.preventDefault();
-
-                return <a className={classes} href='' onClick={onClick}>
-                    {title}
-                </a>;
-            }
-
-            Child.propTypes = {
-                isActive: React.PropTypes.bool
-            };
-
-            return Child;
-        }
-
-        function DropdownButton({ isOpen }) {
-            return React.cloneElement(link, {
-                activeOnlyWhenExact: false,
-                children: getChild(isOpen)
-            });
-        }
-
-        DropdownButton.propTypes = {
-            isOpen: React.PropTypes.bool
-        };
-
-        function DropdownMenu({ isOpen }) {
-            const classes = classNames(styles.menu, {
-                [styles.open]: isOpen
-            });
-
-            return <div className={classes}>
-                {link}
-                {renderRoutes(subRoutes, to)}
-            </div>;
-        }
-
-        DropdownMenu.propTypes = {
-            isOpen: React.PropTypes.bool
-        };
+        const button = <DropdownButton
+            parent={parent}
+            name={name}
+            title={title}
+        />;
 
         return <Dropdown
             key={i}
             className={styles.dropdown}
-            button={<DropdownButton />}
+            button={button}
         >
-            <DropdownMenu />
+            <DropdownMenu
+                parent={parent}
+                name={name}
+                title={title}
+                routes={subRoutes}
+            />
         </Dropdown>;
     });
 }
@@ -98,15 +154,11 @@ export default function Header({ routes }) {
     </div>;
 }
 
-const { arrayOf, shape, string } = React.PropTypes;
 Header.propTypes = {
     routes: arrayOf(shape({
         name: string.isRequired,
         title: string,
-        routes: arrayOf(shape({
-            name: string.isRequired,
-            title: string
-        }))
+        routes: arrayOf(shape(routeShape))
     }))
 };
 

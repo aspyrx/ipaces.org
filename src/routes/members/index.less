@@ -80,16 +80,11 @@
 
         z-index: @z-index-modal;
 
-        transition-property: visibility, opacity;
-        transition-duration: @duration-transition;
         background-color: fade(white, 50%);
 
         cursor: pointer;
 
-        &:not(.open) {
-            visibility: hidden;
-            opacity: 0;
-        }
+        transition: opacity @duration-enter-leave;
 
         > .content {
             .card();
@@ -105,6 +100,14 @@
                 box-shadow: none;
                 padding: 0;
             }
+        }
+
+        &.enter, &.leave.leaveActive {
+            opacity: 0;
+        }
+
+        &.leave, &.enter.enterActive {
+            opacity: 1;
         }
     }
 }

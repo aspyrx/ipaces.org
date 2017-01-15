@@ -33,9 +33,7 @@ export default class Modal extends React.Component {
         });
     }
 
-    close(event) {
-        console.log(event.target);
-
+    close() {
         this.removeWindowHandler();
         this.setState({ isOpen: false });
     }
