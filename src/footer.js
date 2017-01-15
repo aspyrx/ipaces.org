@@ -14,7 +14,12 @@ export default function Footer({ routes }) {
         <div className={styles.navigation}>
             <Link to='/'>Home</Link>
             {links}
-            <div className={styles.credit}>
+            <div className={styles.right}>
+                <span>
+                    <a href="mailto:ipacesweb@gmail.com">
+                        Contact the webmaster
+                    </a>
+                </span>
                 <span>
                     Site design by <a href="https://szz.io">Stan Zhang</a>
                 </span>
