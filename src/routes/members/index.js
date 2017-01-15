@@ -45,12 +45,22 @@ function MemberButton({ member, isOpen, open }) {
 
     return <div className={classes} onClick={open}>
         <h2>
-            <a href={link || void 0} onClick={stopPropagation}>
+            <a
+                href={link || void 0}
+                target='_blank'
+                rel='noopener noreferrer'
+                onClick={stopPropagation}
+            >
                 {nameLast}, {nameFirst}{padIf(' [', nameZh, ']')}
             </a>
         </h2>
         <h3>
-            <a href={locationLink || void 0} onClick={stopPropagation}>
+            <a
+                href={locationLink || void 0}
+                target='_blank'
+                rel='noopener noreferrer'
+                onClick={stopPropagation}
+            >
                 {location}
             </a>, {country}
         </h3>
