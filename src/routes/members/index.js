@@ -112,23 +112,43 @@ export default class Members extends React.Component {
         super();
 
         this.state = { searchString: '' };
-        this.filter = this.filter.bind(this);
+        this.searchKeys = [
+            'nameLast',
+            'nameFirst',
+            'nameZh',
+            'location',
+            'country'
+        ];
         this.onInputChange = this.onInputChange.bind(this);
     }
 
-    filter(member) {
-        const { searchString } = this.state;
+    searchScore(member, searchString) {
+        if (!searchString) {
+            return;
+        }
 
-        return Object.keys(member).reduce(
-            (str, key) => str + member[key].toLowerCase().trim(), ''
-        ).indexOf(
-            searchString.toLowerCase().trim()
-        ) !== -1;
+        const terms = searchString.toLowerCase().trim().split(/\s+/);
+
+        return terms.reduce((score, term) =>
+            score + (this.searchKeys.reduce(
+                (str, key) => str + member[key].toLowerCase().trim(), ''
+            ).indexOf(term) === -1 ? 0 : term.length),
+            0
+        );
     }
 
     onInputChange(event) {
         const field = event.target.getAttribute('data-field');
         this.setState({ [field]: event.target.value });
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        const { searchString } = nextState;
+        if (searchString !== this.state.searchString) {
+            members.forEach(m =>
+                (m.searchScore = this.searchScore(m, searchString))
+            );
+        }
     }
 
     render() {
@@ -143,10 +163,13 @@ export default class Members extends React.Component {
                 />
             </div>
             <div className={styles.list}>
-                {members.filter(this.filter).map((member, i) =>
-                    <div key={i} className={styles.item}>
-                        <Member member={member} />
-                    </div>
+                {members.filter(member =>
+                    member.searchScore === void 0
+                    || member.searchScore > 0
+                ).sort((a, b) =>
+                    b.searchScore - a.searchScore
+                ).map((member, i) =>
+                    <Member key={i} member={member} />
                 )}
             </div>
         </div>;
