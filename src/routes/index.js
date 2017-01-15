@@ -16,7 +16,7 @@ const routes = [{
     title: 'Members'
 }, {
     name: 'events',
-    path: './events.js',
+    path: './events/index.js',
     title: 'Events'
 }];
 

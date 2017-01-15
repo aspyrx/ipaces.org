@@ -7,3 +7,7 @@ The mission of IPACES is
   between China and other countries.
 - To advance earth sciences research and education in China.
 
+## Bylaws
+
+Please see our [bylaws](./about/bylaws) page for details.
+
