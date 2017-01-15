@@ -1,4 +1,15 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
+const { string, bool, arrayOf, element } = React.PropTypes;
+
+function FirstChild({ children }) {
+    return children[0] || null;
+}
+
+FirstChild.propTypes = {
+    children: arrayOf(element)
+};
 
 export default class Modal extends React.Component {
     constructor() {
@@ -44,16 +55,24 @@ export default class Modal extends React.Component {
 
     render() {
         const { isOpen } = this.state;
-        const { className, button, children } = this.props;
+        const { className, button, children, ...rest } = this.props;
+
+        const modal = isOpen
+            ? React.cloneElement(children, { isOpen, close: this.close })
+            : null;
 
         return <span className={className}>
             {React.cloneElement(button, { isOpen, open: this.open })}
-            {React.cloneElement(children, { isOpen, close: this.close })}
+            <ReactCSSTransitionGroup
+                component={FirstChild}
+                {...rest}
+            >
+                {modal}
+            </ReactCSSTransitionGroup>
         </span>;
     }
 }
 
-const { string, element, bool } = React.PropTypes;
 Modal.propTypes = {
     className: string,
     button: element.isRequired,

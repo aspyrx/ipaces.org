@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classNames from 'classnames';
 
 import Modal from '~/components/modal';
@@ -7,7 +6,7 @@ import Modal from '~/components/modal';
 import members from './members.csv';
 import styles from './index.less';
 
-const { string, bool, func, shape, arrayOf, element } = React.PropTypes;
+const { string, bool, func, shape } = React.PropTypes;
 const memberShape = {
     nameLast: string.isRequired,
     nameFirst: string.isRequired,
@@ -64,42 +63,20 @@ MemberButton.propTypes = {
     open: func
 };
 
-function FirstChild({ children }) {
-    return children[0] || null;
-}
-
-FirstChild.propTypes = {
-    children: arrayOf(element)
-};
-
 function MemberModal({ member, isOpen, close }) {
     const { position, field, department, email } = member;
 
-    const modal = isOpen
-        ? <div className={styles.modal} onClick={close}>
-            <div className={styles.content}>
-                <MemberButton member={member} isOpen={isOpen} />
-                <h4>
-                    {position}
-                    {padIf(', ', field)}
-                    {padIf(', ', department)}
-                </h4>
-                <p>Email: {email.replace('@', ' [at] ')}</p>
-            </div>
+    return <div className={styles.modal} onClick={close}>
+        <div className={styles.content}>
+            <MemberButton member={member} isOpen={isOpen} />
+            <h4>
+                {position}
+                {padIf(', ', field)}
+                {padIf(', ', department)}
+            </h4>
+            <p>Email: {email.replace('@', ' [at] ')}</p>
         </div>
-        : null;
-
-    const { enter, enterActive, leave, leaveActive } = styles;
-    return <ReactCSSTransitionGroup
-        transitionName={{
-            enter, enterActive, leave, leaveActive
-        }}
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={300}
-        component={FirstChild}
-    >
-        {modal}
-    </ReactCSSTransitionGroup>;
+    </div>;
 }
 
 MemberModal.propTypes = {
@@ -111,8 +88,14 @@ MemberModal.propTypes = {
 function Member(props) {
     const { member } = props;
 
+    const { enter, enterActive, leave, leaveActive } = styles;
     return <Modal
         className={styles.member}
+        transitionName={{
+            enter, enterActive, leave, leaveActive
+        }}
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
         button={<MemberButton member={member} />}
     >
         <MemberModal member={member} />

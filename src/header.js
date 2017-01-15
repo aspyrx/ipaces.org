@@ -1,12 +1,11 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 
 import Dropdown from '~/components/dropdown';
 import styles from './header.less';
 
-const { string, arrayOf, func, shape, element, object } = React.PropTypes;
+const { string, arrayOf, func, shape, object } = React.PropTypes;
 const routeShape = {
     name: string.isRequired,
     title: string,
@@ -74,33 +73,11 @@ DropdownButton.propTypes = {
     isOpen: React.PropTypes.bool
 };
 
-function FirstChild({ children }) {
-    return children[0] || null;
-}
-
-FirstChild.propTypes = {
-    children: arrayOf(element)
-};
-
-function DropdownMenu({ parent, name, title, routes, isOpen }) {
-    const menu = isOpen
-        ? <div className={styles.menu}>
-            <NavigationLink parent={parent} name={name} title={title} />
-            {renderRoutes(routes, `${parent}/${name}`)}
-        </div>
-        : null;
-
-    const { enter, enterActive, leave, leaveActive } = styles;
-    return <ReactCSSTransitionGroup
-        transitionName={{
-            enter, enterActive, leave, leaveActive
-        }}
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={300}
-        component={FirstChild}
-    >
-        {menu}
-    </ReactCSSTransitionGroup>;
+function DropdownMenu({ parent, name, title, routes }) {
+    return <div className={styles.menu}>
+        <NavigationLink parent={parent} name={name} title={title} />
+        {renderRoutes(routes, `${parent}/${name}`)}
+    </div>;
 }
 
 DropdownMenu.propTypes = {
@@ -130,10 +107,17 @@ function renderRoutes(routes, parent) {
             title={title}
         />;
 
+        const { enter, enterActive, leave, leaveActive } = styles;
+
         return <Dropdown
             key={i}
             className={styles.dropdown}
             button={button}
+            transitionName={{
+                enter, enterActive, leave, leaveActive
+            }}
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={300}
         >
             <DropdownMenu
                 parent={parent}
