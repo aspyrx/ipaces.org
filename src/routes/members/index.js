@@ -66,8 +66,13 @@ MemberButton.propTypes = {
 function MemberModal({ member, isOpen, close }) {
     const { position, field, department, email } = member;
 
+    function stopPropagation(event) {
+        event.stopPropagation();
+    }
+
     return <div className={styles.modal} onClick={close}>
-        <div className={styles.content}>
+        <div className={styles.content} onClick={stopPropagation}>
+            <div className={styles.close} onClick={close} />
             <MemberButton member={member} isOpen={isOpen} />
             <h4>
                 {position}
