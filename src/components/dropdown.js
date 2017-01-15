@@ -9,5 +9,9 @@ export default class Dropdown extends Modal {
     }
 }
 
-Dropdown.propTypes = Object.assign({}, Modal.propTypes);
+Dropdown.propTypes = {};
+
+Object.keys(Modal.propTypes).forEach(key =>
+    (Dropdown.propTypes[key] = Modal.propTypes[key])
+);
 

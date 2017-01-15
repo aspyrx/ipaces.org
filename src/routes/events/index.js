@@ -1,7 +1,7 @@
 import React from 'react';
 
 import asyncComponent from '~/components/asyncComponent';
-import events, { eventShape, eventDateString } from './events.js';
+import events, { eventShape } from './events.js';
 
 const { shape } = React.PropTypes;
 
@@ -13,14 +13,14 @@ const contentCtx = require.context(
 
 function Event(props) {
     const { event: {
-        title, start, end, location, contentPath
+        title, location, date, contentPath
     } } = props;
 
     const Content = asyncComponent(contentCtx(contentPath));
 
     return <div>
         <h2>{title}</h2>
-        <h3>{eventDateString(start)} - {eventDateString(end)}</h3>
+        <h3>{date}</h3>
         <h4>{location}</h4>
         <Content />
     </div>;
