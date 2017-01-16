@@ -1,8 +1,8 @@
 nameLast,nameFirst,nameZh,link,position,field,department,location,country,locationLink,email
 Cai,Wei-Jun,蔡卫君,http://www.marsci.uga.edu/directory/wjcai.htm,Professor,,,University of Georgia,USA,,wcai@uga.edu
-Chen,Yongshun (John),陈永顺,http://geophy.pku.edu.cn/staff/professor.php,Professor,,,Peking University,China,http://www.pku.edu.cn/,johnyc@pku.edu.cn
-Chen,Xun-Hong,,http://snr.unl.edu/aboutus/who/people/faculty/chen-xun-hong.asp,Professor,Hydrogeology,,University of Nebraska-Lincoln,USA,,xchen2@unl.edu
 Chen,Ji,,http://www.geol.ucsb.edu/faculty/ji/,Assistant Professor,Earthquake Seismology,,University of California-Santa Barbara,USA,,ji@geol.ucsb.edu
+Chen,Xun-Hong,,http://snr.unl.edu/aboutus/who/people/faculty/chen-xun-hong.asp,Professor,Hydrogeology,,University of Nebraska-Lincoln,USA,,xchen2@unl.edu
+Chen,Yongshun (John),陈永顺,http://geophy.pku.edu.cn/staff/professor.php,Professor,,,Peking University,China,http://www.pku.edu.cn/,johnyc@pku.edu.cn
 Cheng,Qiuming,成秋明,http://www.yorku.ca/geograph/Faculty/Profiles/Cheng.htm,Professor,,,York University,Canada,http://www.yorku.ca/yorkweb/index.htm,qiuming@yorku.ca
 Chi,Guoxiang,,http://uregina.ca/%7Echiguox/,Associate Professor,,,University of Regina,Canada,,Guoxiang.Chi@uregina.ca
 Deng,Baolin,,http://www.missouri.edu/%7Edengb/,C. W. LaPierre Professor,Environmental Engineering,,University of Missouri-Columbia,USA,,dengb@missouri.edu
@@ -22,8 +22,8 @@ Jiao,Jiujiu,,http://www3.hku.hk/earthsci/index.php/people/profile/5,Associate Pr
 Jin,Jisuo,,http://www.uwo.ca/earth/people/faculty/jin.html,Professor,,Department of Earth Sciences,University of Western Ontario,Canada,http://www.uwo.ca/,jjin@uwo.ca
 Kuang,Weijia,,http://core2.gsfc.nasa.gov/who.html,Senior Scientist,Geophysics and Applied Mathematics,,NASA Goddard Space Flight Center,USA,,Weijia.Kuang-1@nasa.gov
 Li,Aibing,,http://www.geosc.uh.edu/faculty/faculty.php?155622-961-5=ali2,Associate Professor,,,University of Houston,USA,,ali2@uh.edu
-Li,Chusi,,http://geology.indiana.edu/cli/index.html,"Senior Scientist, F.SEG, F.GSA",,Department of Geological Sciences,Indiana University-Bloomington,USA,,cli@indiana.edu
 Li,Baosheng,,http://www.mpi.stonybrook.edu/people/BaoshengLi/index.html,Research Professor,Mineral Physics,,Stony Brook University,USA,,baosheng.li@sunysb.edu
+Li,Chusi,,http://geology.indiana.edu/cli/index.html,"Senior Scientist, F.SEG, F.GSA",,Department of Geological Sciences,Indiana University-Bloomington,USA,,cli@indiana.edu
 Li,Jie,,http://www.geology.uiuc.edu/people/jackieli/index.html,Assistant Professor,Mineral Physics,,University of Illinois-Urbana Champaign,USA,http://www.uiuc.edu/,jackieli@uiuc.edu
 Li,Shu-Guang,李曙光,http://www.egr.msu.edu/%7Elishug/,"Professor, F.ASCE, F.GSA",Civil and Environmental Engineering,,Michigan State University,USA,http://www.msu.edu/,lishug@egr.msu.edu
 Li,Zheng-Xiang,李正祥,http://www.tsrc.uwa.edu.au/,"Principal Research Fellow, F.GSA",,,Michigan State University,USA,,zli@tsrc.uwa.edu.au
@@ -39,8 +39,8 @@ Luo,Zhexi,罗哲西,http://www.carnegiemnh.org/vp/cv/luo.htm,Curator,,,Carnegie 
 Meng,Jin,,http://www.amnh.org/science/divisions/paleo/bio.php?scientist=meng,Curator,,,American Museum of Natural History,USA,http://www.amnh.org/,jmeng@amnh.org
 Niu,Fenglin,,http://terra.rice.edu/department/faculty/niu/,Associate Professor,Seismology,,Rice University,USA,,niu@rice.edu
 Niu,Yaoling,牛耀龄,http://www.dur.ac.uk/yaoling.niu/index.htm,"Professor, F.GSA",,,University of Durham,UK,http://www.dur.ac.uk/,Yaoling.Niu@durham.ac.uk
-Qing,Hairuo,卿海若,http://www.uregina.ca/geology/People/Qing/qing.htm,Professor,,,University of Regina,Canada,http://www.uregina.ca/,Hairuo.Qing@uregina.ca
 Pan,Yuanming,,http://www.usask.ca/geology/nfaculty/yp/,Professor,,,University of Saskatchewan,Canada,http://www.usask.ca/,yuanming.pan@usask.ca
+Qing,Hairuo,卿海若,http://www.uregina.ca/geology/People/Qing/qing.htm,Professor,,,University of Regina,Canada,http://www.uregina.ca/,Hairuo.Qing@uregina.ca
 Shen,Guoyin,,http://www.hpcat.aps.anl.gov/shen.htm,Manager of High Pressure Collaborative Access Team,,,Argonne National Laboratory,USA,http://www.anlw.anl.gov/,gshen@hpcat.aps.anl.gov
 Shen,Yang,沈杨,http://seismolab.gso.uri.edu/,Professor,,,University of Rhode Island,USA,http://www.uri.edu/,yshen@gso.uri.edu
 Shi,Guang-Rong,石光荣,http://www.deakin.edu.au/scitech/les/about/staff-profiles/display/index.php?username=grshi,Professor,,,Deakin University,Australia,http://www.deakin.edu.au/,grshi@deakin.edu.au
@@ -61,8 +61,8 @@ Yin,Qingzhu,,http://www.geology.ucdavis.edu/faculty/yin.html,Associate Professor
 Yu,Zhongbo,,http://hydro.nevada.edu/,"Professor, F.GSA",,,University of Nevada-Las Vegas,USA,http://geoscience.unlv.edu/,zhongbo@unlv.nevada.edu
 Zhan,Hongbin,詹红兵,http://geoweb1.tamu.edu/Faculty/Zhan/Zhan.html,"Professor, F.GSA",,,Texas A & M University,USA,http://www.tamu.edu/,zhan@geo.tamu.edu
 Zhang,Chuanlun,张传伦,http://www.srel.edu/facstaffpages/zhang.html,Associate Research Scientist/Associate Professor,,,Savannah River Ecology Laboratory,USA,http://www.uga.edu/,zhang@srel.edu
-Zhang,Keke,,http://www.secam.ex.ac.uk/index.php?nav=staffInfo&sid=223%5C,Professor,,,University of Exeter,UK,http://www.ex.ac.uk/,KZhang@maths.ex.ac.uk
 Zhang,Dongxiao,张东晓,http://www.usc.edu/dept/civil_eng/dept/faculty-staff/faculty-directory/zhang-dongxiao.htm,"Marshall Professor, F.GSA",,,University of Southern California,USA,http://www.usc.edu/,donzhang@usc.edu
+Zhang,Keke,,http://www.secam.ex.ac.uk/index.php?nav=staffInfo&sid=223%5C,Professor,,,University of Exeter,UK,http://www.ex.ac.uk/,KZhang@maths.ex.ac.uk
 Zhang,Renduo,,,Professor,,,Sun Yat-Sen University,China,,zhangrd@mail.sysu.edu.cn
 Zhang,Yanhua,张晏华,http://www.csiro.au/people/ps2mq.html,Principal Research Scientist,,,CSIRO,Australia,http://www.em.csiro.au/,Yanhua.Zhang@csiro.au
 Zhang,You-Kuan,张幼宽,http://www.uiowa.edu/%7Egeology/people/you-kuan.html,"Professor, F.GSA",,,University of Iowa,USA,http://www.uiowa.edu/,you-kuan-zhang@uiowa.edu
@@ -74,6 +74,6 @@ Zheng,Yan,,http://qcpages.qc.edu/EES/pep/zheng.html,Professor,Geochemistry,,City
 Zhong,Shijie,钟时杰,http://anquetil.colorado.edu/szhong,Associate Professor,,,University of Colorado-Boulder,USA,http://www.colorado.edu/,szhong@spice.colorado.edu
 Zhong,Shiyuan (Sharon),,https://www.msu.edu/%7Ezhongs/,Associate Professor,,Department of Geography,Michigan State University,USA,,zhongs@msu.edu
 Zhou,Hua-Wei,周华伟,http://www.gesc.ttu.edu/Fac_pages/Zhou/Zhou_CV.html,Professor and Pevehouse Chair,,,Texas Tech University,USA,http://www.ttu.edu/,h.zhou@ttu.edu
-Zou,Haibo,,http://www.auburn.edu/%7Ehzz0006/,Assistant Professor,,Department of Geology and Geography,Auburn University,USA,http://www.auburn.edu/,haibo.zou@gmail.com
 Zhu,Chen,,http://www.indiana.edu/%7Ehydrogeo/,"Associate Professor, F.GSA",Hydrogeology and Geochemistry,,Indiana University,USA,,chenzhu@indiana.edu
 Zhu,Lupei,,http://www.eas.slu.edu/People/LZhu/home.html,Associate Professor,,,St. Louis University,USA,http://www.slu.edu/,lupei@eas.slu.edu
+Zou,Haibo,,http://www.auburn.edu/%7Ehzz0006/,Assistant Professor,,Department of Geology and Geography,Auburn University,USA,http://www.auburn.edu/,haibo.zou@gmail.com
