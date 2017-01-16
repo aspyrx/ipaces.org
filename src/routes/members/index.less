@@ -66,8 +66,23 @@
         cursor: pointer;
         transition: transform @duration-transition;
 
+        &:after {
+            align-self: center;
+            margin-top: auto;
+
+            content: '▼';
+            font-size: smaller;
+
+            opacity: 0.5;
+            transition: opacity @duration-transition;
+        }
+
         &:hover, &:focus, &:active, &.open {
             transform: scale(1.05, 1.05);
+
+            &:after {
+                opacity: 1;
+            }
         }
     }
 
@@ -98,6 +113,8 @@
             max-width: @width-container-max;
 
             cursor: initial;
+
+            transition: transform @duration-enter-leave;
 
             > .button {
                 background-color: none;
@@ -133,10 +150,18 @@
 
         &.enter, &.leave.leaveActive {
             opacity: 0;
+
+            > .content {
+                transform: scale(0);
+            }
         }
 
         &.leave, &.enter.enterActive {
             opacity: 1;
+
+            > .content {
+                transform: none;
+            }
         }
     }
 }
