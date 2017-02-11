@@ -14,15 +14,13 @@ if (!config.module) {
 if (config.module.rules) {
     for (const l of config.module.rules) {
         const loader = 'style-loader';
-        if (l.loader === loader) {
-            l.loader = ExtractTextPlugin.extract({ loader });
-            delete l.loaders;
-        } else if (l.loaders && l.loaders[0] === loader)  {
-            l.loader = ExtractTextPlugin.extract({
-                loader: l.loaders.slice(1),
-                fallbackLoader: loader
+        if (l.use === loader) {
+            l.use = ExtractTextPlugin.extract({ loader });
+        } else if (l.use[0] === loader)  {
+            l.use = ExtractTextPlugin.extract({
+                use: l.use.slice(1),
+                fallback: loader
             });
-            delete l.loaders;
         }
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import events, { eventShape } from '~/routes/events/events.js';
 import styles from './home.less';

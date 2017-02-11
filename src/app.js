@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Miss, Match } from 'react-router';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import asyncComponent from '~/components/asyncComponent';
 import Spinner from '~/components/spinner';
@@ -19,10 +19,10 @@ const matches = routesFlat.map((route, i) => {
     const { path, pattern, ...props } = route;
     const loadModule = routesCtx(path);
     const component = asyncComponent(loadModule, Spinner);
-    return <Match
+    return <Route
         {...props}
         key={i}
-        exactly pattern={pattern}
+        exact path={pattern}
         component={component}
     />;
 });
@@ -32,8 +32,10 @@ export default function App() {
         <div>
             <Header routes={routes} />
             <div className={styles.container}>
-                { matches }
-                <Miss component={asyncComponent(NotFound)} />
+                <Switch>
+                    { matches }
+                    <Route component={asyncComponent(NotFound)} />
+                </Switch>
             </div>
             <Footer routes={routes} />
         </div>

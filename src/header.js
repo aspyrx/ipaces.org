@@ -1,35 +1,55 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Route, Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 import Dropdown from '~/components/dropdown';
 import styles from './header.less';
 
-const { string, arrayOf, func, shape, object } = React.PropTypes;
+const {
+    string, arrayOf, oneOfType, func, shape, object, node
+} = React.PropTypes;
+
 const routeShape = {
     name: string.isRequired,
     title: string,
     routes: arrayOf(object)
 };
 
+function HeaderLink({ to, exact, activeClassName, children }) {
+    return <Route path={to} exact={exact} children={({ match }) => {
+        return typeof children === 'function'
+            ? children({ match })
+            : <span className={match ? activeClassName : ''}>
+                <Link to={to}>{children}</Link>
+            </span>;
+    }} />;
+}
+
+HeaderLink.propTypes = {
+    to: Link.propTypes.to,
+    exact: Route.propTypes.exact,
+    activeClassName: string,
+    children: oneOfType([node, func])
+};
+
 function Logo() {
     return <div className={styles.logo}>
-        <Link to='/' activeOnlyWhenExact activeClassName={styles.active}>
+        <HeaderLink to='/' exact activeClassName={styles.active}>
             IPACES.org
-        </Link>
+        </HeaderLink>
     </div>;
 }
 
 function NavigationLink({ parent, name, title, children, ...props }) {
     const to = `${parent}/${name}`;
-    return <Link
+    return <HeaderLink
         to={to}
-        activeOnlyWhenExact
+        exact
         activeClassName={styles.active}
         {...props}
     >
         {children || title}
-    </Link>;
+    </HeaderLink>;
 }
 
 NavigationLink.propTypes = {
@@ -61,7 +81,7 @@ function DropdownButton({ parent, name, title, isOpen }) {
         parent={parent}
         name={name}
         title={title}
-        activeOnlyWhenExact={false}
+        exact={false}
         children={Child}
     />;
 }

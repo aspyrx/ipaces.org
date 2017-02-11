@@ -42,7 +42,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 include: [vendorDir, /node_modules/],
-                loaders: [
+                use: [
                     'style-loader',
                     'css-loader?importLoaders=1',
                     'postcss-loader'
@@ -51,7 +51,7 @@ module.exports = {
             {
                 test: /\.less$/,
                 include: [vendorDir, /node_modules/],
-                loaders: [
+                use: [
                     'style-loader',
                     'css-loader?importLoaders=2',
                     'postcss-loader',
@@ -61,7 +61,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 include: [srcDir],
-                loaders: [
+                use: [
                     'style-loader',
                     'css-loader'
                         + '?modules'
@@ -73,7 +73,7 @@ module.exports = {
             {
                 test: /\.less$/,
                 include: [srcDir],
-                loaders: [
+                use: [
                     'style-loader',
                     'css-loader'
                         + '?modules'
