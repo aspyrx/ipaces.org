@@ -74,7 +74,7 @@ MemberButton.propTypes = {
 };
 
 function MemberModal({ member, isOpen, close }) {
-    const { position, field, department, email } = member;
+    const { position, awards, field, department, email } = member;
 
     function stopPropagation(event) {
         event.stopPropagation();
@@ -86,9 +86,13 @@ function MemberModal({ member, isOpen, close }) {
             <MemberButton member={member} isOpen={isOpen} />
             <h4>
                 {position}
-                {padIf(', ', field)}
                 {padIf(', ', department)}
             </h4>
+            <p>
+                {field}
+                {awards && <br />}
+                {awards}
+            </p>
             <p>Email: {email.replace('@', ' [at] ')}</p>
         </div>
     </div>;
