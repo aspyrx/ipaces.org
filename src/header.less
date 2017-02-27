@@ -86,9 +86,17 @@
                 }
 
                 &:after {
-                    content: '►';
-                    font-size: 50%;
-                    vertical-align: middle;
+                    @size: @font-size / 2;
+
+                    margin-left: @size / 2;
+                    width: 0;
+                    height: 0;
+                    content: ' ';
+
+                    color: inherit;
+                    border-top: @size / 2 solid transparent;
+                    border-left: @size solid;
+                    border-bottom: @size / 2 solid transparent;
 
                     opacity: 0.5;
                     transition-property: opacity, transform;
