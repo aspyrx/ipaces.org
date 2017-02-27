@@ -44,6 +44,7 @@
         a, .dropdown .button {
             display: flex;
             align-items: center;
+            justify-content: center;
 
             padding: @spacing-y @spacing-x;
 
@@ -70,6 +71,8 @@
 
         .dropdown {
             position: relative;
+            display: flex;
+            flex-flow: column;
 
             .button {
                 height: 100%;
@@ -178,10 +181,6 @@
 
         .media-screen-sm({
             flex-flow: column nowrap;
-
-            > *:not(:last-child) {
-                border-bottom: @border;
-            }
 
             .child-separator(bottom);
         });
