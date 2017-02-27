@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import styles from './footer.less';
 
-export default function Footer({ routes }) {
-    const links = routes.filter(route =>
-        'title' in route
+export default function Footer({ routeConfig }) {
+    const links = routeConfig.filter(config =>
+        'title' in config
     ).map(({ name, title }, i) =>
         <Link key={i} to={`/${name}`}>{title}</Link>
     );
@@ -30,7 +30,7 @@ export default function Footer({ routes }) {
 
 const { arrayOf, shape, string } = React.PropTypes;
 Footer.propTypes = {
-    routes: arrayOf(shape({
+    routeConfig: arrayOf(shape({
         name: string.isRequired,
         title: string
     }))

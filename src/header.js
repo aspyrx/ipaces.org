@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 
 import Dropdown from '~/components/dropdown';
@@ -9,54 +9,39 @@ const {
     string, arrayOf, oneOfType, func, shape, object, node
 } = React.PropTypes;
 
-const routeShape = {
+const routeConfigShape = {
     name: string.isRequired,
     title: string,
-    routes: arrayOf(object)
-};
-
-function HeaderLink({ to, exact, activeClassName, children }) {
-    return <Route path={to} exact={exact} children={({ match }) => {
-        return typeof children === 'function'
-            ? children({ match })
-            : <span className={match ? activeClassName : ''}>
-                <Link to={to}>{children}</Link>
-            </span>;
-    }} />;
-}
-
-HeaderLink.propTypes = {
-    to: Link.propTypes.to,
-    exact: Route.propTypes.exact,
-    activeClassName: string,
-    children: oneOfType([node, func])
+    routeConfig: arrayOf(object)
 };
 
 function Logo() {
     return <div className={styles.logo}>
-        <HeaderLink to='/' exact activeClassName={styles.active}>
+        <NavLink to='/' exact activeClassName={styles.active}>
             IPACES.org
-        </HeaderLink>
+        </NavLink>
     </div>;
 }
 
-function NavigationLink({ parent, name, title, children, ...props }) {
+function HeaderLink({ parent, name, children, ...props }) {
     const to = `${parent}/${name}`;
-    return <HeaderLink
-        to={to}
-        exact
-        activeClassName={styles.active}
-        {...props}
-    >
-        {children || title}
-    </HeaderLink>;
+
+    return typeof children === 'function'
+        ? <Route path={to} children={children} {...props} />
+        : <NavLink
+            to={to}
+            exact
+            activeClassName={styles.active}
+            {...props}
+        >
+            {children}
+        </NavLink>;
 }
 
-NavigationLink.propTypes = {
+HeaderLink.propTypes = {
     parent: string.isRequired,
     name: string.isRequired,
-    title: string.isRequired,
-    children: func
+    children: oneOfType([func, node])
 };
 
 function DropdownButton({ parent, name, title, isOpen }) {
@@ -77,10 +62,9 @@ function DropdownButton({ parent, name, title, isOpen }) {
         isActive: React.PropTypes.bool
     };
 
-    return <NavigationLink
+    return <HeaderLink
         parent={parent}
         name={name}
-        title={title}
         exact={false}
         children={Child}
     />;
@@ -93,10 +77,10 @@ DropdownButton.propTypes = {
     isOpen: React.PropTypes.bool
 };
 
-function DropdownMenu({ parent, name, title, routes }) {
+function DropdownMenu({ parent, name, title, routeConfig }) {
     return <div className={styles.menu}>
-        <NavigationLink parent={parent} name={name} title={title} />
-        {renderRoutes(routes, `${parent}/${name}`)}
+        <HeaderLink parent={parent} name={name}>{title}</HeaderLink>
+        {renderRoutes(routeConfig, `${parent}/${name}`)}
     </div>;
 }
 
@@ -105,20 +89,21 @@ DropdownMenu.propTypes = {
     name: string.isRequired,
     title: string.isRequired,
     isOpen: React.PropTypes.bool,
-    routes: arrayOf(shape(routeShape))
+    routeConfig: arrayOf(shape(routeConfigShape))
 };
 
-function renderRoutes(routes, parent) {
-    return routes.filter(route =>
-        'title' in route
-    ).map(({ routes: subRoutes, title, name }, i) => {
+function renderRoutes(routeConfig, parent) {
+    return routeConfig.filter(config =>
+        'title' in config
+    ).map(({ routeConfig: subRoutes, title, name }, i) => {
         if (!subRoutes) {
-            return <NavigationLink
+            return <HeaderLink
                 key={i}
                 parent={parent}
                 name={name}
-                title={title}
-            />;
+            >
+                {title}
+            </HeaderLink>;
         }
 
         const button = <DropdownButton
@@ -143,26 +128,26 @@ function renderRoutes(routes, parent) {
                 parent={parent}
                 name={name}
                 title={title}
-                routes={subRoutes}
+                routeConfig={subRoutes}
             />
         </Dropdown>;
     });
 }
 
-export default function Header({ routes }) {
+export default function Header({ routeConfig }) {
     return <div className={styles.header}>
         <div className={styles.navigation}>
             <Logo />
-            {renderRoutes(routes, '')}
+            {renderRoutes(routeConfig, '')}
         </div>
     </div>;
 }
 
 Header.propTypes = {
-    routes: arrayOf(shape({
+    routeConfig: arrayOf(shape({
         name: string.isRequired,
         title: string,
-        routes: arrayOf(shape(routeShape))
+        routeConfig: arrayOf(shape(routeConfigShape))
     }))
 };
 

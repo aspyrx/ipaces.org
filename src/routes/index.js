@@ -1,11 +1,11 @@
-const routes = [{
+const routeConfig = [{
     name: '',
     path: './home.js'
 }, {
     name: 'about',
     path: './about/index.md',
     title: 'About',
-    routes: [{
+    routeConfig: [{
         name: 'bylaws',
         path: './about/bylaws.md',
         title: 'Bylaws'
@@ -20,19 +20,19 @@ const routes = [{
     title: 'Events'
 }];
 
-function routesReducer(parent) {
-    return (arr, route) => arr.concat(flattenRoute(route, parent));
+function configReducer(parent) {
+    return (arr, config) => arr.concat(flattenConfig(config, parent));
 }
 
-function flattenRoute({ routes: subRoutes, name, ...route }, parent) {
-    route.pattern = `${parent}/${name}`;
+function flattenConfig({ routeConfig: subRoutes, name, ...config }, parent) {
+    config.pattern = `${parent}/${name}`;
 
     return subRoutes
-        ? subRoutes.reduce(routesReducer(route.pattern), [route])
-        : route;
+        ? subRoutes.reduce(configReducer(config.pattern), [config])
+        : config;
 }
 
-const routesFlat = routes.reduce(routesReducer(''), []);
+const routeConfigFlat = routeConfig.reduce(configReducer(''), []);
 
-export { routes as default, routesFlat };
+export { routeConfig as default, routeConfigFlat };
 
