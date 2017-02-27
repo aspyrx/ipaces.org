@@ -6,6 +6,17 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = require('./webpack.config.base.js');
 
+if (!config.resolve) {
+    config.resolve = {};
+}
+
+if (!config.resolve.alias) {
+    config.resolve.alias = {};
+}
+
+config.resolve.alias['react'] = 'react-lite';
+config.resolve.alias['react-dom'] = 'react-lite';
+
 if (!config.module) {
     config.module = {};
 }
