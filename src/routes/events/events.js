@@ -49,6 +49,7 @@ function Event(config) {
     this.startDate = parseConfigDateString(startDate);
     this.endDate = endDate ? parseConfigDateString(endDate) : null;
     this.location = location;
+    this.path = contentPath.match(/^(.*)\.md$/)[1];
     this.contentPath = './' + contentPath;
 
     this.start = formatDate(this.startDate);
@@ -63,6 +64,9 @@ function Event(config) {
 
 const events = eventConfigs.map(config => new Event(config))
     .sort((a, b) => a.startDate - b.startDate);
+
+events.byPath = Object.create(null);
+events.forEach(event => (events.byPath[event.path] = event));
 
 export { events as default, eventShape };
 

@@ -12,11 +12,11 @@ function Hero() {
 
 function EventPreview(props) {
     const { event: {
-        title, location, date
+        title, location, date, path
     } } = props;
 
     return <div className={styles.eventPreview}>
-        <h3>{date}: <Link to='/events'>{title}</Link></h3>
+        <h3>{date}: <Link to={`/events/${path}`}>{title}</Link></h3>
         <h4>{location}</h4>
     </div>;
 }
@@ -38,7 +38,7 @@ export default function Home() {
             Membership in IPACES is by invitation only (see <Link
                 to='/about/bylaws'>Bylaws</Link>).
         </p>
-        <h2>Upcoming Events</h2>
+        <Link to="/events"><h2>Upcoming Events</h2></Link>
         <ul>{events.map((event, i) =>
             <li key={i}><EventPreview event={event} /></li>
         )}</ul>

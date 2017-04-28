@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 const { string, bool, arrayOf, element } = React.PropTypes;
 
@@ -63,12 +63,12 @@ export default class Modal extends React.Component {
 
         return <span className={className}>
             {React.cloneElement(button, { isOpen, open: this.open })}
-            <ReactCSSTransitionGroup
+            <CSSTransitionGroup
                 component={FirstChild}
                 {...rest}
             >
                 {modal}
-            </ReactCSSTransitionGroup>
+            </CSSTransitionGroup>
         </span>;
     }
 }

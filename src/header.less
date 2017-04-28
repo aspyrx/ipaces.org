@@ -17,7 +17,6 @@
         margin: 0 auto;
         box-sizing: border-box;
 
-        font-weight: bold;
         font-size: larger;
 
         .active() {
@@ -173,10 +172,19 @@
 
             > * {
                 flex: 1;
-            }
+                display: flex;
+                flex-flow: column;
 
-            font-weight: bold;
-            font-size: larger;
+                text-align: center;
+
+                > * {
+                    line-height: 1.1;
+                }
+
+                > .logozh {
+                    font-size: smaller;
+                }
+            }
         }
 
         .media-screen-sm({

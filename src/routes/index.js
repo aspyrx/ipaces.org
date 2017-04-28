@@ -32,7 +32,9 @@ function flattenConfig({ routeConfig: subRoutes, name, ...config }, parent) {
         : config;
 }
 
-const routeConfigFlat = routeConfig.reduce(configReducer(''), []);
+const routeConfigFlat = routeConfig
+    .reduce(configReducer(''), [])
+    .sort((a, b) => b.pattern.length - a.pattern.length);
 
 export { routeConfig as default, routeConfigFlat };
 

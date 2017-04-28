@@ -18,7 +18,8 @@ const routeConfigShape = {
 function Logo() {
     return <div className={styles.logo}>
         <NavLink to='/' exact activeClassName={styles.active}>
-            IPACES.org
+            <div className={styles.logozh}>中国地球科学促进会</div>
+            <div className={styles.logoen}>IPACES.org</div>
         </NavLink>
     </div>;
 }

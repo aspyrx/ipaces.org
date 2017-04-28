@@ -22,7 +22,7 @@ const routes = routeConfigFlat.map((config, i) => {
     return <Route
         {...props}
         key={i}
-        exact path={pattern}
+        path={pattern}
         component={component}
     />;
 });
