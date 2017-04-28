@@ -80,7 +80,7 @@ and Global Change Workshop & Summer School）定于2017年7月10日至7月14日�
 电话:  0755-88018014<br />
 邮箱： niwc [at] mail.sustc.edu.cn<br />
 暑期学校网址：
-[https://ipaces.org/2017summerschool](/2017summerschool)
+[https://ipaces.org/events/2017-07-10-summer-school](/events/2017-07-10-summer-school)
 <br />
 IPACES 2017执行委员会成员：郑焰教授（主席）、包惠明（下届主席）、高尚行
 （财务长）<br />
