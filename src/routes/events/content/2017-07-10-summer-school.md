@@ -48,7 +48,8 @@ and Global Change Workshop & Summer School）定于2017年7月10日至7月14日�
 
 <h4>四、暑期学校注册</h4>
 
-每位学员都需要预先提交注册表。请将填好的注册表格（见附件）于2017年6月10日之前，
+每位学员都需要预先提交注册表。请将填好的注册表格（
+[registration.docx](./registration.docx)）于2017年6月10日之前，
 以电子邮件的方式发给南方科技大学的倪文成老师
 （niwc [at] mail.sustc.edu.cn）。
 
@@ -65,7 +66,7 @@ and Global Change Workshop & Summer School）定于2017年7月10日至7月14日�
 3. 两名教师书面推荐意见。
 
 资助申请材料：
-1. 资助申请表 （见附件 ）
+1. 资助申请表 （[financial.docx](./financial.docx) ）
 2. 本科成绩单和专业排名证明（需加盖教务处公章）
 3. 两名教师的推荐信
 4. 投递方式：仅接受电子版材料。将申请表填写好之后，与其它材料的扫描件发至倪文成
@@ -80,7 +81,7 @@ and Global Change Workshop & Summer School）定于2017年7月10日至7月14日�
 电话:  0755-88018014<br />
 邮箱： niwc [at] mail.sustc.edu.cn<br />
 暑期学校网址：
-[https://ipaces.org/events/2017-07-10-summer-school](/events/2017-07-10-summer-school)
+[https://ipaces.org/events/2017-07-10-summer-school](.)
 <br />
 IPACES 2017执行委员会成员：郑焰教授（主席）、包惠明（下届主席）、高尚行
 （财务长）<br />

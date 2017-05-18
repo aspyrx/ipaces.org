@@ -49,7 +49,7 @@ function Event(config) {
     this.startDate = parseConfigDateString(startDate);
     this.endDate = endDate ? parseConfigDateString(endDate) : null;
     this.location = location;
-    this.path = contentPath.match(/^(.*)\.md$/)[1];
+    this.path = contentPath.match(/^(.*)\.md$/)[1] + '/';
     this.contentPath = './' + contentPath;
 
     this.start = formatDate(this.startDate);

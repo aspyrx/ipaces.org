@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, Redirect, Switch } from 'react-router-dom';
 
 import asyncComponent from '~/components/asyncComponent';
 import NotFound from '~/components/NotFound';
@@ -21,6 +21,7 @@ function Event(props) {
     const Content = asyncComponent(contentCtx(contentPath));
 
     return <div>
+        <Link to=".."><h1>Events</h1></Link>
         <h2>{title}</h2>
         <h3>{date}</h3>
         <h4>{location}</h4>
@@ -33,7 +34,7 @@ Event.propTypes = {
 };
 
 function EventMatcher(props) {
-    const { path } = props.match.params;
+    const path = props.match.params.path + '/';
     if (!(path in events.byPath)) {
         return <NotFound {...props} />;
     }
@@ -51,13 +52,14 @@ EventMatcher.propTypes = {
 
 function EventList() {
     return <div>
+        <h1>Events</h1>
         {events.map((event, i) => {
             const {
                 title, location, date, path
             } = event;
 
             return <div key={i}>
-                <Link to={`/events/${path}`}><h2>{title}</h2></Link>
+                <Link to={`./${path}`}><h2>{title}</h2></Link>
                 <h3>{date}</h3>
                 <h4>{location}</h4>
             </div>;
@@ -67,9 +69,12 @@ function EventList() {
 
 export default function Events() {
     return <div>
-        <Link to="/events"><h1>Events</h1></Link>
         <Switch>
-            <Route path="/events/:path" component={EventMatcher} />
+            <Route path="/events/:path/" strict component={EventMatcher} />
+            <Route path="/events/:path" render={({ match }) => {
+                const { path } = match.params;
+                return <Redirect to={`./${path}/`} />;
+            }} />
             <Route component={EventList} />
         </Switch>
     </div>;
