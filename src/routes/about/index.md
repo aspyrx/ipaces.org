@@ -9,5 +9,5 @@ The mission of IPACES is
 
 ## Bylaws
 
-Please see our [bylaws](./about/bylaws) page for details.
+Please see our [bylaws](./bylaws/) page for details.
 
