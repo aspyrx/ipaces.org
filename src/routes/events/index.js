@@ -59,7 +59,7 @@ function EventList() {
             } = event;
 
             return <div key={i}>
-                <Link to={`./${path}`}><h2>{title}</h2></Link>
+                <Link to={`/events/${path}`}><h2>{title}</h2></Link>
                 <h3>{date}</h3>
                 <h4>{location}</h4>
             </div>;
@@ -73,7 +73,7 @@ export default function Events() {
             <Route path="/events/:path/" strict component={EventMatcher} />
             <Route path="/events/:path" render={({ match }) => {
                 const { path } = match.params;
-                return <Redirect to={`./${path}/`} />;
+                return <Redirect to={`/events/${path}/`} />;
             }} />
             <Route component={EventList} />
         </Switch>
