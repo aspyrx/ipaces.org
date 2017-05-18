@@ -23,6 +23,7 @@ const routes = routeConfigFlat.map((config, i) => {
         {...props}
         key={i}
         path={pattern}
+        exact={pattern === '/'}
         component={component}
     />;
 });
