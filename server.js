@@ -11,6 +11,7 @@ const index = path.join(bundleDir, 'index.html');
 
 function serveFile(res, filepath) {
     return new Promise((resolve, reject) => {
+        console.log(filepath);
         fs.createReadStream(filepath)
             .on('error', reject)
             .pipe(res)
@@ -30,7 +31,7 @@ function serve(res, contentBase, pathname) {
             return;
         }
 
-        if (contentBase) {
+        if (contentBase.length > 0) {
             return serve(res, contentBase, pathname);
         }
 
