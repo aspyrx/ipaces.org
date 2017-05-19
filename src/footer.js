@@ -7,7 +7,7 @@ export default function Footer({ routeConfig }) {
     const links = Object.keys(routeConfig.children)
         .map((name, i) => {
             const { title } = routeConfig.children[name];
-            return <Link key={i} to={`/${name}`}>{title}</Link>;
+            return <Link key={i} to={`/${name}/`}>{title}</Link>;
         });
 
     return <div className={styles.footer}>
