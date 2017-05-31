@@ -1,13 +1,12 @@
 import React from 'react';
+import {
+    bool, string, oneOfType, func, shape, object, node
+} from 'prop-types';
 import { Route, NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 
 import Dropdown from '~/components/dropdown';
 import styles from './header.less';
-
-const {
-bool, string, oneOfType, func, shape, object, node
-} = React.PropTypes;
 
 function objectIsEmpty(obj) {
     // eslint-disable-next-line guard-for-in

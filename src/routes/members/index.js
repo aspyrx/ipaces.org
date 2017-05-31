@@ -1,4 +1,5 @@
 import React from 'react';
+import { string, bool, func, shape } from 'prop-types';
 import classNames from 'classnames';
 
 import Modal from '~/components/modal';
@@ -6,7 +7,6 @@ import Modal from '~/components/modal';
 import members from './members.csv';
 import styles from './index.less';
 
-const { string, bool, func, shape } = React.PropTypes;
 const memberShape = {
     nameLast: string.isRequired,
     nameFirst: string.isRequired,

@@ -1,4 +1,5 @@
 import React from 'react';
+import { object, shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import styles from './footer.less';
@@ -28,7 +29,6 @@ export default function Footer({ routeConfig }) {
     </div>;
 }
 
-const { object, shape, string } = React.PropTypes;
 Footer.propTypes = {
     routeConfig: shape({
         path: string.isRequired,

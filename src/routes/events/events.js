@@ -1,8 +1,6 @@
-import React from 'react';
+import { string } from 'prop-types';
 
 import eventConfigs from './events.csv';
-
-const { string } = React.PropTypes;
 
 function dateType(props, key, name, required) {
     if (!(key in props) && !required) {

@@ -1,7 +1,6 @@
 import React from 'react';
+import { string, bool, arrayOf, element } from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-
-const { string, bool, arrayOf, element } = React.PropTypes;
 
 function FirstChild({ children }) {
     return children[0] || null;

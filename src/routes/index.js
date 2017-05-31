@@ -1,4 +1,5 @@
 import React from 'react';
+import { shape } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import events, { eventShape } from '~/routes/events/events.js';
@@ -22,7 +23,7 @@ function EventPreview(props) {
 }
 
 EventPreview.propTypes = {
-    event: React.PropTypes.shape(eventShape)
+    event: shape(eventShape)
 };
 
 export default function Home() {

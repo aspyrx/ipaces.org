@@ -1,11 +1,10 @@
 import React from 'react';
+import { shape, string } from 'prop-types';
 import { Link, Route, Redirect, Switch } from 'react-router-dom';
 
 import asyncComponent from '~/components/asyncComponent';
 import NotFound from '~/components/NotFound';
 import events, { eventShape } from './events.js';
-
-const { shape, string } = React.PropTypes;
 
 const contentCtx = require.context(
     'bundle-loader?lazy!./content',
