@@ -27,10 +27,11 @@ module.exports.default = function() {
  */
 module.exports = function loader(content) {
     this.cacheable();
+    this.addDependency(this.resourcePath);
 
     const done = this.async();
     if (!done) {
-        const html = marked(content);
+        const html = toComponent(marked(content));
         return html;
     }
 
