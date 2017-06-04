@@ -17,7 +17,7 @@ module.exports = {
     context: ctxDir,
     entry: {
         main: [srcDir],
-        lib: ['react', 'react-dom', 'react-router']
+        lib: ['babel-polyfill', 'react', 'react-dom', 'react-router']
     },
     output: {
         path: outDir,
