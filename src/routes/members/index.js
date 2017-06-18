@@ -136,7 +136,8 @@ export default class Members extends React.Component {
             'nameFirst',
             'nameZh',
             'location',
-            'country'
+            'country',
+            'email'
         ];
         this.onInputChange = this.onInputChange.bind(this);
     }
@@ -171,9 +172,16 @@ export default class Members extends React.Component {
     }
 
     render() {
+        const matches = members.filter(member =>
+            member.searchScore === void 0
+            || member.searchScore > 0
+        ).sort((a, b) =>
+            b.searchScore - a.searchScore
+        );
+        const amount = `${matches.length}/${members.length}`;
         return <div className={styles.members}>
             <div className={styles.header}>
-                <h1>Members</h1>
+                <h1>Members <span className={styles.amount}>{amount}</span></h1>
                 <input
                     type="text"
                     placeholder="Search"
@@ -182,12 +190,7 @@ export default class Members extends React.Component {
                 />
             </div>
             <div className={styles.list}>
-                {members.filter(member =>
-                    member.searchScore === void 0
-                    || member.searchScore > 0
-                ).sort((a, b) =>
-                    b.searchScore - a.searchScore
-                ).map((member, i) =>
+                {matches.map((member, i) =>
                     <Member key={i} member={member} />
                 )}
             </div>
