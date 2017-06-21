@@ -13,9 +13,9 @@ Please see our [bylaws](./bylaws/) page for details.
 
 ## Insignia
 
-<div style="display: flex; justify-content: center;">
-<img src="/images/logo-dark.png" style="max-width: 50%; height: auto;" />
-</div>
+<a style="display: flex; justify-content: center;" href="/images/logo-dark.png">
+<img src="/images/logo-dark.png" style="max-width: 100%;" />
+</a>
 
 The IPACES insignia was designed in 1999 with Mark Klinger of the Carnegie
 Museum, in consultation with Youxue Zhang while he was a curator at the Museum.
