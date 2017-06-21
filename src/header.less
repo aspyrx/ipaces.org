@@ -169,19 +169,33 @@
 
         .logo {
             display: flex;
+            flex-flow: row nowrap;
 
-            > * {
+            .active, a:active, a:hover {
+                .img {
+                    background-image: url('/images/logo-light.png');
+                }
+            }
+
+            .img {
+                min-width: 50px;
+                min-height: 50px;
+                margin-right: @spacing-x;
+                background-image: url('/images/logo-dark.png');
+                background-size: cover;
+                background-position: cover;
+                transition: background-image @duration-transition ease-in-out;
+            }
+
+            .text {
                 flex: 1;
                 display: flex;
                 flex-flow: column;
 
                 text-align: center;
+                line-height: 1.1;
 
-                > * {
-                    line-height: 1.1;
-                }
-
-                > .logozh {
+                > .zh {
                     font-size: smaller;
                 }
             }
