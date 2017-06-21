@@ -13,8 +13,8 @@ Please see our [bylaws](./bylaws/) page for details.
 
 ## Insignia
 
-<a style="display: flex; justify-content: center;" href="/images/logo-dark.png">
-<img src="/images/logo-dark.png" style="max-width: 100%;" />
+<a style="display: block; text-align: center;" href="/images/logo-dark.png">
+<img src="/images/logo-dark.png" style="width: 480px; max-width: 100%;" />
 </a>
 
 The IPACES insignia was designed in 1999 with Mark Klinger of the Carnegie
