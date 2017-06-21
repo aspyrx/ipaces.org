@@ -171,15 +171,13 @@
             display: flex;
             flex-flow: row nowrap;
 
-            .active, a:active, a:hover {
-                .img {
-                    background-image: url('/images/logo-light.png');
-                }
-            }
+            @line-height: 1.1;
+            line-height: @line-height;
 
-            .img {
-                min-width: 50px;
-                min-height: 50px;
+            .image {
+                @height: 2 * @font-size * @line-height + @spacing-y;
+                height: @height;
+                min-width: @height;
                 margin-right: @spacing-x;
                 background-image: url('/images/logo-dark.png');
                 background-size: cover;
@@ -187,13 +185,17 @@
                 transition: background-image @duration-transition ease-in-out;
             }
 
+            &.active, &:active, &:hover {
+                .image {
+                    background-image: url('/images/logo-light.png');
+                }
+            }
+
             .text {
-                flex: 1;
                 display: flex;
                 flex-flow: column;
 
                 text-align: center;
-                line-height: 1.1;
 
                 > .zh {
                     font-size: smaller;

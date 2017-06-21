@@ -18,15 +18,16 @@ function objectIsEmpty(obj) {
 }
 
 function Logo() {
-    return <div className={styles.logo}>
-        <NavLink to='/' exact activeClassName={styles.active}>
-            <div className={styles.img} />
-            <div className={styles.text} >
-                <div className={styles.zh}>中国地球科学促进会</div>
-                <div className={styles.en}>IPACES.org</div>
-            </div>
-        </NavLink>
-    </div>;
+    return <NavLink to='/' exact
+        className={styles.logo}
+        activeClassName={styles.active}
+    >
+        <div className={styles.image} />
+        <div className={styles.text} >
+            <div className={styles.zh}>中国地球科学促进会</div>
+            <div className={styles.en}>IPACES.org</div>
+        </div>
+    </NavLink>;
 }
 
 function HeaderLink({ to, children, ...props }) {
