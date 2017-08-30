@@ -1,6 +1,6 @@
-@import '~base';
+@import '~src/less/definitions';
 
-a[href] {
+a {
     color: @color-primary;
     text-decoration: none;
     &:hover, &:active {
@@ -15,22 +15,22 @@ a[href] {
 }
 
 :global(#app) {
-    font-family: cjk, Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
-    font-size: @font-size;
-    line-height: @line-height;
     min-height: 100vh;
-    background-color: @color-bg;
     display: flex;
     flex-flow: column nowrap;
+
+    font-family: cjk, Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+    font-weight: 400;
+    font-size: @font-size;
+    line-height: @line-height;
+
+    background-color: @color-bg;
+    color: @color-text;
 
     > * {
         flex: 1;
         display: inherit;
         flex-flow: column nowrap;
-    }
-
-    :focus {
-        outline: none;
     }
 
     .container {
@@ -40,11 +40,10 @@ a[href] {
 
         width: 100%;
         max-width: @width-container-max;
-        margin: @spacing-y auto;
+
+        margin: (@height-header + 2 * @spacing-y) auto @spacing-y;
         padding: 0 @spacing-x;
         box-sizing: border-box;
-
-        color: @color-text;
     }
 }
 

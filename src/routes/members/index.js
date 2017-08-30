@@ -2,12 +2,29 @@ import React from 'react';
 import { string, bool, func, shape } from 'prop-types';
 import classNames from 'classnames';
 
-import Modal from '~/components/modal';
+import Modal from 'src/Modal';
 
 import members from './members.csv';
 import styles from './index.less';
 
-const memberShape = {
+/**
+ * Information about a member.
+ *
+ * @typedef {Object} Member
+ * @property {string} nameLast - Last name.
+ * @property {string} nameFirst - First name.
+ * @property {string} position - Position/title.
+ * @property {string} location - Location/institution.
+ * @property {string} country - Country of institution.
+ * @property {string} email - Email.
+ * @property {string} nameZh - Chinese name.
+ * @property {string} link - Personal link.
+ * @property {string} locationLink - Location/institution link.
+ * @property {string} field - Field of study.
+ * @property {string} department - Department within institution.
+ */
+
+const memberShape = shape({
     nameLast: string.isRequired,
     nameFirst: string.isRequired,
     position: string.isRequired,
@@ -19,8 +36,26 @@ const memberShape = {
     locationLink: string.isRequired,
     field: string.isRequired,
     department: string.isRequired
-};
+});
 
+
+/**
+ * Stops an event from propagating.
+ *
+ * @param {Event} event - The event to stop propagating.
+ */
+function stopPropagation(event) {
+    event.stopPropagation();
+}
+
+/**
+ * Pads the string if it is non-empty; otherwise, returns an empty string.
+ *
+ * @param {string} left - The string to pad with on the left.
+ * @param {string} str - The string.
+ * @param {string} [right=''] - The string to pad with on the right.
+ * @returns {string} The padded string, or an empty string.
+ */
 function padIf(left, str, right = '') {
     if (left) {
         return str ? left + str + right : '';
@@ -29,7 +64,17 @@ function padIf(left, str, right = '') {
     return str ? str + right : '';
 }
 
-function MemberButton({ member, isOpen, open }) {
+/**
+ * Member card button React component.
+ *
+ * @param {Object} props - The component's props.
+ * @param {src/routes/members~Member} props.member - The member.
+ * @param {boolean} props.isOpen - Whether or not the associated modal is open.
+ * @param {Function} props.open - The modal-opening function.
+ * @returns {ReactElement} The component's elements.
+ */
+function MemberButton(props) {
+    const { member, isOpen, open } = props;
     const {
         nameLast, nameFirst, nameZh, link,
         location, locationLink, country
@@ -38,10 +83,6 @@ function MemberButton({ member, isOpen, open }) {
     const classes = classNames(styles.button, {
         [styles.open]: isOpen
     });
-
-    function stopPropagation(event) {
-        event.stopPropagation();
-    }
 
     return <div className={classes} onClick={open}>
         <h2>
@@ -68,17 +109,23 @@ function MemberButton({ member, isOpen, open }) {
 }
 
 MemberButton.propTypes = {
-    member: shape(memberShape),
+    member: memberShape.isRequired,
     isOpen: bool,
     open: func
 };
 
-function MemberModal({ member, isOpen, close }) {
+/**
+ * Member card modal React component.
+ *
+ * @param {Object} props - The component's props.
+ * @param {src/routes/members~Member} props.member - The member.
+ * @param {boolean} props.isOpen - Whether or not the associated modal is open.
+ * @param {Function} props.close - The modal-closing function.
+ * @returns {ReactElement} The component's elements.
+ */
+function MemberModal(props) {
+    const { member, isOpen, close } = props;
     const { position, awards, field, department, email } = member;
-
-    function stopPropagation(event) {
-        event.stopPropagation();
-    }
 
     return <div className={styles.modal} onClick={close}>
         <div className={styles.content} onClick={stopPropagation}>
@@ -104,17 +151,25 @@ MemberModal.propTypes = {
     close: func
 };
 
+/**
+ * Member React component.
+ *
+ * @param {Object} props - The component's props.
+ * @param {src/routes/members~Member} props.member - The member.
+ * @returns {ReactElement} The component's elements.
+ */
 function Member(props) {
     const { member } = props;
 
-    const { enter, enterActive, leave, leaveActive } = styles;
+    const { enter, enterActive, exit, exitActive } = styles;
     return <Modal
         className={styles.member}
-        transitionName={{
-            enter, enterActive, leave, leaveActive
+        transition={{
+            classNames: {
+                enter, enterActive, exit, exitActive
+            },
+            timeout: 300
         }}
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={300}
         button={<MemberButton member={member} />}
     >
         <MemberModal member={member} />
@@ -122,26 +177,39 @@ function Member(props) {
 }
 
 Member.propTypes = {
-    className: string,
-    member: shape(memberShape)
+    member: memberShape.isRequired
 };
 
+const searchKeys = [
+    'nameLast',
+    'nameFirst',
+    'nameZh',
+    'location',
+    'country',
+    'email'
+];
+
+/**
+ * Member list React component.
+ */
 export default class Members extends React.Component {
+    /**
+     * Initializes the component.
+     */
     constructor() {
         super();
 
         this.state = { searchString: '' };
-        this.searchKeys = [
-            'nameLast',
-            'nameFirst',
-            'nameZh',
-            'location',
-            'country',
-            'email'
-        ];
-        this.onInputChange = this.onInputChange.bind(this);
+        this.onSearchChange = this.onSearchChange.bind(this);
     }
 
+    /**
+     * Determines the search score for a given member and search string.
+     *
+     * @param {src/routes/members~Member} member - The member.
+     * @param {string} searchString - The search string.
+     * @returns {number} The score for that member. Higher scores are better.
+     */
     searchScore(member, searchString) {
         if (!searchString) {
             return;
@@ -149,19 +217,36 @@ export default class Members extends React.Component {
 
         const terms = searchString.toLowerCase().trim().split(/\s+/);
 
-        return terms.reduce((score, term) =>
-            score + (this.searchKeys.reduce(
-                (str, key) => str + member[key].toLowerCase().trim(), ''
-            ).indexOf(term) === -1 ? 0 : term.length),
+        return terms.reduce(
+            (score, term) => {
+                const termIndex = searchKeys.reduce(
+                    (str, key) => {
+                        return str + member[key].toLowerCase().trim();
+                    },
+                    ''
+                ).indexOf(term);
+                return score + (termIndex === -1 ? 0 : term.length);
+            },
             0
         );
     }
 
-    onInputChange(event) {
+    /**
+     * Handler for `change` events on the search input.
+     *
+     * @param {Event} event - The event.
+     */
+    onSearchChange(event) {
         const field = event.target.getAttribute('data-field');
         this.setState({ [field]: event.target.value });
     }
 
+    /**
+     * React lifecycle handler called when component is about to update.
+     *
+     * @param {Object} nextProps - The component's new props.
+     * @param {Object} nextState - The component's new state.
+     */
     componentWillUpdate(nextProps, nextState) {
         const { searchString } = nextState;
         if (searchString !== this.state.searchString) {
@@ -171,6 +256,11 @@ export default class Members extends React.Component {
         }
     }
 
+    /**
+     * Renders the component.
+     *
+     * @returns {ReactElement} The component's elements.
+     */
     render() {
         const matches = members.filter(member =>
             member.searchScore === void 0
@@ -186,7 +276,7 @@ export default class Members extends React.Component {
                     type="text"
                     placeholder="Search"
                     data-field="searchString"
-                    onChange={this.onInputChange}
+                    onChange={this.onSearchChange}
                 />
             </div>
             <div className={styles.list}>

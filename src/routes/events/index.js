@@ -1,10 +1,17 @@
+/**
+ * Event list page.
+ *
+ * @module src/routes/events
+ */
+
 import React from 'react';
-import { shape, string } from 'prop-types';
+import { shape, string, instanceOf } from 'prop-types';
 import { Link, Route, Redirect, Switch } from 'react-router-dom';
 
-import asyncComponent from '~/components/asyncComponent';
-import NotFound from '~/components/NotFound';
-import events, { eventShape } from './events.js';
+import asyncComponent from 'src/async-component';
+import Spinner from 'src/Spinner';
+import NotFound from 'bundle-loader?lazy!src/NotFound';
+import events, { EventConfig } from './events.js';
 
 const contentCtx = require.context(
     'bundle-loader?lazy!./content',
@@ -12,33 +19,50 @@ const contentCtx = require.context(
     /\.(js|md)$/
 );
 
-function Event(props) {
+const AsyncNotFound = asyncComponent(NotFound, Spinner);
+
+/**
+ * React component for a single event.
+ *
+ * @param {Object} props - The component's props.
+ * @param {module:src/routes/events/events.EventConfig} props.event - The event
+ * configuration.
+ * @returns {ReactElement} The component's elements.
+ */
+function EventComponent(props) {
     const { event: {
         title, location, date, contentPath
     } } = props;
 
-    const Content = asyncComponent(contentCtx(contentPath));
+    const Content = asyncComponent(contentCtx(contentPath), Spinner);
 
     return <div>
         <Link to=".."><h1>Events</h1></Link>
         <h2>{title}</h2>
-        <h3>{date}</h3>
-        <h4>{location}</h4>
+        <h4>{date}</h4>
+        <h5>{location}</h5>
         <Content />
     </div>;
 }
 
-Event.propTypes = {
-    event: shape(eventShape)
+EventComponent.propTypes = {
+    event: instanceOf(EventConfig).isRequired
 };
 
+/**
+ * Attempts to render the event at the current path.
+ *
+ * @param {Object} props - The component's props.
+ * @param {Object} props.match.params.path - The matched event path.
+ * @returns {ReactElement} The rendered event, or a 404 page.
+ */
 function EventMatcher(props) {
     const path = props.match.params.path + '/';
     if (!(path in events.byPath)) {
-        return <NotFound {...props} />;
+        return <AsyncNotFound {...props} />;
     }
 
-    return <Event event={events.byPath[path]} />;
+    return <EventComponent event={events.byPath[path]} />;
 }
 
 EventMatcher.propTypes = {
@@ -49,6 +73,11 @@ EventMatcher.propTypes = {
     })
 };
 
+/**
+ * Event list React component.
+ *
+ * @returns {ReactElement} The component's elements.
+ */
 function EventList() {
     return <div>
         <h1>Events</h1>
@@ -59,13 +88,18 @@ function EventList() {
 
             return <div key={i}>
                 <Link to={`./${path}`}><h2>{title}</h2></Link>
-                <h3>{date}</h3>
-                <h4>{location}</h4>
+                <h4>{date}</h4>
+                <h5>{location}</h5>
             </div>;
         })}
     </div>;
 }
 
+/**
+ * Event page React component.
+ *
+ * @returns {ReactElement} The component's elements.
+ */
 export default function Events() {
     return <div>
         <Switch>
