@@ -31,11 +31,9 @@ export default function Footer() {
                 {links}
             </div>
             <div className={styles.right}>
-                <span>
-                    Email: <a href='mailto:todo@andrew.cmu.edu'>
-                        todo@andrew.cmu.edu
-                    </a>
-                </span>
+                <a href='mailto:ipacesweb@gmail.com'>
+                    Contact the webmaster
+                </a>
                 <span>
                     Site design by <a href='https://szz.io'>Stan Zhang</a>
                 </span>
