@@ -56,7 +56,7 @@
     background-color: @color-bg;
     font-size: larger;
 
-    a, .dropdown .button, > .toggle {
+    a[href], .dropdown .button, > .toggle {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -67,6 +67,7 @@
         background-color: @color-bg;
         transition: color @duration-transition;
         transition: background-color @duration-transition;
+        text-decoration: none;
 
         cursor: pointer;
 
@@ -79,7 +80,7 @@
         }
     }
 
-    a.active {
+    a[href].active {
         .active();
     }
 
