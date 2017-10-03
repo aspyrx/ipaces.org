@@ -39,7 +39,9 @@ if (!config.plugins) {
 
 config.plugins.push(
     new CleanWebpackPlugin(['dist'], { verbose: true }),
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+        parallel: true
+    }),
     new webpack.DefinePlugin({
         'process.env': {
             'NODE_ENV': JSON.stringify('production')

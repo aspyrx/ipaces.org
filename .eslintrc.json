@@ -1,7 +1,7 @@
 {
     "extends": ["eslint:recommended"],
     "parserOptions": {
-        "ecmaVersion": 6
+        "ecmaVersion": 2015
     },
     "env": {
         "node": true,
@@ -111,7 +111,7 @@
         "no-with": 2,
         "quotes": [2, "single"],
         "radix": 2,
-        "require-jsdoc": [0, {
+        "require-jsdoc": [2, {
             "require": {
                 "FunctionDeclaration": true,
                 "MethodDefinition": true,
@@ -136,8 +136,10 @@
                 "Boolean": "boolean",
                 "Number": "number",
                 "String": "string",
-                "object": "Object"
+                "object": "Object",
+                "function": "Function"
             },
+            "requireReturn": false,
             "requireReturnType": true,
             "matchDescription": ".+",
             "requireParamDescription": true,

@@ -6,18 +6,22 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const ctxDir = path.resolve(__dirname);
 const srcDir = path.resolve(ctxDir, 'src');
-const vendorDir = path.resolve(ctxDir, 'vendor');
+const outDir = path.resolve(ctxDir, 'dist');
 const loadersDir = path.resolve(ctxDir, 'loaders');
 const publicDir = path.resolve(ctxDir, 'public');
-const outDir = path.resolve(ctxDir, 'dist');
+
 const publicPath = '/';
 
 module.exports = {
     devtool: 'cheap-module-source-map',
     context: ctxDir,
     entry: {
-        main: [srcDir],
-        lib: ['babel-polyfill', 'react', 'react-dom', 'react-router']
+        main: ['normalize.css', srcDir],
+        lib: [
+            'babel-polyfill',
+            'react', 'react-dom',
+            'react-router', 'react-router-dom'
+        ]
     },
     output: {
         path: outDir,
@@ -26,14 +30,9 @@ module.exports = {
     },
     resolve: {
         alias: {
-            '~': srcDir,
-            '^': vendorDir,
+            'src': srcDir,
             'public': publicDir
-        },
-        modules: [
-            srcDir,
-            'node_modules'
-        ]
+        }
     },
     resolveLoader: {
         alias: {
@@ -52,27 +51,42 @@ module.exports = {
             }]
         }, {
             test: /\.css$/,
-            include: [vendorDir, /node_modules/],
+            include: [/node_modules/],
             use: [{
                 loader: 'style-loader'
             }, {
                 loader: 'css-loader',
-                options: { importLoaders: 1 }
+                options: {
+                    sourceMap: true,
+                    importLoaders: 1
+                }
             }, {
-                loader: 'postcss-loader'
+                loader: 'postcss-loader',
+                options: {
+                    sourceMap: true
+                }
             }]
         }, {
             test: /\.less$/,
-            include: [vendorDir, /node_modules/],
+            include: [/node_modules/],
             use: [{
                 loader: 'style-loader'
             }, {
                 loader: 'css-loader',
-                options: { importLoaders: 2 }
+                options: {
+                    sourceMap: true,
+                    importLoaders: 2
+                }
             }, {
-                loader: 'postcss-loader'
+                loader: 'postcss-loader',
+                options: {
+                    sourceMap: true
+                }
             }, {
-                loader: 'less-loader'
+                loader: 'less-loader',
+                options: {
+                    sourceMap: true
+                }
             }]
         }, {
             test: /\.css$/,
@@ -82,12 +96,16 @@ module.exports = {
             }, {
                 loader: 'css-loader',
                 options: {
+                    sourceMap: true,
                     modules: true,
                     localIdentName: '[local]-[hash:base64:5]',
                     importLoaders: 1
                 }
             }, {
-                loader: 'postcss-loader'
+                loader: 'postcss-loader',
+                options: {
+                    sourceMap: true
+                }
             }]
         }, {
             test: /\.less$/,
@@ -97,18 +115,29 @@ module.exports = {
             }, {
                 loader: 'css-loader',
                 options: {
+                    sourceMap: true,
                     modules: true,
                     localIdentName: '[local]-[hash:base64:5]',
                     importLoaders: 2
                 }
             }, {
-                loader: 'postcss-loader'
+                loader: 'postcss-loader',
+                options: {
+                    sourceMap: true
+                }
             }, {
-                loader: 'less-loader'
+                loader: 'less-loader',
+                options: {
+                    sourceMap: true
+                }
             }]
         }, {
             test: /\.js$/,
-            exclude: /node_modules/,
+            include: [
+                srcDir,
+                // https://github.com/webpack/loader-utils/issues/92
+                /node_modules\/loader-utils/
+            ],
             use: [{
                 loader: 'babel-loader'
             }]
@@ -120,7 +149,13 @@ module.exports = {
         }, {
             test: /\.csv$/,
             use: [{
-                loader: 'dsv-loader'
+                loader: 'csv-loader',
+                options: {
+                    delimiter: ',',
+                    newline: '\n',
+                    header: true,
+                    skipEmptyLines: true
+                }
             }]
         }, {
             test: /\.(eot|woff|ttf|svg|jpg|ico)$/,

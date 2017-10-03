@@ -5,6 +5,7 @@ const url = require('url');
 const fs = require('fs');
 const path = require('path');
 
+const publicPath = '/user/fencing/';
 const bundleDir = path.resolve(__dirname, 'dist');
 const publicDir = path.resolve(__dirname, 'public');
 const index = path.join(bundleDir, 'index.html');
@@ -25,7 +26,7 @@ function serve(res, contentBase, pathname) {
     contentBase = contentBase.slice(1);
 
     return serveFile(res, filepath).catch(err => {
-        if (!(err.code === 'ENOENT' || err.code === 'EISDIR')) {
+        if (err.code !== 'ENOENT') {
             res.statusCode = 500;
             res.end(err.message, 'utf8');
             return;
@@ -43,6 +44,14 @@ function serve(res, contentBase, pathname) {
 http.createServer(function requestListener(req, res) {
     let { pathname } = url.parse(req.url);
     console.log(`${req.method} ${pathname}`);
+    if (!pathname.startsWith(publicPath)) {
+        res.statusCode = 302;
+        res.setHeader('Location', path.posix.join(publicPath, pathname));
+        res.end();
+        return;
+    }
+
+    pathname = pathname.replace(publicPath, '/');
     if (req.method !== 'GET') {
         res.statusCode = 501;
         return res.end();
