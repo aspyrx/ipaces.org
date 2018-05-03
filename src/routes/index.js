@@ -49,11 +49,36 @@ EventPreview.propTypes = {
  * @returns {ReactElement} The component's elements.
  */
 function EventList() {
+    const now = new Date();
+
+    let eventElems = events.filter(event => {
+        if (event.startDate > now) {
+            return true;
+        }
+
+        if (event.endDate && event.endDate > now) {
+            return true;
+        }
+
+        return false;
+    }).map((event, i) => {
+        return <li key={i}>
+            <EventPreview event={event} />
+        </li>;
+    });
+
+    if (eventElems.length === 0) {
+        eventElems = <p>
+            No upcoming events.
+            <Link to="/events/">Click here to view past events.</Link>
+        </p>;
+    } else {
+        eventElems = <ul>{eventElems}</ul>;
+    }
+
     return <div>
         <Link to="/events/"><h2>Upcoming Events</h2></Link>
-        <ul>{events.map((event, i) =>
-            <li key={i}><EventPreview event={event} /></li>
-        )}</ul>
+        {eventElems}
     </div>;
 }
 
