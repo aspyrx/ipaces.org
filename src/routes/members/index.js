@@ -11,6 +11,7 @@ import styles from './index.less';
  * Information about a member.
  *
  * @typedef {Object} Member
+ * @property {string} council - Council position.
  * @property {string} nameLast - Last name.
  * @property {string} nameFirst - First name.
  * @property {string} position - Position/title.
@@ -25,6 +26,7 @@ import styles from './index.less';
  */
 
 const memberShape = shape({
+    council: string.isRequired,
     nameLast: string.isRequired,
     nameFirst: string.isRequired,
     position: string.isRequired,
@@ -76,7 +78,7 @@ function padIf(left, str, right = '') {
 function MemberButton(props) {
     const { member, isOpen, open } = props;
     const {
-        nameLast, nameFirst, nameZh, link,
+        council, nameLast, nameFirst, nameZh, link,
         location, locationLink, country
     } = member;
 
@@ -95,6 +97,7 @@ function MemberButton(props) {
                 {nameLast}, {nameFirst}{padIf(' [', nameZh, ']')}
             </a>
         </h2>
+        {council && <h3>IPACES {council}</h3>}
         <h3>
             <a
                 href={locationLink || void 0}
@@ -262,12 +265,19 @@ export default class Members extends React.Component {
      * @returns {ReactElement} The component's elements.
      */
     render() {
-        const matches = members.filter(member =>
-            member.searchScore === void 0
-            || member.searchScore > 0
-        ).sort((a, b) =>
-            b.searchScore - a.searchScore
-        );
+        const { searchString } = this.state;
+        let matches;
+        if (searchString) {
+            matches = members.filter(member =>
+                member.searchScore === void 0
+                || member.searchScore > 0
+            ).sort((a, b) =>
+                b.searchScore - a.searchScore
+            );
+        } else {
+            matches = members;
+        }
+
         const amount = `${matches.length}/${members.length}`;
         return <div className={styles.members}>
             <div className={styles.header}>
