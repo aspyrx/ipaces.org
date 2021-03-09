@@ -38,7 +38,7 @@ by a simple majority.
 ## ARTICLE IV. ELECTION
 
 The term of the Chair, Associate Chair, Treasurer and other Council members
-shall be one year. The Treasurer and other Council members can be re-elected.
+shall be two years. The Treasurer and other Council members can be re-elected.
 The Chair cannot be re-elected immediately after his/her tenure. When the
 Chair's term expires, the Associate Chair automatically becomes the Chair.
 Nominations of the new Associate Chair and Council members shall be made to the
@@ -71,4 +71,5 @@ simple majority vote of the group.
 
 1. *May 30, 2002*
 2. *September 30, 2003*
+3. *March 10, 2021*
 
