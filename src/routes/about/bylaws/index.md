@@ -38,16 +38,16 @@ by a simple majority.
 ## ARTICLE IV. ELECTION
 
 The term of the Chair, Associate Chair, Treasurer and other Council members
-shall be two years. The Treasurer and other Council members can be re-elected.
-The Chair cannot be re-elected immediately after his/her tenure. When the
-Chair's term expires, the Associate Chair automatically becomes the Chair.
-Nominations of the new Associate Chair and Council members shall be made to the
-current Chair. The Chair will distribute the names among the group members and
-ask for vote.  The new Associate Chair and Council members shall be elected
-with a simple majority of all votes. The current Chair and the Associate Chair
-of the group are the vote counters. When there is a conflict of interests, the
-Council shall assign other member as the vote counters. If there is more than
-one candidate for a position and no one receives the majority vote, then a
+shall be two years \[3\]. The Treasurer and other Council members can be
+re-elected. The Chair cannot be re-elected immediately after his/her tenure.
+When the Chair's term expires, the Associate Chair automatically becomes the
+Chair. Nominations of the new Associate Chair and Council members shall be made
+to the current Chair. The Chair will distribute the names among the group
+members and ask for vote. The new Associate Chair and Council members shall be
+elected with a simple majority of all votes. The current Chair and the Associate
+Chair of the group are the vote counters. When there is a conflict of interests,
+the Council shall assign other member as the vote counters. If there is more
+than one candidate for a position and no one receives the majority vote, then a
 second round of vote between the two front runners will be held. In case of a
 tie between two candidates, the person who gets the Associate Chair's vote is
 elected.
@@ -72,4 +72,5 @@ simple majority vote of the group.
 1. *May 30, 2002*
 2. *September 30, 2003*
 3. *March 10, 2021*
+    - Council member terms extended from one to two years.
 
