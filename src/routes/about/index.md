@@ -13,13 +13,14 @@ Please see our [bylaws](./bylaws/) page for details.
 
 ## Insignia
 
-<a style="display: block; text-align: center;" href="/images/logo-dark.png">
-<img src="/images/logo-dark.png" style="width: 480px; max-width: 100%;" />
+<a style="display: block; text-align: center;" href="/images/logo.png">
+<img src="/images/logo.png" style="width: 480px; max-width: 100%;" />
 </a>
 
-The IPACES insignia was designed in 1999 with Mark Klinger of the Carnegie
-Museum, in consultation with Youxue Zhang while he was a curator at the Museum.
-The centered artwork is *张衡地动仪* (*Zhang Heng seismograph*), by stipple
-drawing, based on a photo of a 1980s model/replica produced by 中国地震局
-(China Earthquake Administration).
+The IPACES logo was redesigned in 2019 by IPACES member Dr. Jianli Chen at the
+University of Texas at Austin. The centered artwork is a cartoon graphic of
+Pangaea (or Pangea), a supercontinent that existed during the late Paleozoic and
+early Mesozoic eras. With all continents joined together, united, and connected,
+Pangaea is a perfect match with the IPACES mission to promote cooperations in
+Earth Sciences between China and other countries.
 
