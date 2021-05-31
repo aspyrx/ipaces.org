@@ -10,6 +10,13 @@ const bundleDir = path.resolve(__dirname, 'dist');
 const publicDir = path.resolve(__dirname, 'public');
 const index = path.join(bundleDir, 'index.html');
 
+/**
+ * Serve a file at the given path.
+ *
+ * @param {http.ServerResponse} res - Response object to serve.
+ * @param {string} filepath - File to serve.
+ * @returns {Promise} Resolves when served, or rejects on error.
+ */
 function serveFile(res, filepath) {
     return new Promise((resolve, reject) => {
         console.log(filepath);
@@ -21,6 +28,14 @@ function serveFile(res, filepath) {
     });
 }
 
+/**
+ * Serve with SPA router fallback.
+ *
+ * @param {http.ServerResponse} res - Response object to serve.
+ * @param {string} contentBase - Base for all content.
+ * @param {string} pathname - Path name to serve.
+ * @returns {Promise} Resolves when served, or rejects on error.
+ */
 function serve(res, contentBase, pathname) {
     const filepath = path.join(contentBase[0], pathname);
     contentBase = contentBase.slice(1);

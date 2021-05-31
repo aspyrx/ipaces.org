@@ -6,14 +6,18 @@ const config = require('./webpack.config.js');
 config.output.filename = '[name].js';
 
 config.entry.main.unshift(
-    'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8080/',
     'webpack/hot/dev-server'
 );
 
+if (!config.optimization) {
+    config.optimization = {};
+}
+
+config.optimization.moduleIds = 'named';
+
 config.plugins.push(
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.HotModuleReplacementPlugin()
 );
 
 module.exports = config;

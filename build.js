@@ -6,7 +6,13 @@ const webpack = require('webpack');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const ProgressBar = require('progress');
 
-const webpackCompiler = webpack(function getWebpackConfig(action) {
+const webpackProgress = new ProgressBar(
+    '[:bar] :percent eta :etas  :msg', {
+        total: 100, complete: '=', incomplete: ' ', width: 10
+    }
+);
+
+const webpackConfig = (function getWebpackConfig(action) {
     switch (action) {
         case 'production':
             return require('./webpack.config.production.js');
@@ -16,6 +22,12 @@ const webpackCompiler = webpack(function getWebpackConfig(action) {
             return require('./webpack.config.js');
     }
 }(process.argv[2]));
+
+webpackConfig.plugins.push(new ProgressPlugin((percent, msg) => {
+    webpackProgress.update(percent, { 'msg': msg });
+}));
+
+const webpackCompiler = webpack(webpackConfig);
 
 const webpackBuildFinished = (err, stats) => {
     if (err) {
@@ -30,16 +42,6 @@ const webpackBuildFinished = (err, stats) => {
         }));
     }
 };
-
-const webpackProgress = new ProgressBar(
-    '[:bar] :percent eta :etas  :msg', {
-        total: 100, complete: '=', incomplete: ' ', width: 10
-    }
-);
-
-webpackCompiler.apply(new ProgressPlugin((percent, msg) => {
-    webpackProgress.update(percent, { 'msg': msg });
-}));
 
 switch (process.argv[2]) {
     case 'watch':

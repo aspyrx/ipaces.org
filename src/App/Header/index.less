@@ -22,7 +22,7 @@
         @height: 2 * @font-size * @line-height;
         height: @height;
         min-width: @height;
-        background-image: url('/images/logo.png');
+        background-image: url('~public/images/logo.png');
         background-size: cover;
         background-position: cover;
         transition: background-image @duration-transition ease-in-out;
@@ -105,17 +105,17 @@
                 position: relative;
 
                 &:after {
-                    @size: @font-size / 2;
+                    @size: (@font-size / 2);
 
-                    margin-left: @size / 2;
+                    margin-left: (@size / 2);
                     width: 0;
                     height: 0;
                     content: ' ';
 
                     color: inherit;
-                    border-top: @size / 2 solid transparent;
+                    border-top: (@size / 2) solid transparent;
                     border-left: @size solid;
-                    border-bottom: @size / 2 solid transparent;
+                    border-bottom: (@size / 2) solid transparent;
 
                     opacity: 0.5;
                     transition-property: opacity, transform;
