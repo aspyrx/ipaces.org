@@ -6,7 +6,7 @@ We have been in the process of preparing the IPACES annual meeting this year
 (June 21st to 23rd morning Beijing time). Due to the ongoing COVID-19 pandemic,
 the meeting will be fully virtual only.
 
-[See attachment for a draft meeting schedule.](announcement.docx)
+[See attachment for the meeting schedule.](announcement.pdf)
 
 The first day’s meeting focuses on geophysics and seismology jointly with
 Chengdu University of Technology (CDUT), the second day focuses on environmental
