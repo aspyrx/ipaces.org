@@ -2,6 +2,13 @@
 ## Frontiers in Earth Science Virtual Meeting
 ### 中国地球科学促进会（IPACES）2021 年会
 
+## Writing Workshop
+
+- [Video Recording](https://www.bilibili.com/video/BV1YB4y1K7q1?p=1)
+- PDF presentations will be uploaded here shortly.
+
+## Meeting Announcement
+
 We have been in the process of preparing the IPACES annual meeting this year
 (June 21st to 23rd morning Beijing time). Due to the ongoing COVID-19 pandemic,
 the meeting will be fully virtual only.
