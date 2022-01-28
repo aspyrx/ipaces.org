@@ -1,6 +1,5 @@
 'use strict';
 
-const webpack = require('webpack');
 const config = require('./webpack.config.js');
 
 config.output.filename = '[name].js';
@@ -15,10 +14,6 @@ if (!config.optimization) {
 }
 
 config.optimization.moduleIds = 'named';
-
-config.plugins.push(
-    new webpack.HotModuleReplacementPlugin()
-);
 
 module.exports = config;
 

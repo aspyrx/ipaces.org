@@ -50,14 +50,16 @@ switch (process.argv[2]) {
     case 'live': {
         const webpackDevServer = require('webpack-dev-server');
         const server = new webpackDevServer(webpackCompiler, {
-            contentBase: [
-                path.join(__dirname, 'dist'),
-                path.join(__dirname, 'public')
-            ],
             hot: true,
-            compress: true,
             historyApiFallback: true,
-            stats: { colors: true, timings: true, cached: false }
+            static: [{
+                directory: path.join(__dirname, 'dist')
+            }, {
+                directory: path.join(__dirname, 'public')
+            }],
+            devMiddleware: {
+                stats: { colors: true, timings: true, cached: false }
+            }
         });
         server.listen(8080, 'localhost');
         return;

@@ -1,6 +1,6 @@
 'use strict';
 
-const marked = require('marked');
+const { marked } = require('marked');
 
 function toComponent(html) {
     html = html.replace(/\n/g, '\\n');

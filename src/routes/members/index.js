@@ -149,7 +149,7 @@ function MemberModal(props) {
 }
 
 MemberModal.propTypes = {
-    member: shape(memberShape),
+    member: memberShape.isRequired,
     isOpen: bool,
     close: func
 };
@@ -245,12 +245,12 @@ export default class Members extends React.Component {
     }
 
     /**
-     * React lifecycle handler called when component is about to update.
+     * React lifecycle handler called when component has updated.
      *
      * @param {Object} nextProps - The component's new props.
      * @param {Object} nextState - The component's new state.
      */
-    componentWillUpdate(nextProps, nextState) {
+    componentDidUpdate(nextProps, nextState) {
         const { searchString } = nextState;
         if (searchString !== this.state.searchString) {
             members.forEach(m =>
