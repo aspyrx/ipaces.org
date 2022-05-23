@@ -12,6 +12,7 @@ import asyncComponent from 'src/async-component';
 import Spinner from 'src/Spinner';
 import NotFound from 'bundle-loader?lazy!src/NotFound';
 import events, { EventConfig } from './events.js';
+import styles from './index.less';
 
 const contentCtx = require.context(
     'bundle-loader?lazy!./content',
@@ -79,14 +80,14 @@ EventMatcher.propTypes = {
  * @returns {ReactElement} The component's elements.
  */
 function EventList() {
-    return <div>
+    return <div className={styles.eventList}>
         <h1>Events</h1>
         {events.map((event, i) => {
             const {
                 title, location, date, path
             } = event;
 
-            return <div key={i}>
+            return <div key={i} className={styles.eventItem}>
                 <Link to={`./${path}`}><h2>{title}</h2></Link>
                 <h4>{date}</h4>
                 <h5>{location}</h5>
