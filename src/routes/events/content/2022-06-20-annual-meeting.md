@@ -2,7 +2,7 @@
 ## 国际研讨会暨国际中国地球科学促进会（IPACES）
 ## 2022年会一号通知
 
-[**完整的计划现已推出。点击这里下载：`program.pdf`**](program.pdf)
+[**完整的计划现已推出。点击这里下载：`program.pdf`**](https://raw.githubusercontent.com/aspyrx/ipaces.org/80b9368bb4c7dca3c2be786c193b4523b17c9296/public/events/2022-06-20-annual-meeting/program.pdf)
 
 为更好地促进国际前沿科学研究，服务国家重大需求，加快深圳建设全球海洋中心城市，国
 际中国地球科学促进会（IPACES）与南方科技大学将于2022年6月20日-6月23日在广东省深
