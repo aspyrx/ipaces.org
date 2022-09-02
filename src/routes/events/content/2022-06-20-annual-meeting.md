@@ -2,6 +2,11 @@
 ## 国际研讨会暨国际中国地球科学促进会（IPACES）
 ## 2022年会一号通知
 
+- [第1天（6月20日）会议录屏链接](https://v.youku.com/v_show/id_XNTg5NDMyNzM3Ng==.html)
+- [第2天（6月21日）会议录屏链接](https://v.youku.com/v_show/id_XNTg5NDMzMDkzMg==.html)
+- [第3天（6月22日）会议录屏链接](https://v.youku.com/v_show/id_XNTg5MzA0MzgyNA==.html)
+- [第4天（6月23日）会议录屏链接](https://v.youku.com/v_show/id_XNTg5NDM4MjI1Mg==.html)
+
 [**完整的计划现已推出。点击这里下载：`program.pdf`**](https://raw.githubusercontent.com/aspyrx/ipaces.org/80b9368bb4c7dca3c2be786c193b4523b17c9296/public/events/2022-06-20-annual-meeting/program.pdf)
 
 为更好地促进国际前沿科学研究，服务国家重大需求，加快深圳建设全球海洋中心城市，国
