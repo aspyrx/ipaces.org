@@ -43,7 +43,7 @@
     "jsdoc": "^3.5.3",
     "less": "^4.1.1",
     "less-loader": "^9.0.0",
-    "loader-utils": "^1.1.0",
+    "loader-utils": "^1.4.1",
     "marked": "^4.0.12",
     "mini-css-extract-plugin": "^1.6.0",
     "normalize.css": "^7.0.0",
