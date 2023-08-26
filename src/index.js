@@ -23,11 +23,12 @@ if (!('flex' in appDiv.style)) {
 appDiv.id = 'app';
 document.body.appendChild(appDiv);
 
+const root = createRoot(appDiv);
+
 /**
  * Starts the app by rendering it into the page.
  */
 function start() {
-    const root = createRoot(appDiv);
     root.render(<App />);
 }
 

@@ -1,0 +1,68 @@
+<style>
+figure {
+    text-align: center;
+    > img {
+        width: 100%;
+    }
+}
+</style>
+
+### [会议日程 Meeting program: `program.pdf`](https://raw.githubusercontent.com/aspyrx/ipaces.org/2e302be3f2211a9afa251bc98ad71f5a18630244/public/events/2023-07-02-annual-meeting/program.pdf)
+
+[2023-07-14 来源文章 Original article](https://ess.ustc.edu.cn/2023/0714/c31927a608509/pagem.htm)
+
+# 地球与行星科学前沿国际研讨会暨国际中国地球科学促进会（IPACES）
+## 2023年年会顺利召开
+
+为更好地促进地球与行星科学领域前沿研究和国际交流，7月2日至6日，国际中国地球科学
+促进会（IPACES）联合中国科学技术大学在合肥召开“地球与行星科学前沿国际研讨会暨国
+际中国地球科学促进会（IPACES）2023年会”。国际中国地球科学促进会IPACES是成立于
+1999年的非营利组织，由海内外知名华人地球科学家组成，旨在促进中国地球科学的发展和
+国际交流。自创办以来，IPACES年会已成为海内外华人地球科学家交流的重要平台。来自美
+国、日本、新加坡等多个国家的华人知名专家学者，以及国内多所高校的专家学者和研究生
+参加本次会议。会议由IPACES主席美国佐治亚理工彭志刚教授和我校研究生院副院长姚华建
+教授主持，地球和空间科学学院执行院长汪毓明教授代表学院致辞，对参会专家学者表示热
+烈欢迎。
+
+<figure>
+    <img src="https://ess.ustc.edu.cn/_upload/article/images/54/62/c92262ec4ab69b5522e7e62c8a95/5ef4f1e3-cbab-4455-8d46-f187c51658db.jpg" />
+    <figcaption>参会代表合影</figcaption>
+</figure>
+
+本次会议围绕行星科学与固体地球物理、地球化学与生态环境两大主题，通过线上线下报
+告，海报展示等方式，开展了4场论文和基金写作以及如何做科研的指导报告，27场专题学
+术交流报告，61份海报展示，分享了各自领域内的最新研究成果和科技进展。
+
+<figure>
+    <img src="https://ess.ustc.edu.cn/_upload/article/images/54/62/c92262ec4ab69b5522e7e62c8a95/aca410a9-026e-412c-9ff7-bb1bfa743ebc.jpg" />
+    <figcaption>学术报告交流</figcaption>
+</figure>
+<figure>
+    <img src="https://ess.ustc.edu.cn/_upload/article/images/54/62/c92262ec4ab69b5522e7e62c8a95/9ebd2f46-e19e-4e7d-9da9-894102392c77.jpg" />
+    <figcaption>报告现场答疑</figcaption>
+</figure>
+
+在本次会议中，与会专家就地球和行星科学领域的未解之谜、新兴技术、数据分析方法等进
+行了深入探讨。与会者们展示了他们在大地测量的理论和应用、地震观测和理论、地球内部
+成分和动力学过程、地球演化、古环境、生物和环境资源等方面的研究成果。同时，他们还
+分享了自己在探索太阳系其他行星、月球和小行星方面的最新发现。
+
+<figure>
+    <img src="https://ess.ustc.edu.cn/_upload/article/images/54/62/c92262ec4ab69b5522e7e62c8a95/78dab33a-9a2a-4813-99c0-11e251fc0605.jpg" />
+    <figcaption>海报展示</figcaption>
+</figure>
+<figure>
+    <img src="https://ess.ustc.edu.cn/_upload/article/images/54/62/c92262ec4ab69b5522e7e62c8a95/477bbefa-d81a-46c6-955a-de56ba61ed20.jpg" />
+    <figcaption>闭幕式上优秀海报颁奖</figcaption>
+</figure>
+
+与会期间，各位参会专家学者对50份学生海报成果进行了评选打分，18位同学获得优秀海报
+奖，其中诸娟同学的“用水听器监测南威客群岛周围2010年至2022年的长须鲸叫声”和赵亚婕
+同学的“Is there a carbonated mid-lithosphere discontinuity in cratons?”获得了一
+等奖。
+
+本次会议取得圆满成功，线上观看18000人次。与会者们共同探讨了未来地球与行星科学领
+域多学科交叉发展的新思路与新方向，推动了地球与行星科学的全球范围合作。IPACES作为
+国际知名的华人地球科学组织，将继续致力于促进国际间的学术交流和合作，为地球和行星
+科学领域的进一步发展做出贡献。
+
