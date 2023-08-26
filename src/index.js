@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import App from 'src/App';
 
@@ -27,7 +27,8 @@ document.body.appendChild(appDiv);
  * Starts the app by rendering it into the page.
  */
 function start() {
-    render(<App />, appDiv);
+    const root = createRoot(appDiv);
+    root.render(<App />);
 }
 
 start();

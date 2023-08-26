@@ -49,7 +49,7 @@ switch (process.argv[2]) {
         return;
     case 'live': {
         const webpackDevServer = require('webpack-dev-server');
-        const server = new webpackDevServer(webpackCompiler, {
+        const server = new webpackDevServer({
             hot: true,
             historyApiFallback: true,
             static: [{
@@ -60,8 +60,8 @@ switch (process.argv[2]) {
             devMiddleware: {
                 stats: { colors: true, timings: true, cached: false }
             }
-        });
-        server.listen(8080, 'localhost');
+        }, webpackCompiler);
+        server.start(8080, 'localhost');
         return;
     }
     default:
