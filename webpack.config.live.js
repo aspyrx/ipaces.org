@@ -13,6 +13,7 @@ if (!config.optimization) {
     config.optimization = {};
 }
 
+config.optimization.runtimeChunk = 'single';
 config.optimization.moduleIds = 'named';
 
 module.exports = config;
