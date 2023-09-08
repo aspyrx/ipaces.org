@@ -97,7 +97,7 @@ function MemberButton(props) {
                 {nameLast}, {nameFirst}{padIf(' [', nameZh, ']')}
             </a>
         </h2>
-        {council && <h3>IPACES {council}</h3>}
+        {council && <h3>{council}</h3>}
         <h3>
             <a
                 href={locationLink || void 0}
