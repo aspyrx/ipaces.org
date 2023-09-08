@@ -38,7 +38,7 @@ function EventComponent(props) {
     const Content = asyncComponent(contentCtx(contentPath), Spinner);
 
     return <div>
-        <Link to=".."><h1>Events</h1></Link>
+        <Link to=".."><h1>News &amp; Events</h1></Link>
         <h2>{title}</h2>
         <h4>{date}</h4>
         {location ? <h5>{location}</h5> : null }
