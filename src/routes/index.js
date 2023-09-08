@@ -35,7 +35,7 @@ function EventPreview(props) {
         <h3><Link to={`/events/${path}`}>
             {title}
         </Link></h3>
-        <p>{date} @ {location}</p>
+        <p>{date}{location ? ': ' : ''}{location}</p>
     </div>;
 }
 
