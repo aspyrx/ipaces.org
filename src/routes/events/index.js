@@ -81,7 +81,7 @@ EventMatcher.propTypes = {
  */
 function EventList() {
     return <div className={styles.eventList}>
-        <h1>Events</h1>
+        <h1>News &amp; Events</h1>
         {events.map((event, i) => {
             const {
                 title, location, date, path

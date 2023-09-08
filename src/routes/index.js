@@ -1,5 +1,5 @@
 import React from 'react';
-import { instanceOf } from 'prop-types';
+import { instanceOf, number } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import events, { EventConfig } from 'src/routes/events/events.js';
@@ -46,41 +46,37 @@ EventPreview.propTypes = {
 /**
  * Event list React component.
  *
+ * @param {Object} props - The component's props.
+ * @param {number} props.maxEvents - Maximum number of events to list.
  * @returns {ReactElement} The component's elements.
  */
-function EventList() {
-    const now = new Date();
-
-    let eventElems = events.filter(event => {
-        if (event.startDate > now) {
-            return true;
-        }
-
-        if (event.endDate && event.endDate > now) {
-            return true;
-        }
-
-        return false;
-    }).map((event, i) => {
+function EventList(props) {
+    const eventElems = events.slice(0, props.maxEvents).map((event, i) => {
         return <li key={i}>
             <EventPreview event={event} />
         </li>;
     });
 
     if (eventElems.length === 0) {
-        eventElems = <p>
-            No upcoming events.
-            <Link to="/events/">Click here to view past events.</Link>
-        </p>;
-    } else {
-        eventElems = <ul>{eventElems}</ul>;
+        eventElems.push(<li key="none">No upcoming events.</li>);
+    } else if (eventElems.length < events.length) {
+        // Indicate there are more events to see.
+        eventElems.push(<li key="more">
+            <div><h3>
+                <Link to="/events/">Click to see more...</Link>
+            </h3></div>
+        </li>);
     }
 
     return <div>
-        <Link to="/events/"><h2>Upcoming Events</h2></Link>
-        {eventElems}
+        <Link to="/events/"><h2>News &amp; Events</h2></Link>
+        <ul>{eventElems}</ul>
     </div>;
 }
+
+EventList.propTypes = {
+    maxEvents: number
+};
 
 /**
  * Home page React component.
@@ -93,7 +89,7 @@ export default function Home() {
     return <div className={styles.home}>
         <Hero />
         <Content />
-        <EventList />
+        <EventList maxEvents={3} />
     </div>;
 }
 
