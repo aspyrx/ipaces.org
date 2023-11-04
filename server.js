@@ -41,7 +41,7 @@ function serve(res, contentBase, pathname) {
     contentBase = contentBase.slice(1);
 
     return serveFile(res, filepath).catch(err => {
-        if (err.code !== 'ENOENT') {
+        if (err.code !== 'ENOENT' && err.code !== 'EISDIR') {
             res.statusCode = 500;
             res.end(err.message, 'utf8');
             return;
