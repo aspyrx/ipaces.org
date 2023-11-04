@@ -9,7 +9,7 @@ const ctxDir = path.resolve(__dirname);
 const srcDir = path.resolve(ctxDir, 'src');
 const loadersDir = path.resolve(ctxDir, 'loaders');
 const publicDir = path.resolve(ctxDir, 'public');
-const outDir = publicDir;
+const outDir = path.resolve(ctxDir, 'dist');
 
 const publicPath = '/';
 
@@ -25,9 +25,7 @@ module.exports = {
         ]
     },
     output: {
-        clean: {
-            keep: /[^/]+\//     // Any content in subdirectories.
-        },
+        clean: true,
         path: outDir,
         publicPath,
         filename: '[name].[chunkhash].js'

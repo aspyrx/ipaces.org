@@ -33,7 +33,4 @@ node_modules
 .node_repl_history
 
 # Build directory
-public/*
-# .. except subdirectories.
-!public/*/
-
+dist
