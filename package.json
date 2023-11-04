@@ -32,7 +32,6 @@
     "babel-loader": "^8.1.0",
     "bundle-loader": "^0.5.5",
     "classnames": "^2.2.5",
-    "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^5.2.6",
     "csv-loader": "^3.0.3",
     "eslint": "^7.27.0",

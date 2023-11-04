@@ -7,9 +7,9 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 
 const ctxDir = path.resolve(__dirname);
 const srcDir = path.resolve(ctxDir, 'src');
-const outDir = path.resolve(ctxDir, 'dist');
 const loadersDir = path.resolve(ctxDir, 'loaders');
 const publicDir = path.resolve(ctxDir, 'public');
+const outDir = publicDir;
 
 const publicPath = '/';
 
@@ -25,6 +25,9 @@ module.exports = {
         ]
     },
     output: {
+        clean: {
+            keep: /[^/]+\//     // Any content in subdirectories.
+        },
         path: outDir,
         publicPath,
         filename: '[name].[chunkhash].js'
