@@ -7,7 +7,7 @@ figure {
 }
 </style>
 
-### [会议日程 Meeting program: `program.pdf`](https://raw.githubusercontent.com/aspyrx/ipaces.org/2e302be3f2211a9afa251bc98ad71f5a18630244/public/events/2023-07-02-annual-meeting/program.pdf)
+### [会议日程 Meeting program: `program.pdf`](program.pdf)
 
 [2023-07-14 来源文章 Original article](https://ess.ustc.edu.cn/2023/0714/c31927a608509/pagem.htm)
 
@@ -25,7 +25,7 @@ figure {
 烈欢迎。
 
 <figure>
-    <img src="https://ess.ustc.edu.cn/_upload/article/images/54/62/c92262ec4ab69b5522e7e62c8a95/5ef4f1e3-cbab-4455-8d46-f187c51658db.jpg" />
+    <img src="0.jpg" />
     <figcaption>参会代表合影</figcaption>
 </figure>
 
@@ -34,11 +34,11 @@ figure {
 术交流报告，61份海报展示，分享了各自领域内的最新研究成果和科技进展。
 
 <figure>
-    <img src="https://ess.ustc.edu.cn/_upload/article/images/54/62/c92262ec4ab69b5522e7e62c8a95/aca410a9-026e-412c-9ff7-bb1bfa743ebc.jpg" />
+    <img src="1.jpg" />
     <figcaption>学术报告交流</figcaption>
 </figure>
 <figure>
-    <img src="https://ess.ustc.edu.cn/_upload/article/images/54/62/c92262ec4ab69b5522e7e62c8a95/9ebd2f46-e19e-4e7d-9da9-894102392c77.jpg" />
+    <img src="2.jpg" />
     <figcaption>报告现场答疑</figcaption>
 </figure>
 
@@ -48,11 +48,11 @@ figure {
 分享了自己在探索太阳系其他行星、月球和小行星方面的最新发现。
 
 <figure>
-    <img src="https://ess.ustc.edu.cn/_upload/article/images/54/62/c92262ec4ab69b5522e7e62c8a95/78dab33a-9a2a-4813-99c0-11e251fc0605.jpg" />
+    <img src="3.jpg" />
     <figcaption>海报展示</figcaption>
 </figure>
 <figure>
-    <img src="https://ess.ustc.edu.cn/_upload/article/images/54/62/c92262ec4ab69b5522e7e62c8a95/477bbefa-d81a-46c6-955a-de56ba61ed20.jpg" />
+    <img src="4.jpg" />
     <figcaption>闭幕式上优秀海报颁奖</figcaption>
 </figure>
 
