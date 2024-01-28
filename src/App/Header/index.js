@@ -44,7 +44,7 @@ function Logo() {
     >
         <div className={styles.image} />
         <div className={styles.text} >
-            <div className={styles.zh}>中国地球科学促进会</div>
+            <div className={styles.zh}>国际华人地球科学家协会</div>
             <div className={styles.en}>IPACES.org</div>
         </div>
     </NavLink>;

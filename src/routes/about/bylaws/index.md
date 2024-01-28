@@ -6,9 +6,9 @@
 
 ## ARTICLE I. MISSION
 
-The mission of the IPACES group is to advance research and education of Chinese
-Earth Sciences and to promote scientific collaboration between China and other
-countries.
+The mission of the IPACES is to foster international collaboration of research
+and education in the field of Earth Sciences and support the professional
+development of Chinese Earth Scientists.
 
 ## ARTICLE II. MEMBERSHIP
 
@@ -73,4 +73,6 @@ simple majority vote of the group.
 2. *September 30, 2003*
 3. *March 10, 2021*
     - Council member terms extended from one to two years.
+4. *November 5, 2023*
+    - The name and mission of IPACES were changed.
 
