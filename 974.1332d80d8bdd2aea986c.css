@@ -1,0 +1,28 @@
+.home-f6vFK {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.home-f6vFK > * {
+  margin-bottom: 8px;
+}
+.home-f6vFK > .hero-h1uJx {
+  position: relative;
+  min-height: 100px;
+  height: 40vh;
+  background-image: url('images/hero-image.jpg');
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 4px 4px rgba(26, 26, 26, 0.25);
+}
+.home-f6vFK > .hero-h1uJx > .left-XF6u2 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 8px 0;
+  padding: 8px 8px;
+  background-color: #800000;
+  color: #e6e6e6;
+}
+
+
+/*# sourceMappingURL=974.1332d80d8bdd2aea986c.css.map*/
