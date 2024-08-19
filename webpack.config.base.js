@@ -21,25 +21,25 @@ module.exports = {
         main: ['normalize.css', srcDir],
         lib: [
             'react', 'react-dom',
-            'react-router', 'react-router-dom'
-        ]
+            'react-router', 'react-router-dom',
+        ],
     },
     output: {
         clean: true,
         path: outDir,
         publicPath,
-        filename: '[name].[chunkhash].js'
+        filename: '[name].[chunkhash].js',
     },
     resolve: {
         alias: {
-            'src': srcDir,
-            'public': publicDir
-        }
+            src: srcDir,
+            public: publicDir,
+        },
     },
     resolveLoader: {
         alias: {
-            '>': loadersDir
-        }
+            '>': loadersDir,
+        },
     },
     module: {
         rules: [{
@@ -48,17 +48,17 @@ module.exports = {
                 loader: '>/public-loader',
                 options: {
                     publicPath,
-                    publicDir
-                }
-            }]
+                    publicDir,
+                },
+            }],
         }, {
             test: /\.css$/,
             include: [/node_modules/],
             use: [
                 MiniCssExtractPlugin.loader,
                 'css-loader',
-                'postcss-loader'
-            ]
+                'postcss-loader',
+            ],
         }, {
             test: /\.less$/,
             include: [srcDir],
@@ -68,28 +68,29 @@ module.exports = {
                     loader: 'css-loader',
                     options: {
                         modules: {
-                            localIdentName: '[local]-[hash:base64:5]'
-                        }
-                    }
+                            localIdentName: '[local]-[hash:base64:5]',
+                        },
+                        url: false,
+                    },
                 },
                 'postcss-loader',
-                'less-loader'
-            ]
+                'less-loader',
+            ],
         }, {
             test: /\.js$/,
             include: [
                 srcDir,
                 // https://github.com/webpack/loader-utils/issues/92
-                /node_modules\/loader-utils/
+                /node_modules\/loader-utils/,
             ],
             use: [{
-                loader: 'babel-loader'
-            }]
+                loader: 'babel-loader',
+            }],
         }, {
             test: /\.md$/,
             use: [{
-                loader: '>/markdown-react-loader'
-            }]
+                loader: '>/markdown-react-loader',
+            }],
         }, {
             test: /\.csv$/,
             use: [{
@@ -98,31 +99,33 @@ module.exports = {
                     delimiter: ',',
                     newline: '\n',
                     header: true,
-                    skipEmptyLines: true
-                }
-            }]
+                    skipEmptyLines: true,
+                },
+            }],
         }, {
             test: /\.(eot|woff|ttf|svg|jpg|png|ico)$/,
             use: [{
                 loader: 'url-loader',
                 options: {
-                    limit: 10000
-                }
-            }]
-        }]
+                    limit: 10000,
+                },
+            }],
+        }],
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: '[name].[contenthash].css'
+            filename: '[name].[contenthash].css',
         }),
         new HtmlWebpackPlugin({
-            template: 'src/index.html'
+            template: 'src/index.html',
         }),
         // SPA 404 redirect.
         new HtmlWebpackPlugin({
             template: 'src/index.html',
-            filename: '404.html'
+            filename: '404.html',
         }),
-        new ESLintPlugin()
-    ]
+        new ESLintPlugin({
+            configType: 'flat',
+        }),
+    ],
 };

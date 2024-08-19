@@ -5,91 +5,106 @@ import { Link } from 'react-router-dom';
 import events, { EventConfig } from 'src/routes/events/events.js';
 import asyncComponent from 'src/async-component';
 import HomeContent from 'bundle-loader?lazy!./index.md';
-import styles from './index.less';
+import * as styles from './index.less';
 
 /**
  * Hero image React component.
- *
- * @returns {ReactElement} The component's elements.
+ * @returns {React.ReactElement} The component's elements.
  */
 function Hero() {
-    return <div className={styles.hero}>
-        <h1 className={styles.left}>Welcome to IPACES.org!</h1>
-    </div>;
+    return (
+        <div className={styles.hero}>
+            <h1 className={styles.left}>Welcome to IPACES.org!</h1>
+        </div>
+    );
 }
 
 /**
  * Event preview React component.
- *
- * @param {Object} props - The component's props.
+ * @param {object} props - The component's props.
  * @param {module:src/routes/events/events.EventConfig} props.event - The event
  * configuration.
- * @returns {ReactElement} The component's elements.
+ * @returns {React.ReactElement} The component's elements.
  */
 function EventPreview(props) {
     const { event: {
-        title, location, date, path
+        title, location, date, path,
     } } = props;
 
-    return <div>
-        <h3><Link to={`/events/${path}`}>
-            {title}
-        </Link></h3>
-        <p>{date}{location ? ': ' : ''}{location}</p>
-    </div>;
+    return (
+        <div>
+            <h3>
+                <Link to={`/events/${path}`}>
+                    {title}
+                </Link>
+            </h3>
+            <p>
+                {date}
+                {location ? ': ' : ''}
+                {location}
+            </p>
+        </div>
+    );
 }
 
 EventPreview.propTypes = {
-    event: instanceOf(EventConfig)
+    event: instanceOf(EventConfig),
 };
 
 /**
  * Event list React component.
- *
- * @param {Object} props - The component's props.
+ * @param {object} props - The component's props.
  * @param {number} props.maxEvents - Maximum number of events to list.
- * @returns {ReactElement} The component's elements.
+ * @returns {React.ReactElement} The component's elements.
  */
 function EventList(props) {
     const eventElems = events.slice(0, props.maxEvents).map((event, i) => {
-        return <li key={i}>
-            <EventPreview event={event} />
-        </li>;
+        return (
+            <li key={i}>
+                <EventPreview event={event} />
+            </li>
+        );
     });
 
     if (eventElems.length === 0) {
         eventElems.push(<li key="none">No upcoming events.</li>);
     } else if (eventElems.length < events.length) {
         // Indicate there are more events to see.
-        eventElems.push(<li key="more">
-            <div><h3>
-                <Link to="/events/">Click to see more...</Link>
-            </h3></div>
-        </li>);
+        eventElems.push(
+            <li key="more">
+                <div>
+                    <h3>
+                        <Link to="/events/">Click to see more...</Link>
+                    </h3>
+                </div>
+            </li>,
+        );
     }
 
-    return <div>
-        <Link to="/events/"><h2>News &amp; Events</h2></Link>
-        <ul>{eventElems}</ul>
-    </div>;
+    return (
+        <div>
+            <Link to="/events/"><h2>News &amp; Events</h2></Link>
+            <ul>{eventElems}</ul>
+        </div>
+    );
 }
 
 EventList.propTypes = {
-    maxEvents: number
+    maxEvents: number,
 };
 
 /**
  * Home page React component.
- *
- * @returns {ReactElement} The component's elements.
+ * @returns {React.ReactElement} The component's elements.
  */
 export default function Home() {
     const Content = asyncComponent(HomeContent);
 
-    return <div className={styles.home}>
-        <Hero />
-        <Content />
-        <EventList maxEvents={3} />
-    </div>;
+    return (
+        <div className={styles.home}>
+            <Hero />
+            <Content />
+            <EventList maxEvents={3} />
+        </div>
+    );
 }
-

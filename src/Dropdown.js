@@ -1,7 +1,6 @@
 /**
  * Animated dropdown component. Implemented as a modal that closes itself once
  * it is clicked.
- *
  * @module src/Dropdown
  */
 
@@ -15,8 +14,7 @@ import Modal from 'src/Modal';
 export default class Dropdown extends Modal {
     /**
      * Renders the component.
-     *
-     * @returns {ReactElement} The component's elements.
+     * @returns {React.ReactElement} The component's elements.
      */
     render() {
         const onClick = this.state.isOpen ? this.close : this.open;
@@ -26,7 +24,6 @@ export default class Dropdown extends Modal {
 
 Dropdown.propTypes = {};
 
-Object.keys(Modal.propTypes).forEach(key =>
-    (Dropdown.propTypes[key] = Modal.propTypes[key])
+Object.keys(Modal.propTypes).forEach((key) =>
+    (Dropdown.propTypes[key] = Modal.propTypes[key]),
 );
-

@@ -1,6 +1,5 @@
 /**
  * Static route configuration for the app.
- *
  * @module src/routeConfig
  */
 
@@ -11,8 +10,7 @@ import Spinner from 'src/Spinner';
 
 /**
  * Route configuration object.
- *
- * @typedef {Object} Route
+ * @typedef {object} Route
  * @property {string} title - The route's title. Used for labels/link text.
  * @property {string} path - The full path for the route.
  * @property {string[]} parts - The individual parts of the path.
@@ -22,27 +20,25 @@ import Spinner from 'src/Spinner';
 
 /**
  * Child route configuration object. Each key is the next path component.
- *
- * @typedef {Object<string, module:src/routeConfig~Route>} Children
+ * @typedef {{[arc: string]: module:src/routeConfig~Route}} Children
  */
 
 const routeConfigCtx = require.context(
     './routes',
     true,
-    /\/route.json$/
+    /\/route.json$/,
 );
 
 const routeComponentCtx = require.context(
     'bundle-loader?lazy!./routes',
     true,
-    /\/index.(js|md)$/
+    /\/index.(js|md)$/,
 );
 
 const routeConfig = { children: {} };
 
 /**
  * Configures the route specified by the given configuration file.
- *
  * @param {string} configPath - Path to the configuration file.
  * @returns {module:src/routeConfig~Route} The configured route.
  */
@@ -54,6 +50,7 @@ function configure(configPath) {
     try {
         getComponent = routeComponentCtx(`.${path}index.js`);
     } catch (err) {
+        void err;
         getComponent = routeComponentCtx(`.${path}index.md`);
     }
     const component = asyncComponent(getComponent, Spinner);
@@ -83,7 +80,7 @@ const routeConfigFlat = routeConfigCtx.keys()
 const routeShape = shape({
     title: string.isRequired,
     path: string.isRequired,
-    children: object.isRequired
+    children: object.isRequired,
 });
 
 const routeChildrenShape = objectOf(routeShape);
@@ -91,27 +88,22 @@ const routeChildrenShape = objectOf(routeShape);
 export {
     /**
      * Top-level route configuration.
-     *
      * @type {module:src/routeConfig~Route}
      */
     routeConfig as default,
     /**
      * A list of all configured routes, sorted from most to least specific.
-     *
      * @type {module:src/routeConfig~Route[]}
      */
     routeConfigFlat,
     /**
      * Validator for `Route` in props.
-     *
      * @type {Function}
      */
     routeShape,
     /**
      * Validator for `Children` in props.
-     *
      * @type {Function}
      */
-    routeChildrenShape
+    routeChildrenShape,
 };
-

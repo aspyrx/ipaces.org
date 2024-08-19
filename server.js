@@ -12,7 +12,6 @@ const index = path.join(bundleDir, 'index.html');
 
 /**
  * Serve a file at the given path.
- *
  * @param {http.ServerResponse} res - Response object to serve.
  * @param {string} filepath - File to serve.
  * @returns {Promise} Resolves when served, or rejects on error.
@@ -30,7 +29,6 @@ function serveFile(res, filepath) {
 
 /**
  * Serve with SPA router fallback.
- *
  * @param {http.ServerResponse} res - Response object to serve.
  * @param {string} contentBase - Base for all content.
  * @param {string} pathname - Path name to serve.
@@ -40,7 +38,7 @@ function serve(res, contentBase, pathname) {
     const filepath = path.join(contentBase[0], pathname);
     contentBase = contentBase.slice(1);
 
-    return serveFile(res, filepath).catch(err => {
+    return serveFile(res, filepath).catch((err) => {
         if (err.code !== 'ENOENT' && err.code !== 'EISDIR') {
             res.statusCode = 500;
             res.end(err.message, 'utf8');
@@ -78,4 +76,3 @@ http.createServer(function requestListener(req, res) {
 
     return serve(res, [bundleDir, publicDir], pathname);
 }).listen(process.argv[2] || '8080');
-

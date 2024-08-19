@@ -8,6 +8,6 @@
         }],
         "@babel/react"
     ],
-    "plugins": [],
+    "plugins": []
 }
 

@@ -6,7 +6,7 @@ const path = require('path');
  * Escapes the given string for usage in a RegExp.
  *
  * @param {string} str - The string to escape.
- * @returns {string} Thes escaped string.
+ * @returns {string} The escaped string.
  */
 function escapeForRegExp(str) {
     return str.replace(/[.?*+^$[\]\\(){}|-]/g, '\\$&');

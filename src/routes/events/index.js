@@ -1,6 +1,5 @@
 /**
  * Event list page.
- *
  * @module src/routes/events
  */
 
@@ -12,50 +11,50 @@ import asyncComponent from 'src/async-component';
 import Spinner from 'src/Spinner';
 import NotFound from 'bundle-loader?lazy!src/NotFound';
 import events, { EventConfig } from './events.js';
-import styles from './index.less';
+import * as styles from './index.less';
 
 const contentCtx = require.context(
     'bundle-loader?lazy!./content',
     true,
-    /\.(js|md)$/
+    /\.(js|md)$/,
 );
 
 const AsyncNotFound = asyncComponent(NotFound, Spinner);
 
 /**
  * React component for a single event.
- *
- * @param {Object} props - The component's props.
+ * @param {object} props - The component's props.
  * @param {module:src/routes/events/events.EventConfig} props.event - The event
  * configuration.
- * @returns {ReactElement} The component's elements.
+ * @returns {React.ReactElement} The component's elements.
  */
 function EventComponent(props) {
     const { event: {
-        title, location, date, contentPath
+        title, location, date, contentPath,
     } } = props;
 
     const Content = asyncComponent(contentCtx(contentPath), Spinner);
 
-    return <div>
-        <Link to=".."><h1>News &amp; Events</h1></Link>
-        <h2>{title}</h2>
-        <h4>{date}</h4>
-        {location ? <h5>{location}</h5> : null }
-        <Content />
-    </div>;
+    return (
+        <div>
+            <Link to=".."><h1>News &amp; Events</h1></Link>
+            <h2>{title}</h2>
+            <h4>{date}</h4>
+            {location ? <h5>{location}</h5> : null }
+            <Content />
+        </div>
+    );
 }
 
 EventComponent.propTypes = {
-    event: instanceOf(EventConfig).isRequired
+    event: instanceOf(EventConfig).isRequired,
 };
 
 /**
  * Attempts to render the event at the current path.
- *
- * @param {Object} props - The component's props.
- * @param {Object} props.match.params.path - The matched event path.
- * @returns {ReactElement} The rendered event, or a 404 page.
+ * @param {object} props - The component's props.
+ * @param {object} props.match.params.path - The matched event path.
+ * @returns {React.ReactElement} The rendered event, or a 404 page.
  */
 function EventMatcher(props) {
     const path = props.match.params.path + '/';
@@ -69,48 +68,54 @@ function EventMatcher(props) {
 EventMatcher.propTypes = {
     match: shape({
         params: shape({
-            path: string.isRequired
-        })
-    })
+            path: string.isRequired,
+        }),
+    }),
 };
 
 /**
  * Event list React component.
- *
- * @returns {ReactElement} The component's elements.
+ * @returns {React.ReactElement} The component's elements.
  */
 function EventList() {
-    return <div className={styles.eventList}>
-        <h1>News &amp; Events</h1>
-        {events.map((event, i) => {
-            const {
-                title, location, date, path
-            } = event;
+    return (
+        <div className={styles.eventList}>
+            <h1>News &amp; Events</h1>
+            {events.map((event, i) => {
+                const {
+                    title, location, date, path,
+                } = event;
 
-            return <div key={i} className={styles.eventItem}>
-                <Link to={`./${path}`}><h2>{title}</h2></Link>
-                <h4>{date}</h4>
-                {location ? <h5>{location}</h5> : null}
-            </div>;
-        })}
-    </div>;
+                return (
+                    <div key={i} className={styles.eventItem}>
+                        <Link to={`./${path}`}><h2>{title}</h2></Link>
+                        <h4>{date}</h4>
+                        {location ? <h5>{location}</h5> : null}
+                    </div>
+                );
+            })}
+        </div>
+    );
 }
 
 /**
  * Event page React component.
- *
- * @returns {ReactElement} The component's elements.
+ * @returns {React.ReactElement} The component's elements.
  */
 export default function Events() {
-    return <div>
-        <Switch>
-            <Route path="/events/:path/" strict component={EventMatcher} />
-            <Route path="/events/:path" render={({ match }) => {
-                const { path } = match.params;
-                return <Redirect to={`./${path}/`} />;
-            }} />
-            <Route component={EventList} />
-        </Switch>
-    </div>;
+    return (
+        <div>
+            <Switch>
+                <Route path="/events/:path/" strict component={EventMatcher} />
+                <Route
+                    path="/events/:path"
+                    render={({ match }) => {
+                        const { path } = match.params;
+                        return <Redirect to={`./${path}/`} />;
+                    }}
+                />
+                <Route component={EventList} />
+            </Switch>
+        </div>
+    );
 }
-

@@ -1,6 +1,5 @@
 /**
  * Animated modal component.
- *
  * @module src/Modal
  */
 
@@ -12,10 +11,9 @@ import TransitionGroup from 'react-transition-group/TransitionGroup';
 /**
  * React component that renders as its first child, or `null` if there are no
  * children in the `children` array.
- *
- * @param {Object} props - The component's props.
- * @param {ReactElement} props.children - The component's child.
- * @returns {ReactElement} The child.
+ * @param {object} props - The component's props.
+ * @param {React.ReactElement} props.children - The component's child.
+ * @returns {React.ReactElement} The child.
  */
 function FirstChild(props) {
     const { children } = props;
@@ -23,7 +21,7 @@ function FirstChild(props) {
 }
 
 FirstChild.propTypes = {
-    children: arrayOf(element).isRequired
+    children: arrayOf(element).isRequired,
 };
 
 /**
@@ -43,7 +41,6 @@ export default class Modal extends React.Component {
 
     /**
      * Adds `click` handler to the `window` that closes the modal.
-     *
      * @private
      */
     addWindowHandler() {
@@ -57,7 +54,6 @@ export default class Modal extends React.Component {
 
     /**
      * Removes closing `click` handler from `window`.
-     *
      * @private
      */
     removeWindowHandler() {
@@ -69,7 +65,6 @@ export default class Modal extends React.Component {
 
     /**
      * Opens the modal.
-     *
      * @param {Event} [event] - If an event is passed, its propagation is
      * stopped.
      */
@@ -98,8 +93,7 @@ export default class Modal extends React.Component {
 
     /**
      * Renders the component.
-     *
-     * @returns {ReactElement} The component's elements.
+     * @returns {React.ReactElement} The component's elements.
      */
     render() {
         const { isOpen } = this.state;
@@ -108,35 +102,41 @@ export default class Modal extends React.Component {
         let modal;
         if (isOpen) {
             modal = React.cloneElement(children, {
-                isOpen, close: this.close
+                isOpen, close: this.close,
             });
 
             if (transition) {
-                modal = <CSSTransition key={isOpen} {...transition}>
-                    {modal}
-                </CSSTransition>;
+                modal = (
+                    <CSSTransition key={isOpen} {...transition}>
+                        {modal}
+                    </CSSTransition>
+                );
             }
         } else {
             modal = null;
         }
 
         const modalButton = React.cloneElement(button, {
-            isOpen, open: this.open
+            isOpen, open: this.open,
         });
 
         if (!transition) {
-            return <span className={className}>
-                {modalButton}
-                {modal}
-            </span>;
+            return (
+                <span className={className}>
+                    {modalButton}
+                    {modal}
+                </span>
+            );
         }
 
-        return <span className={className}>
-            {modalButton}
-            <TransitionGroup component={FirstChild}>
-                {modal}
-            </TransitionGroup>
-        </span>;
+        return (
+            <span className={className}>
+                {modalButton}
+                <TransitionGroup component={FirstChild}>
+                    {modal}
+                </TransitionGroup>
+            </span>
+        );
     }
 }
 
@@ -145,6 +145,5 @@ Modal.propTypes = {
     button: element.isRequired,
     children: element.isRequired,
     transition: object,
-    noWindowHandler: bool
+    noWindowHandler: bool,
 };
-

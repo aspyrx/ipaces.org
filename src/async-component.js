@@ -1,7 +1,6 @@
 /**
  * Implements a React component for wrapping functions that asynchronously load
  * React components.
- *
  * @module src/async-component
  */
 
@@ -9,16 +8,14 @@ import React from 'react';
 
 /**
  * Callback for the asynchronously-fetched React component.
- *
  * @callback getComponentCB
- * @param {Object} module - The component's module.
+ * @param {object} module - The component's module.
  * @param {Function} module.default - The component itself (i.e., the module's
  * default export).
  */
 
 /**
  * Function that asynchronously fetches a React component.
- *
  * @callback getComponent
  * @param {module:src/async-component~getComponentCB} cb - Callback to
  * call with the loaded component.
@@ -31,17 +28,16 @@ import React from 'react';
  * Designed for usage with
  * [bundle-loader](https://www.npmjs.com/package/bundle-loader), especially with
  * the `lazy` option enabled.
- *
  * @param {module:src/async-component~getComponent} getComponent -
  * Function to use to fetch the component.
- * @param {Function} [Placeholder=() => null] - React component used as a
+ * @param {Function} [Placeholder] - React component used as a
  * placeholder while the component is still loading.
  * @returns {module:src/async-component~AsyncComponent} React component that
  * renders as the placeholder until the component loads, at which point it is
  * replaced by the actual component.
  */
 export default function asyncComponent(
-    getComponent, Placeholder = () => null
+    getComponent, Placeholder = () => null,
 ) {
     let cached = null;
 
@@ -74,9 +70,8 @@ export default function asyncComponent(
 
         /**
          * Renders the component.
-         *
-         * @returns {ReactElement} The loaded component rendered with the given
-         * props, or the placeholder if the component hasn't loaded yet.
+         * @returns {React.ReactElement} The loaded component rendered with the
+         * given props, or the placeholder if the component hasn't loaded yet.
          */
         render() {
             const { Component } = this.state;
@@ -89,4 +84,3 @@ export default function asyncComponent(
 
     return AsyncComponent;
 }
-

@@ -1,6 +1,6 @@
 'use strict';
 
-const { marked } = require('marked');
+const { Marked } = require('marked');
 
 function toComponent(html) {
     html = html.replace(/\n/g, '\\n');
@@ -25,22 +25,24 @@ module.exports.default = function() {
  * @param {string} content - The markdown to convert.
  * @returns {void}
  */
-module.exports = function loader(content) {
+module.exports = async function loader(content) {
     this.cacheable();
     this.addDependency(this.resourcePath);
 
     const done = this.async();
     if (!done) {
-        const html = toComponent(marked(content));
-        return html;
+        const marked = new Marked();
+        return toComponent(marked.parse(content));
     }
 
-    marked(content, (err, html) => {
-        if (err) {
-            return done(err);
-        }
-
-        done(null, toComponent(html));
+    const marked = new Marked({
+        'async': true,
     });
+    try {
+        const html = await marked.parse(content);
+        return done(null, toComponent(html));
+    } catch (err) {
+        return done(err);
+    }
 };
 

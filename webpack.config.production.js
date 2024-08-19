@@ -17,4 +17,3 @@ if (!config.plugins) {
 }
 
 module.exports = config;
-
