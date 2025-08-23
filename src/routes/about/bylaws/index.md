@@ -4,11 +4,13 @@
 
 # Bylaws
 
-## ARTICLE I. MISSION
+## ARTICLE I. NAME AND MISSION
 
-The mission of the IPACES is to foster international collaboration of research
-and education in the field of Earth Sciences and support the professional
-development of Chinese Earth Scientists.
+The name of this organization is "INTERNATIONAL PROFESSIONAL ASSOCIATION OF
+CHINESE EARTH SCIENTISTS" (abbreviated as "IPACES"). The mission of IPACES is to
+foster international collaboration of research and education in the field of
+Earth Sciences and support the professional development of Chinese Earth
+Scientists.
 
 ## ARTICLE II. MEMBERSHIP
 
@@ -75,4 +77,6 @@ simple majority vote of the group.
     - Council member terms extended from one to two years.
 4. *November 5, 2023*
     - The name and mission of IPACES were changed.
+5. *August 23, 2025*
+    - The Article 1 is modified to include both Names and Missions.
 
