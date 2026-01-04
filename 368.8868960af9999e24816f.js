@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkipaces_org=self.webpackChunkipaces_org||[]).push([[368],{5368:(e,a,r)=>{r.r(a),r.d(a,{default:()=>s});var n=r(6540);function s(){return n.createElement("div",{className:"markdown",dangerouslySetInnerHTML:{__html:"<p>Have a great summer vacation!</p>\n"}})}}}]);
