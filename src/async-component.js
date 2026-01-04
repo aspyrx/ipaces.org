@@ -4,7 +4,7 @@
  * @module src/async-component
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 /**
  * Function that asynchronously fetches a React component module.
@@ -30,46 +30,39 @@ import React from 'react';
 export default function asyncComponent(
     getModule, Placeholder = () => null,
 ) {
-    let cached = null;
+    let cachedComponent = null;
 
     /**
      * The wrapper component.
+     * @param {object} props - The component's props.
+     * @returns {React.ReactElement} - The component's elements.
      */
-    class AsyncComponent extends React.Component {
-        /**
-         * Initializes the wrapper component.
-         */
-        constructor() {
-            super();
+    function AsyncComponent(props) {
+        // Functions cannot be directly stored as state; use an object.
+        const [{ Component }, setCache] = useState({
+            Component: cachedComponent,
+        });
 
-            this.state = { Component: cached };
-        }
-
-        /**
-         * React lifecycle handler called when the component has mounted.
-         */
-        async componentDidMount() {
-            if (this.state.Component) {
+        useEffect(() => {
+            if (Component) {
                 return;
             }
 
-            const module = await getModule();
-            cached = module.default;
-            this.setState({ Component: cached });
-        }
+            (async function getComponent() {
+                const module = await getModule();
+                cachedComponent = module.default;
+                setCache({ Component: cachedComponent });
+            })();
+        }, [Component]);
 
         /**
          * Renders the component.
          * @returns {React.ReactElement} The loaded component rendered with the
          * given props, or the placeholder if the component hasn't loaded yet.
          */
-        render() {
-            const { Component } = this.state;
-
-            return Component
-                ? <Component {...this.props} />
-                : <Placeholder {...this.props} />;
-        }
+        return Component
+            ? <Component {...props} />
+            : <Placeholder {...props} />;
     }
 
     return AsyncComponent;
