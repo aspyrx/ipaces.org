@@ -49,14 +49,14 @@ function configure(configPath) {
     async function getModule() {
         try {
             return await import(
-                /* webpackInclude: /\/index.js$/, */
-                `src/routes${path}index.js`
+                /* webpackInclude: /\/index.js$/ */
+                `src/routes${path}index.js`,
             );
         } catch (err) {
             void err;
             return await import(
-                /* webpackInclude: /\/index.md$/, */
-                `src/routes${path}index.md`
+                /* webpackInclude: /\/index.md$/ */
+                `src/routes${path}index.md`,
             );
         }
     }
