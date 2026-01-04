@@ -117,7 +117,7 @@ function EventConfig(config) {
              * @type {string}
              * @readonly
              */
-            contentPath: { value: `./${contentPath}` },
+            contentPath: { value: contentPath },
         },
     );
 }

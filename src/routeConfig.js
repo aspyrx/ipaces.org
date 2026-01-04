@@ -31,13 +31,6 @@ const routeConfigCtx = import.meta.webpackContext(
     },
 );
 
-const routeComponentCtx = import.meta.webpackContext(
-    './routes', {
-        recursive: true,
-        include: /\/index.(js|md)$/,
-    },
-);
-
 const routeConfig = { children: {} };
 
 /**
@@ -53,12 +46,18 @@ function configure(configPath) {
      * Callback for retrieving the component.
      * @returns {React.Component} The component.
      */
-    function getModule() {
+    async function getModule() {
         try {
-            return routeComponentCtx(`.${path}index.js`);
+            return await import(
+                /* webpackInclude: /\/index.js$/, */
+                `src/routes${path}index.js`
+            );
         } catch (err) {
             void err;
-            return routeComponentCtx(`.${path}index.md`);
+            return await import(
+                /* webpackInclude: /\/index.md$/, */
+                `src/routes${path}index.md`
+            );
         }
     }
     const Component = asyncComponent(getModule, Spinner);

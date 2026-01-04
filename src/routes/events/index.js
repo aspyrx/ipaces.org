@@ -12,12 +12,6 @@ import Spinner from 'src/Spinner';
 import events, { EventConfig } from './events.js';
 import * as styles from './index.less';
 
-const contentCtx = import.meta.webpackContext(
-    './content', {
-        regExp: /\.(js|md)$/,
-    },
-);
-
 const AsyncNotFound = asyncComponent('src/NotFound', Spinner);
 
 /**
@@ -36,8 +30,11 @@ function EventComponent(props) {
      * Callback for retrieving the content's component.
      * @returns {React.Component} The component.
      */
-    function getContent() {
-        return contentCtx(contentPath);
+    async function getContent() {
+        return await import(
+            /* webpackInclude: /\.(js|md)$/, */
+            `./content/${contentPath}`
+        );
     }
     const Content = asyncComponent(getContent, Spinner);
 
