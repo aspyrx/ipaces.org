@@ -15,11 +15,10 @@
     display: flex;
     flex-flow: row nowrap;
 
-    @line-height: 1.1;
-    line-height: @line-height;
+    line-height: 1;
 
     .image {
-        @height: 2 * @font-size * @line-height;
+        @height: 2 * @font-size;
         height: @height;
         min-width: @height;
         background-image: url('images/logo.png');
@@ -34,26 +33,20 @@
 
         margin-left: @spacing-x;
         text-align: center;
-
-        > .zh {
-            font-size: smaller;
-        }
     }
 }
 
 .header {
-    position: fixed;
+    position: relative;
     width: 100%;
     z-index: @z-index-header;
 
     box-shadow: @box-shadow;
     background-color: @color-bg;
-    font-size: larger;
 
     a[href], .dropdown .button, > .toggle {
         display: flex;
         align-items: center;
-        justify-content: center;
 
         padding: @spacing-y @spacing-x;
 
@@ -92,6 +85,10 @@
         box-sizing: border-box;
 
         background-color: @color-bg;
+
+        > .homeLink {
+            display: none;
+        }
 
         .dropdown {
             position: relative;
@@ -178,11 +175,8 @@
         flex-flow: column nowrap;
 
         > .toggle {
-            display: unset;
+            display: flex;
             justify-content: flex-start;
-
-            line-height: 1;
-            font-size: @line-height * @font-size;
 
             &:hover, &:focus {
                 .hover();
@@ -194,6 +188,7 @@
 
             &:before {
                 content: '≡';
+                width: 2 * @spacing-x;
                 padding-right: @spacing-x;
             }
         }
@@ -202,7 +197,7 @@
             flex-flow: column nowrap;
 
             position: absolute;
-            top: @height-header;
+            top: 100%;
 
             transform-origin: top center;
             transform: rotateX(90deg);
@@ -213,11 +208,17 @@
             transition-duration: @duration-transition;
 
             box-shadow: @box-shadow;
+
+            > .homeLink {
+                display: flex;
+            }
+
+            > .logo {
+                display: none;
+            }
         }
 
         &.open {
-            height: 100vh;
-
             > .toggle {
                 .active();
 

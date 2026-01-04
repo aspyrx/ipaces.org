@@ -3,7 +3,9 @@
  * @module src/App/Header
  */
 
-import React from 'react';
+import React, {
+    useState,
+} from 'react';
 import {
     bool, string, object,
 } from 'prop-types';
@@ -32,24 +34,48 @@ function objectIsEmpty(obj) {
 
 /**
  * Logo React component.
+ * @param {object} props - The object's props.
+ * @param {string?} props.className - CSS class(es) for the logo.
+ * @param {string?} props.to - The logo's target path.
  * @returns {React.ReactElement} The component's elements.
  */
-function Logo() {
-    return (
-        <NavLink
-            to="/"
-            exact
-            className={styles.logo}
-            activeClassName={styles.active}
-        >
+function Logo({ className, to }) {
+    className = classNames(styles.logo, className);
+
+    const logoElems = (
+        <>
             <div className={styles.image} />
             <div className={styles.text}>
-                <div className={styles.zh}>国际华人地球科学家协会</div>
+                <div>国际华人地球科学家协会</div>
                 <div>IPACES.org</div>
             </div>
+        </>
+    );
+
+    if (!to) {
+        return (
+            <div className={className}>
+                {logoElems}
+            </div>
+        );
+    }
+
+    return (
+        <NavLink
+            to={to}
+            exact
+            className={className}
+            activeClassName={styles.active}
+        >
+            {logoElems}
         </NavLink>
     );
 }
+
+Logo.propTypes = {
+    className: string,
+    to: string,
+};
 
 /**
  * Header link React component.
@@ -192,47 +218,32 @@ function routeChildrenMenu(routeChildren) {
 
 /**
  * Header React component.
+ * @returns {React.ReactElement} The component's elements.
  */
-export default class Header extends React.Component {
-    /**
-     * Initializes the component.
-     */
-    constructor() {
-        super();
-
-        this.state = {
-            open: false,
-        };
-
-        this.toggle = this.toggle.bind(this);
-    }
+export default function Header() {
+    const [isOpen, setIsOpen] = useState(false);
 
     /**
-     * Toggles the nav.
+     * Toggle event handler.
      */
-    toggle() {
-        this.setState({ open: !this.state.open });
+    function toggle() {
+        setIsOpen(!isOpen);
     }
 
-    /**
-     * Renders the component.
-     * @returns {React.ReactElement} The component's elements.
-     */
-    render() {
-        const classes = classNames(styles.header, {
-            [styles.open]: this.state.open,
-        });
+    const classes = classNames(styles.header, {
+        [styles.open]: isOpen,
+    });
 
-        return (
-            <header className={classes} onClick={this.toggle}>
-                <div className={styles.toggle}>
-                    IPACES.org
-                </div>
-                <nav>
-                    <Logo />
-                    {routeChildrenMenu(routeConfig.children)}
-                </nav>
-            </header>
-        );
-    }
+    return (
+        <header className={classes} onClick={toggle}>
+            <Logo className={styles.toggle} />
+            <nav>
+                <Logo to="/" />
+                <HeaderLink to="/" exact className={styles.homeLink}>
+                    Home
+                </HeaderLink>
+                {routeChildrenMenu(routeConfig.children)}
+            </nav>
+        </header>
+    );
 }
