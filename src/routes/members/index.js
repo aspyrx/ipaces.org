@@ -1,5 +1,11 @@
 import React from 'react';
-import { string, bool, func, shape } from 'prop-types';
+import {
+    bool,
+    func,
+    object,
+    shape,
+    string,
+} from 'prop-types';
 import classNames from 'classnames';
 
 import Modal from 'src/Modal';
@@ -125,14 +131,14 @@ MemberButton.propTypes = {
  * @param {MemberShape} props.member - The member.
  * @param {boolean} props.isOpen - Whether or not the associated modal is open.
  * @param {Function} props.close - The modal-closing function.
+ * @param {object} props.ref - Ref for the modal's DOM element.
  * @returns {React.ReactElement} The component's elements.
  */
-function MemberModal(props) {
-    const { member, isOpen, close } = props;
+function MemberModal({ member, isOpen, close, ref }) {
     const { position, awards, field, department, email } = member;
 
     return (
-        <div className={styles.modal} onClick={close}>
+        <div className={styles.modal} onClick={close} ref={ref}>
             <div className={styles.content} onClick={stopPropagation}>
                 <div className={styles.close} onClick={close} />
                 <MemberButton member={member} isOpen={isOpen} />
@@ -158,6 +164,7 @@ MemberModal.propTypes = {
     member: memberShape.isRequired,
     isOpen: bool,
     close: func,
+    ref: object,
 };
 
 /**

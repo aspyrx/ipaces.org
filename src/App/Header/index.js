@@ -116,13 +116,13 @@ DropdownButton.propTypes = {
  * @param {object} props - The component's props.
  * @param {string} props.to - The dropdown's target path. Used for routing.
  * @param {string} props.title - The title for the dropdown.
+ * @param {object} props.ref - Ref for the menu's DOM element.
  * @param {module:src/routeConfig~Children} props.routeChildren - Child routes.
  * @returns {React.ReactElement} The component's elements.
  */
-function DropdownMenu(props) {
-    const { to, title, routeChildren } = props;
+function DropdownMenu({ to, title, routeChildren, ref }) {
     return (
-        <div className={styles.menu}>
+        <div className={styles.menu} ref={ref}>
             <HeaderLink exact to={to}>{title}</HeaderLink>
             {routeChildrenMenu(routeChildren)}
         </div>
@@ -133,6 +133,7 @@ DropdownMenu.propTypes = {
     to: string.isRequired,
     title: string.isRequired,
     routeChildren: routeChildrenShape.isRequired,
+    ref: object,
 };
 
 /**

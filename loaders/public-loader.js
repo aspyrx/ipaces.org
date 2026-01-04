@@ -1,10 +1,7 @@
-'use strict';
-
-const path = require('path');
+import path from 'node:path';
 
 /**
  * Escapes the given string for usage in a RegExp.
- *
  * @param {string} str - The string to escape.
  * @returns {string} The escaped string.
  */
@@ -15,10 +12,9 @@ function escapeForRegExp(str) {
 /**
  * Webpack loader for rewriting the directory given in `query.publicDir` to the
  * directory specified by `query.publicPath`.
- *
  * @returns {void}
  */
-module.exports.pitch = function loader() {
+export function pitch() {
     this.cacheable();
 
     let { publicDir, publicPath } = this.query;
@@ -26,7 +22,7 @@ module.exports.pitch = function loader() {
 
     const newPath = this.resourcePath.replace(
         new RegExp(`^${escapeForRegExp(publicDir)}`),
-        publicPath
+        publicPath,
     ).replace('\'', '\\\'');
 
     const module = `module.exports = '${newPath}'`;
@@ -37,4 +33,3 @@ module.exports.pitch = function loader() {
     }
     done(null, module);
 };
-

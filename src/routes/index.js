@@ -3,8 +3,7 @@ import { instanceOf, number } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import events, { EventConfig } from 'src/routes/events/events.js';
-import asyncComponent from 'src/async-component';
-import HomeContent from 'bundle-loader?lazy!./index.md';
+import HomeContent from './index.md';
 import * as styles from './index.less';
 
 /**
@@ -98,12 +97,10 @@ EventList.propTypes = {
  * @returns {React.ReactElement} The component's elements.
  */
 export default function Home() {
-    const Content = asyncComponent(HomeContent);
-
     return (
         <div className={styles.home}>
             <Hero />
-            <Content />
+            <HomeContent />
             <EventList maxEvents={3} />
         </div>
     );

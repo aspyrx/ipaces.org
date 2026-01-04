@@ -3,10 +3,23 @@
  * @module src/Modal
  */
 
-import React from 'react';
-import { string, bool, object, arrayOf, element } from 'prop-types';
-import CSSTransition from 'react-transition-group/CSSTransition';
-import TransitionGroup from 'react-transition-group/TransitionGroup';
+import React, {
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
+import {
+    arrayOf,
+    bool,
+    element,
+    func,
+    object,
+    string,
+} from 'prop-types';
+import {
+    CSSTransition,
+    TransitionGroup,
+} from 'react-transition-group';
 
 /**
  * React component that renders as its first child, or `null` if there are no
@@ -26,118 +39,102 @@ FirstChild.propTypes = {
 
 /**
  * Modal React component.
+ * @param {object} props - The component's props.
+ * @param {string?} props.className - Modal CSS class name.
+ * @param {React.ReactElement} props.button - Modal-opening button.
+ * @param {React.ReactElement} props.children - Modal contents.
+ * @param {object?} props.transition - CSSTransition props.
+ * @param {boolean?} props.noWindowHandler - If true, don't add a global window
+ * handler for closing the modal.
+ * @param {Function?} props.onClick - Modal click handler. Called with `(event,
+ * { isOpen, open, close })`.
+ * @returns {React.ReactElement} The component's elements.
  */
-export default class Modal extends React.Component {
-    /**
-     * Initializes the component.
-     */
-    constructor() {
-        super();
-
-        this.state = { isOpen: false };
-        this.open = this.open.bind(this);
-        this.close = this.close.bind(this);
-    }
-
-    /**
-     * Adds `click` handler to the `window` that closes the modal.
-     * @private
-     */
-    addWindowHandler() {
-        if (this.props.noWindowHandler) {
-            return;
-        }
-
-        window.addEventListener('click', this.close);
-        this.hasWindowHandler = true;
-    }
-
-    /**
-     * Removes closing `click` handler from `window`.
-     * @private
-     */
-    removeWindowHandler() {
-        if (this.hasWindowHandler) {
-            window.removeEventListener('click', this.close);
-            delete this.hasWindowHandler;
-        }
-    }
+export default function Modal({
+    className,
+    button,
+    children,
+    transition,
+    noWindowHandler,
+    onClick,
+}) {
+    const [isOpen, setIsOpen] = useState(false);
+    const nodeRef = useRef(null);
 
     /**
      * Opens the modal.
      * @param {Event} [event] - If an event is passed, its propagation is
      * stopped.
      */
-    open(event) {
+    function open(event) {
         event && event.stopPropagation();
-
-        this.setState({ isOpen: true }, () => {
-            this.addWindowHandler();
-        });
+        setIsOpen(true);
     }
 
     /**
      * Closes the modal.
      */
-    close() {
-        this.removeWindowHandler();
-        this.setState({ isOpen: false });
+    function close() {
+        setIsOpen(false);
     }
 
-    /**
-     * React lifecycle handler called when component is about to unmount.
-     */
-    componentWillUnmount() {
-        this.removeWindowHandler();
-    }
-
-    /**
-     * Renders the component.
-     * @returns {React.ReactElement} The component's elements.
-     */
-    render() {
-        const { isOpen } = this.state;
-        const { className, button, children, transition } = this.props;
-
-        let modal;
-        if (isOpen) {
-            modal = React.cloneElement(children, {
-                isOpen, close: this.close,
-            });
-
-            if (transition) {
-                modal = (
-                    <CSSTransition key={isOpen} {...transition}>
-                        {modal}
-                    </CSSTransition>
-                );
-            }
-        } else {
-            modal = null;
+    useEffect(() => {
+        if (noWindowHandler || !isOpen) {
+            return;
         }
 
-        const modalButton = React.cloneElement(button, {
-            isOpen, open: this.open,
+        window.addEventListener('click', close);
+        return () => {
+            window.removeEventListener('click', close);
+        };
+    }, [noWindowHandler, isOpen]);
+
+    let modal;
+    if (isOpen) {
+        modal = React.cloneElement(children, {
+            isOpen, close, ref: nodeRef,
         });
 
-        if (!transition) {
-            return (
-                <span className={className}>
-                    {modalButton}
+        if (transition) {
+            modal = (
+                <CSSTransition
+                    nodeRef={nodeRef}
+                    key={isOpen}
+                    {...transition}
+                >
                     {modal}
-                </span>
+                </CSSTransition>
             );
         }
+    } else {
+        modal = null;
+    }
 
-        return (
-            <span className={className}>
-                {modalButton}
-                <TransitionGroup component={FirstChild}>
-                    {modal}
-                </TransitionGroup>
-            </span>
+    if (transition) {
+        modal = (
+            <TransitionGroup component={FirstChild}>
+                {modal}
+            </TransitionGroup>
         );
     }
+
+    const modalButton = React.cloneElement(button, {
+        isOpen, open,
+    });
+
+    let modalOnClick = null;
+    if (onClick) {
+        modalOnClick = function modalOnClick(event) {
+            return onClick(event, { isOpen, open, close });
+        };
+    }
+
+    return (
+        <span className={className} onClick={modalOnClick}>
+            {modalButton}
+            {modal}
+        </span>
+    );
 }
 
 Modal.propTypes = {
@@ -146,4 +143,5 @@ Modal.propTypes = {
     children: element.isRequired,
     transition: object,
     noWindowHandler: bool,
+    onClick: func,
 };

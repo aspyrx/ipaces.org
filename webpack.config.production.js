@@ -1,19 +1,24 @@
-'use strict';
-
-const config = require('./webpack.config.base.js');
+import webpackConfigBase from './webpack.config.base.js';
 
 const publicPath = '/';
 
-config.output.publicPath = publicPath;
+/**
+ * @returns {object} Production webpack configuration.
+ */
+export default function webpackConfigProduction() {
+    const config = webpackConfigBase();
 
-if (!config.module) {
-    config.module = {};
+    config.output.publicPath = publicPath;
+
+    if (!config.module) {
+        config.module = {};
+    }
+
+    config.mode = 'production';
+
+    if (!config.plugins) {
+        config.plugins = [];
+    }
+
+    return config;
 }
-
-config.mode = 'production';
-
-if (!config.plugins) {
-    config.plugins = [];
-}
-
-module.exports = config;

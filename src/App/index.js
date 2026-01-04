@@ -5,14 +5,13 @@
 
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
-import asyncComponent from 'src/async-component';
 import Spinner from 'src/Spinner';
+import asyncComponent from 'src/async-component';
 import { routeConfigFlat } from 'src/routeConfig';
 
-import NotFound from 'bundle-loader?lazy!src/NotFound';
-import Header from './Header';
-import Footer from './Footer';
+import Header from 'src/App/Header';
+import Footer from 'src/App/Footer';
+
 import * as styles from './index.less';
 
 const routes = routeConfigFlat.map((config, i) => {
@@ -33,18 +32,17 @@ const routes = routeConfigFlat.map((config, i) => {
  * @returns {React.ReactElement} The app's elements.
  */
 export default function App() {
+    const NotFound = asyncComponent(() => import('src/NotFound'), Spinner);
     return (
         <BrowserRouter basename={__webpack_public_path__}>
-            <div>
-                <Header />
-                <main className={styles.container}>
-                    <Switch>
-                        { routes }
-                        <Route component={asyncComponent(NotFound, Spinner)} />
-                    </Switch>
-                </main>
-                <Footer />
-            </div>
+            <Header />
+            <main className={styles.container}>
+                <Switch>
+                    { routes }
+                    <Route component={NotFound} />
+                </Switch>
+            </main>
+            <Footer />
         </BrowserRouter>
     );
 }

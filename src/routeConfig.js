@@ -2,6 +2,7 @@
  * Static route configuration for the app.
  * @module src/routeConfig
  */
+import React from 'react';
 
 import { string, shape, object, objectOf } from 'prop-types';
 
@@ -23,16 +24,18 @@ import Spinner from 'src/Spinner';
  * @typedef {{[arc: string]: module:src/routeConfig~Route}} Children
  */
 
-const routeConfigCtx = require.context(
-    './routes',
-    true,
-    /\/route.json$/,
+const routeConfigCtx = import.meta.webpackContext(
+    './routes', {
+        recursive: true,
+        include: /\/route.json$/,
+    },
 );
 
-const routeComponentCtx = require.context(
-    'bundle-loader?lazy!./routes',
-    true,
-    /\/index.(js|md)$/,
+const routeComponentCtx = import.meta.webpackContext(
+    './routes', {
+        recursive: true,
+        include: /\/index.(js|md)$/,
+    },
 );
 
 const routeConfig = { children: {} };
@@ -46,14 +49,19 @@ function configure(configPath) {
     const { title } = routeConfigCtx(configPath);
     const path = configPath.match(/.(\/|\/.*\/)route.json$/)[1];
 
-    let getComponent;
-    try {
-        getComponent = routeComponentCtx(`.${path}index.js`);
-    } catch (err) {
-        void err;
-        getComponent = routeComponentCtx(`.${path}index.md`);
+    /**
+     * Callback for retrieving the component.
+     * @returns {React.Component} The component.
+     */
+    function getModule() {
+        try {
+            return routeComponentCtx(`.${path}index.js`);
+        } catch (err) {
+            void err;
+            return routeComponentCtx(`.${path}index.md`);
+        }
     }
-    const component = asyncComponent(getComponent, Spinner);
+    const Component = asyncComponent(getModule, Spinner);
 
     // Find the route's proper location in the configuration
     const parts = path.split('/').slice(1, -1);
@@ -66,9 +74,17 @@ function configure(configPath) {
         return node.children[key];
     }, routeConfig);
 
+    const titleText = `${title} | IPACES.org | 国际华人地球科学家协会`;
     route.title = title;
     route.path = path;
-    route.component = component;
+    route.component = function () {
+        return (
+            <>
+                <title>{titleText}</title>
+                <Component />
+            </>
+        );
+    };
     route.parts = parts;
     return route;
 }

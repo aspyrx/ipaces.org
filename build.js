@@ -1,10 +1,13 @@
-'use strict';
+import path from 'node:path';
+import process from 'node:process';
 
-const path = require('path');
-const process = require('process');
-const webpack = require('webpack');
-const ProgressPlugin = require('webpack/lib/ProgressPlugin');
-const ProgressBar = require('progress');
+import webpack from 'webpack';
+import webpackDevServer from 'webpack-dev-server';
+import ProgressBar from 'progress';
+
+import webpackConfigProduction from './webpack.config.production.js';
+import webpackConfigLive from './webpack.config.live.js';
+import webpackConfigDefault from './webpack.config.js';
 
 const webpackProgress = new ProgressBar(
     '[:bar] :percent eta :etas  :msg', {
@@ -15,15 +18,15 @@ const webpackProgress = new ProgressBar(
 const webpackConfig = (function getWebpackConfig(action) {
     switch (action) {
         case 'production':
-            return require('./webpack.config.production.js');
+            return webpackConfigProduction();
         case 'live':
-            return require('./webpack.config.live.js');
+            return webpackConfigLive();
         default:
-            return require('./webpack.config.js');
+            return webpackConfigDefault();
     }
 }(process.argv[2]));
 
-webpackConfig.plugins.push(new ProgressPlugin((percent, msg) => {
+webpackConfig.plugins.push(new webpack.ProgressPlugin((percent, msg) => {
     webpackProgress.update(percent, { msg: msg });
 }));
 
@@ -48,20 +51,21 @@ switch (process.argv[2]) {
         webpackCompiler.watch({}, webpackBuildFinished);
         break;
     case 'live': {
-        const webpackDevServer = require('webpack-dev-server');
+        const pkgDir = import.meta.dirname;
         const server = new webpackDevServer({
             hot: true,
             historyApiFallback: true,
+            port: process.argv[3] || 8080,
             static: [{
-                directory: path.join(__dirname, 'dist'),
+                directory: path.join(pkgDir, 'dist'),
             }, {
-                directory: path.join(__dirname, 'public'),
+                directory: path.join(pkgDir, 'public'),
             }],
             devMiddleware: {
                 stats: { colors: true, timings: true, cached: false },
             },
         }, webpackCompiler);
-        server.start(8080, 'localhost');
+        server.start();
         break;
     }
     default:

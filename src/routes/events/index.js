@@ -9,17 +9,16 @@ import { Link, Route, Redirect, Switch } from 'react-router-dom';
 
 import asyncComponent from 'src/async-component';
 import Spinner from 'src/Spinner';
-import NotFound from 'bundle-loader?lazy!src/NotFound';
 import events, { EventConfig } from './events.js';
 import * as styles from './index.less';
 
-const contentCtx = require.context(
-    'bundle-loader?lazy!./content',
-    true,
-    /\.(js|md)$/,
+const contentCtx = import.meta.webpackContext(
+    './content', {
+        regExp: /\.(js|md)$/,
+    },
 );
 
-const AsyncNotFound = asyncComponent(NotFound, Spinner);
+const AsyncNotFound = asyncComponent('src/NotFound', Spinner);
 
 /**
  * React component for a single event.
@@ -33,7 +32,14 @@ function EventComponent(props) {
         title, location, date, contentPath,
     } } = props;
 
-    const Content = asyncComponent(contentCtx(contentPath), Spinner);
+    /**
+     * Callback for retrieving the content's component.
+     * @returns {React.Component} The component.
+     */
+    function getContent() {
+        return contentCtx(contentPath);
+    }
+    const Content = asyncComponent(getContent, Spinner);
 
     return (
         <div>

@@ -1,13 +1,11 @@
-'use strict';
-
-const http = require('http');
-const url = require('url');
-const fs = require('fs');
-const path = require('path');
+import http from 'http';
+import url from 'url';
+import fs from 'fs';
+import path from 'path';
 
 const publicPath = '/';
-const bundleDir = path.resolve(__dirname, 'dist');
-const publicDir = path.resolve(__dirname, 'public');
+const bundleDir = path.resolve(import.meta.dirname, 'dist');
+const publicDir = path.resolve(import.meta.dirname, 'public');
 const index = path.join(bundleDir, 'index.html');
 
 /**

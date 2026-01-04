@@ -33,10 +33,10 @@ function start() {
 
 start();
 
-if (module.hot) {
-    module.hot.accept('src/App', start);
-
-    module.hot.dispose(() =>
+const webpackHot = import.meta.webpackHot;
+if (webpackHot) {
+    webpackHot.accept('src/App', start);
+    webpackHot.dispose(() =>
         document.body.removeChild(appDiv),
     );
 }

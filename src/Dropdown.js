@@ -10,20 +10,25 @@ import Modal from 'src/Modal';
 
 /**
  * Dropdown React component.
+ * @param {object} props - The component's props.
+ * @returns {React.ReactElement} The component's elements.
  */
-export default class Dropdown extends Modal {
+export default function Dropdown(props) {
     /**
-     * Renders the component.
-     * @returns {React.ReactElement} The component's elements.
+     * Modal click handler.
+     * @param {Event} event - The click event.
+     * @param {object} args - Modal event args.
+     * @param {boolean} args.isOpen - True if the modal is open.
+     * @param {Function} args.open - Callback for opening the modal.
+     * @param {Function} args.close - Callback for closing the modal.
      */
-    render() {
-        const onClick = this.state.isOpen ? this.close : this.open;
-        return React.cloneElement(super.render(), { onClick });
+    function onClick(event, {
+        isOpen,
+        open,
+        close,
+    }) {
+        isOpen ? close(event) : open(event);
     }
+
+    return <Modal onClick={onClick} {...props} />;
 }
-
-Dropdown.propTypes = {};
-
-Object.keys(Modal.propTypes).forEach((key) =>
-    (Dropdown.propTypes[key] = Modal.propTypes[key]),
-);

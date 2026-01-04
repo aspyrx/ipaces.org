@@ -7,29 +7,20 @@
 import React from 'react';
 
 /**
- * Callback for the asynchronously-fetched React component.
- * @callback getComponentCB
- * @param {object} module - The component's module.
- * @param {Function} module.default - The component itself (i.e., the module's
- * default export).
+ * Function that asynchronously fetches a React component module.
+ * @callback getModule
+ * @returns {Promise} Resolves with the component's module, whose default export
+ * is the React component.
  */
 
 /**
- * Function that asynchronously fetches a React component.
- * @callback getComponent
- * @param {module:src/async-component~getComponentCB} cb - Callback to
- * call with the loaded component.
- */
-
-/**
- * Creates a React component that uses the given function to retrieve the
- * actual component to render only when the returned component is first mounted.
+ * Creates a React component that uses the given function to retrieve the actual
+ * component's module to render only when the returned component is first
+ * mounted.
  *
- * Designed for usage with
- * [bundle-loader](https://www.npmjs.com/package/bundle-loader), especially with
- * the `lazy` option enabled.
- * @param {module:src/async-component~getComponent} getComponent -
- * Function to use to fetch the component.
+ * Designed for usage with webpack dynamic `import()`.
+ * @param {module:src/async-component~getModule} getModule - Function to use to
+ * fetch the commponent's module.
  * @param {Function} [Placeholder] - React component used as a
  * placeholder while the component is still loading.
  * @returns {module:src/async-component~AsyncComponent} React component that
@@ -37,7 +28,7 @@ import React from 'react';
  * replaced by the actual component.
  */
 export default function asyncComponent(
-    getComponent, Placeholder = () => null,
+    getModule, Placeholder = () => null,
 ) {
     let cached = null;
 
@@ -57,15 +48,14 @@ export default function asyncComponent(
         /**
          * React lifecycle handler called when the component has mounted.
          */
-        componentDidMount() {
+        async componentDidMount() {
             if (this.state.Component) {
                 return;
             }
 
-            getComponent(({ default: Component }) => {
-                cached = Component;
-                this.setState({ Component });
-            });
+            const module = await getModule();
+            cached = module.default;
+            this.setState({ Component: cached });
         }
 
         /**
