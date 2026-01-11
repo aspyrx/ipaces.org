@@ -97,8 +97,7 @@ function MemberButton(props) {
                     onClick={stopPropagation}
                 >
                     {nameLast}
-                    ,
-                    {nameFirst}
+                    {padIf(', ', nameFirst)}
                     {padIf(' [', nameZh, ']')}
                 </a>
             </h2>
@@ -112,8 +111,7 @@ function MemberButton(props) {
                 >
                     {location}
                 </a>
-                ,
-                {country}
+                {padIf(', ', country)}
             </h3>
         </div>
     );
@@ -137,6 +135,8 @@ MemberButton.propTypes = {
 function MemberModal({ member, isOpen, close, ref }) {
     const { position, awards, field, department, email } = member;
 
+    const mailto = (email) ? `mailto:${email}` : void 0;
+
     return (
         <div className={styles.modal} onClick={close} ref={ref}>
             <div className={styles.content} onClick={stopPropagation}>
@@ -151,10 +151,16 @@ function MemberModal({ member, isOpen, close, ref }) {
                     {awards && <br />}
                     {awards}
                 </p>
-                <p>
-                    Email:
-                    {email.replace('@', ' [at] ')}
-                </p>
+                <address>
+                    <a
+                        href={mailto}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={stopPropagation}
+                    >
+                        {padIf('Email: ', email)}
+                    </a>
+                </address>
             </div>
         </div>
     );
@@ -294,7 +300,7 @@ export default class Members extends React.Component {
             <div className={styles.members}>
                 <div className={styles.header}>
                     <h1>
-                        Members
+                        Members&nbsp;
                         <span className={styles.amount}>{amount}</span>
                     </h1>
                     <input
