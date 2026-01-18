@@ -77,43 +77,14 @@ function padIf(left, str, right = '') {
  * @returns {React.ReactElement} The component's elements.
  */
 function MemberButton(props) {
-    const { member, isOpen, open } = props;
-    const {
-        council, nameLast, nameFirst, nameZh, link,
-        location, locationLink, country,
-    } = member;
+    const { isOpen, open } = props;
 
     const classes = classNames(styles.button, {
         [styles.open]: isOpen,
     });
 
     return (
-        <div className={classes} onClick={open}>
-            <h2>
-                <a
-                    href={link || void 0}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={stopPropagation}
-                >
-                    {nameLast}
-                    {padIf(', ', nameFirst)}
-                    {padIf(' [', nameZh, ']')}
-                </a>
-            </h2>
-            {council && <h3>{council}</h3>}
-            <h3>
-                <a
-                    href={locationLink || void 0}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={stopPropagation}
-                >
-                    {location}
-                </a>
-                {padIf(', ', country)}
-            </h3>
-        </div>
+        <span className={classes} onClick={open} />
     );
 }
 
@@ -133,7 +104,11 @@ MemberButton.propTypes = {
  * @returns {React.ReactElement} The component's elements.
  */
 function MemberModal({ member, isOpen, close, ref }) {
-    const { position, awards, field, department, email } = member;
+    const {
+        council, nameLast, nameFirst, nameZh, link,
+        location, locationLink, country,
+        position, awards, field, department, email,
+    } = member;
 
     const mailto = (email) ? `mailto:${email}` : void 0;
 
@@ -141,7 +116,35 @@ function MemberModal({ member, isOpen, close, ref }) {
         <div className={styles.modal} onClick={close} ref={ref}>
             <div className={styles.content} onClick={stopPropagation}>
                 <div className={styles.close} onClick={close} />
-                <MemberButton member={member} isOpen={isOpen} />
+                <h2>
+                    <a
+                        href={link || void 0}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={stopPropagation}
+                    >
+                        {nameLast}
+                        {padIf(', ', nameFirst)}
+                        {padIf(' [', nameZh, ']')}
+                    </a>
+                    {council && (
+                        <>
+                            <br />
+                            {council}
+                        </>
+                    )}
+                </h2>
+                <h3>
+                    <a
+                        href={locationLink || void 0}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={stopPropagation}
+                    >
+                        {location}
+                    </a>
+                    {padIf(', ', country)}
+                </h3>
                 <h4>
                     {position}
                     {padIf(', ', department)}
@@ -179,23 +182,59 @@ MemberModal.propTypes = {
  * @param {MemberShape} props.member - The member.
  * @returns {React.ReactElement} The component's elements.
  */
-function Member(props) {
-    const { member } = props;
+function Member({ member }) {
+    const {
+        council, nameLast, nameFirst, nameZh, link,
+        location, locationLink, country,
+    } = member;
 
     const { enter, enterActive, exit, exitActive } = styles;
     return (
-        <Modal
-            className={styles.member}
-            transition={{
-                classNames: {
-                    enter, enterActive, exit, exitActive,
-                },
-                timeout: 300,
-            }}
-            button={<MemberButton member={member} />}
-        >
-            <MemberModal member={member} />
-        </Modal>
+        <tr>
+            <td>
+                <a
+                    href={link || void 0}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={stopPropagation}
+                >
+                    {nameLast}
+                    {padIf(', ', nameFirst)}
+                    {padIf(' [', nameZh, ']')}
+                </a>
+                {council && (
+                    <>
+                        <br />
+                        {council}
+                    </>
+                )}
+            </td>
+            <td>
+                <a
+                    href={locationLink || void 0}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={stopPropagation}
+                >
+                    {location}
+                </a>
+                {padIf(', ', country)}
+            </td>
+            <td>
+                <Modal
+                    className={styles.member}
+                    transition={{
+                        classNames: {
+                            enter, enterActive, exit, exitActive,
+                        },
+                        timeout: 300,
+                    }}
+                    button={<MemberButton member={member} />}
+                >
+                    <MemberModal member={member} />
+                </Modal>
+            </td>
+        </tr>
     );
 }
 
@@ -310,11 +349,20 @@ export default class Members extends React.Component {
                         onChange={this.onSearchChange}
                     />
                 </div>
-                <div className={styles.list}>
-                    {matches.map((member, i) =>
-                        <Member key={i} member={member} />,
-                    )}
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Location</td>
+                            <td>Info</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {matches.map((member, i) =>
+                            <Member key={i} member={member} />,
+                        )}
+                    </tbody>
+                </table>
             </div>
         );
     }
