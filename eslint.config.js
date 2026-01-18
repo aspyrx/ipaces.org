@@ -1,3 +1,4 @@
+import { defineConfig } from 'eslint/config';
 import pluginJs from '@eslint/js';
 import pluginStylistic from '@stylistic/eslint-plugin';
 import pluginJsdoc from 'eslint-plugin-jsdoc';
@@ -6,7 +7,7 @@ import globals from 'globals';
 
 const configReact = pluginReact.configs.flat.recommended;
 
-export default [
+export default defineConfig([
     pluginJs.configs.recommended,
     pluginJsdoc.configs['flat/recommended-error'],
     pluginStylistic.configs.customize({
@@ -41,4 +42,4 @@ export default [
             },
         },
     },
-];
+]);

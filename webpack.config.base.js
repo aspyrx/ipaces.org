@@ -134,7 +134,9 @@ export default function webpackConfigBase() {
                 filename: '404.html',
             }),
             new ESLintPlugin({
-                configType: 'flat',
+                cache: true,
+                cacheLocation: '.eslintcache',
+                threads: true,
             }),
         ],
     };

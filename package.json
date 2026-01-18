@@ -11,8 +11,8 @@
     "build": "node build.js",
     "dist": "node build.js production",
     "prepare": "node build.js production",
-    "lint": "eslint *.js src",
-    "lint-fix": "eslint --fix *.js src"
+    "lint": "eslint --cache --concurrency auto *.js src",
+    "lint-fix": "eslint --cache --concurrency auto --fix *.js src"
   },
   "repository": {
     "type": "git",
@@ -38,10 +38,10 @@
     "classnames": "^2.2.5",
     "css-loader": "^7.1.2",
     "csv-loader": "^3.0.3",
-    "eslint": "^9.9.0",
+    "eslint": "^9.39.2",
     "eslint-plugin-jsdoc": "^50.2.2",
     "eslint-plugin-react": "^7.1.0",
-    "eslint-webpack-plugin": "^4.2.0",
+    "eslint-webpack-plugin": "^5.0.2",
     "file-loader": "^6.2.0",
     "globals": "^15.9.0",
     "html-webpack-plugin": "^5.3.1",
