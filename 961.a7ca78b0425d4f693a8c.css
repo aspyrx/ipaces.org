@@ -12,47 +12,34 @@
   font-size: 75%;
   color: rgba(26, 26, 26, 0.5);
 }
-.members-d9FK5 .list-jsL9Y {
-  display: flex;
-  flex-flow: row wrap;
+.members-d9FK5 > table {
+  width: 100%;
+  border-collapse: collapse;
 }
-.members-d9FK5 .list-jsL9Y > * {
-  display: flex;
-  width: 50%;
+.members-d9FK5 > table > thead > tr:nth-child(odd) > td,
+.members-d9FK5 > table > tbody > tr:nth-child(odd) > td {
+  background-color: #f2f2f2;
 }
-@media screen and (max-width: 520px) {
-  .members-d9FK5 .list-jsL9Y > * {
-    width: 100%;
-  }
+.members-d9FK5 > table > thead > tr > td,
+.members-d9FK5 > table > tbody > tr > td {
+  padding: 0 8px;
 }
-.members-d9FK5 .list-jsL9Y > * > * {
-  display: flex;
-  flex: 1;
+.members-d9FK5 > table > thead {
+  font-weight: bold;
+  font-size: larger;
 }
-.member-xA4DB .button-yiO_R {
-  background-color: #ffffff;
-  box-shadow: 0 4px 4px rgba(26, 26, 26, 0.25);
-  padding: 8px 8px;
-  box-sizing: border-box;
+.member-xA4DB > .button-yiO_R {
   display: flex;
   flex-flow: column nowrap;
   flex: 1;
-}
-.member-xA4DB .button-yiO_R > *:first-child {
-  margin-top: 0;
-}
-.member-xA4DB .button-yiO_R > *:last-child {
-  margin-bottom: 0;
-}
-.member-xA4DB > .button-yiO_R {
-  margin: 8px 8px;
+  padding: 8px 8px;
   cursor: pointer;
   transition: transform 0.2s;
 }
 .member-xA4DB > .button-yiO_R:after {
   align-self: center;
   margin-top: auto;
-  content: '▼';
+  content: '▶';
   font-size: smaller;
   opacity: 0.5;
   transition: opacity 0.2s;
@@ -143,4 +130,4 @@
 }
 
 
-/*# sourceMappingURL=961.8b64aadd14fb9307ce63.css.map*/
+/*# sourceMappingURL=961.a7ca78b0425d4f693a8c.css.map*/
